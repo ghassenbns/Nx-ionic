@@ -1,0 +1,10 @@
+{
+  "name": "@concordia-nx-ionic/fitdrive-shell",
+  "devDependencies": {
+    "@capacitor/cli": "^3.6.0"
+  },
+  "assets": [
+    "./assets"
+  ],
+  "version": "0.0.2"
+}

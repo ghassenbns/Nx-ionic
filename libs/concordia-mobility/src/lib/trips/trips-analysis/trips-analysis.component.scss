@@ -1,0 +1,28 @@
+@use '../../../../../styles/core/breakpoints.scss' as bp;
+
+:host ::ng-deep {
+  .container {
+    margin-right: -10px;
+    margin-left: -10px;
+    margin-top: -10px;
+  }
+  .d-grid {
+    display: grid !important;
+    grid-template-rows: auto 1fr;
+  }
+
+}
+
+@media (max-width: bp.$breakpoint-md) {
+  .d-grid {
+    display: unset !important;
+  }
+  ion-grid.container{
+    ion-row {
+      height: 100% !important;
+    }
+    ion-col {
+      height: 50% !important;
+    }
+  }
+}

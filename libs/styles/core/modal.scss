@@ -1,0 +1,102 @@
+@use './breakpoints.scss' as bp;
+
+@media (min-width: 992px) {
+  ion-modal.xl-modal::part(content) {
+    --height: 90%;
+    --width: 90%;
+    position: absolute;
+    top: 5%;
+    display: block;
+  }
+}
+
+ion-modal::part(content) {
+  transition: width 1s ease-in-out, height 1s ease-in-out;
+}
+
+ion-modal.w-2::part(content),
+ion-modal.w-3::part(content),
+ion-modal.w-4::part(content), {
+  --width: 1200px;
+}
+
+ion-modal.w-full::part(content) {
+  --width: calc(100% - 16px) !important;
+  --height: calc(100% - 16px) !important;
+}
+
+ion-item.sc-ion-select-popover-md.bold {
+  & .sc-ion-label-md-h {
+    font-weight: bold;
+  }
+}
+
+.popover-viewport {
+  background: var(--ion-item-background);
+}
+
+ion-popover {
+  --background: var(--ion-item-background);
+}
+
+.sc-ion-searchbar-md-h,
+.sc-ion-modal-ios-h,
+ion-modal ion-content {
+  --background: var(--ion-item-background);
+}
+
+.date-popover {
+  --width: 280px;
+
+  & .md-drppicker {
+    & .ranges,
+    & .calendar {
+      float: none;
+    }
+
+    .ranges ul li {
+      display: inline-block;
+    }
+  }
+}
+
+
+@media (min-width: bp.$breakpoint-md) {
+  .date-popover {
+    --width: 652px;
+
+    & .md-drppicker {
+      margin-top: 0;
+
+      & .ranges,
+      & .calendar {
+        float: left;
+      }
+
+      .ranges ul li {
+        display: block;
+      }
+    }
+
+    & .show-ranges {
+      min-width: 648px;
+      max-height: 360px;
+    }
+  }
+}
+
+ion-menu.help-menu {
+  --width: calc(100% - 40px);
+}
+
+
+ion-modal.custom-modal-class {
+  --height: 100%;
+  align-items: end;
+
+  //--width: 100%;
+  //height: 70%;
+  //position: absolute;
+  //margin-top: 25%;
+  //left: 15%;
+}

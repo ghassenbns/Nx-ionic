@@ -1,0 +1,155 @@
+<concordia-ng-shared-card
+  [cardConfig]="cardConfig"
+  [editMode]="editMode"
+  [loading]="isLoading"
+  (isEditingEvent)="onEditModal($event,vehicle)">
+  <ng-container *ngIf="!isLoading; else loadingTemplate">
+    <ion-list>
+      <ion-item lines="none">
+        <ion-text class="ion-text-nowrap text-truncate">
+          <p class="text-label ion-no-margin">
+            {{ 'vehicles.details.name' | transloco }}
+          </p>
+          <p class="text-truncate ion-no-margin"
+             [title]="vehicle.name">
+            {{ vehicle.name }}
+          </p>
+        </ion-text>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-text class="ion-text-nowrap text-truncate">
+          <p class="text-label ion-no-margin">
+            {{ 'vehicles.details.description' | transloco }}
+          </p>
+          <p class="text-truncate ion-no-margin"
+             [title]="vehicle.description">
+            {{ vehicle.description }}
+          </p>
+        </ion-text>
+      </ion-item>
+
+      <ion-item *ngIf="vehicle.fleetDetails?.name"
+                lines="none">
+        <ion-text class="ion-text-nowrap text-truncate">
+          <p class="text-label ion-no-margin">
+            {{ 'vehicles.details.assignedFleet' | transloco }}
+          </p>
+          <p class="text-truncate ion-no-margin"
+             [title]="vehicle.fleetDetails?.name">
+            {{ vehicle.fleetDetails?.name }}
+          </p>
+        </ion-text>
+      </ion-item>
+
+      <ion-item *ngIf="vehicle.registrationNumber"
+                lines="none">
+        <ion-text class="ion-text-nowrap text-truncate">
+          <p class="text-label ion-no-margin">
+            {{ 'vehicles.details.registrationNumber' | transloco }}
+          </p>
+          <p class="text-truncate ion-no-margin"
+             [title]="vehicle.registrationNumber">
+            {{ vehicle.registrationNumber }}
+          </p>
+        </ion-text>
+      </ion-item>
+
+      <ion-row class="ion-wrap ion-justify-content-start">
+        <ion-col *ngIf="vehicle.registrationNumber"
+                 class="ion-justify-content-start">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{'vehicles.details.type' | transloco}}
+              </p>
+              <p class="text-truncate ion-no-margin">
+                <ion-chip class="pe-none chip-type-{{vehicle.vehicleTypeDetails.vehicleTypeId }}">
+                  {{vehicle.vehicleTypeDetails.label  }}
+                </ion-chip>
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+
+        <ion-col *ngIf="vehicle.registrationNumber"
+                 class="ion-justify-content-start">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'vehicles.details.fuelType' | transloco }}
+              </p>
+              <p class="text-truncate ion-no-margin">
+                <ion-chip class="pe-none chip-type-{{vehicle.vehicleFuelTypeDetails.vehicleFuelTypeId }}">
+                  {{vehicle.vehicleFuelTypeDetails.label  }}
+                </ion-chip>
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+
+        <ion-col *ngIf="vehicle.fuelTankCapacity?.value"
+                 class="ion-justify-content-start">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'table.fuelTankCapacity' | transloco }}
+              </p>
+              <p class="text-truncate ion-no-margin">
+                {{ vehicle.fuelTankCapacity?.value }} {{ vehicle.fuelTankCapacity?.unit?.htmlSymbol }}
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+
+        <ion-col *ngIf="vehicle.gasTankCapacity?.value"
+                 class="ion-justify-content-start">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'table.gasTankCapacity' | transloco }}
+              </p>
+              <p class="text-truncate ion-no-margin">
+                {{ vehicle.gasTankCapacity?.value }} {{ vehicle.gasTankCapacity?.unit?.htmlSymbol }}
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+
+        <ion-col *ngIf="vehicle.batteryCapacity?.value"
+                 class="ion-justify-content-start">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'table.batteryCapacity' | transloco }}
+              </p>
+              <p class="text-truncate ion-no-margin">
+                {{ vehicle.batteryCapacity?.value }} {{ vehicle.batteryCapacity?.unit?.htmlSymbol }}
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+
+      </ion-row>
+    </ion-list>
+  </ng-container>
+
+  <!-- *Loading Skeleton template* -->
+  <ng-template #loadingTemplate>
+    <ion-list>
+      <ion-item *ngFor="let line of [1, 2, 3, 4]"
+                lines="none">
+        <ion-skeleton-text
+          [animated]="true"></ion-skeleton-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-row class="w-100 ion-justify-content-end ion-no-margin">
+          <ion-col *ngFor="let line of [1, 2, 3, 4]">
+            <ion-skeleton-text
+              [animated]="true"></ion-skeleton-text>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+</concordia-ng-shared-card>

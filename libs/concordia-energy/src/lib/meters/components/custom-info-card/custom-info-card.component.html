@@ -1,0 +1,47 @@
+<ng-container *ngIf="!isLoading; else loadingTemplate">
+  <!-- custom info -->
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col *ngFor="let customInfo of meter.customInfo"
+               class="ion-no-margin ion-no-padding"
+               sizeXs="12"
+               sizeSm="6">
+        <ion-item lines="none">
+          <ion-text class="ion-text-nowrap text-truncate">
+            <p class="text-label ion-no-margin">
+              {{ customInfo.name }}
+            </p>
+            <p
+                    [title]="customInfo.value"
+                    class="text-truncate ion-no-margin">
+              {{ customInfo.value }}
+            </p>
+          </ion-text>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-container>
+
+<!-- *Loading Skeleton template* -->
+<ng-template #loadingTemplate>
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col class="ion-no-margin ion-no-padding"
+               sizeXs="12"
+               sizeSm="6"
+               *ngFor="let line of [1, 2, 3, 4, ]">
+        <ion-list>
+          <ion-item lines="none"
+          >
+            <ion-skeleton-text [animated]="true"
+                               style="height: 32px;"></ion-skeleton-text>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ng-template>
+<!-- </concordia-ng-shared-card> -->
+

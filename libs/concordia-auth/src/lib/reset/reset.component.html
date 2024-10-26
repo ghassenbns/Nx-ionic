@@ -1,0 +1,34 @@
+<form *ngIf="form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()">
+
+  <ion-item class="ion-margin-bottom">
+    <ion-input [label]="'auth.reset.e-MailAddress' | transloco"
+               data-test-id="usernameReset"
+               aria-label="e-mail address"
+               label-placement="floating"
+               formControlName="username"
+               placeholder="{{'auth.reset.enterE-MailAddress' | transloco}}">
+    </ion-input>
+    <ion-note *ngIf="form.get('username')?.touched"
+              slot="error">
+      {{'auth.reset.invalidEmail' | transloco}}
+    </ion-note>
+  </ion-item>
+
+  <ion-button class="ion-margin-bottom"
+              expand="full"
+              data-test-id="submitReset"
+              type="submit">
+    <ion-icon name="send-outline"
+              class="ion-margin-end"></ion-icon>
+    {{'auth.reset.sendResetPasswordLink' | transloco}}
+  </ion-button>
+
+  <div class="ion-text-center pt-40">
+    <a routerLink="../login"
+       data-test-id="backToLogin">
+      <h5>{{'auth.reset.backToLogin' | transloco}}</h5>
+    </a>
+  </div>
+</form>

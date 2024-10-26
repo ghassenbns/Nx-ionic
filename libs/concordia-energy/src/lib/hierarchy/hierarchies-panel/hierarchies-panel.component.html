@@ -1,0 +1,33 @@
+<ion-toolbar class="bb-1 ion-no-padding"
+             lines="none">
+  <ion-title class="cursor-pointer">
+    {{'global.hierarchies' | transloco}}
+  </ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="toggleRightPanel()">
+      <ion-icon name="close-outline"
+                slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<div>
+  <concordia-nx-ionic-hierarchies-filters [item]="filters?.hierarchyId ?? null"
+                                          [filters]="filters"
+                                          (submitted)="onSetSelectedHierarchies($event.hierarchyId)">
+  </concordia-nx-ionic-hierarchies-filters>
+
+
+  <ng-container *ngIf="{
+    items: items$ | async,
+    id: id$ | async
+    } as data">
+    <concordia-nx-ionic-hierarchies-tree [items]="data.items"
+                                         [hierarchyId]="data.id"
+                                         [filters]="filters"
+                                         [loading]="!!(loading$ | async)">
+    </concordia-nx-ionic-hierarchies-tree>
+  </ng-container>
+</div>
+
+

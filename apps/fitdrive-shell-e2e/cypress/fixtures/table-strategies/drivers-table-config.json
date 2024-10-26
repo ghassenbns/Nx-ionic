@@ -1,0 +1,112 @@
+{
+    "name": "drivers",
+    "entity": "driver",
+    "columns": [
+      {
+        "field": "name",
+        "contentType": "string",
+        "rowSelector": "name",
+        "required": true,
+        "searchType": "text",
+        "filterType": "string",
+        "options": [],
+        "link": {
+          "field": "_id",
+          "pref": "/drivers",
+          "sfx": ""
+        }
+      },
+      {
+        "field": "description",
+        "contentType": "string",
+        "rowSelector": "description",
+        "required": true,
+        "searchType": "text",
+        "filterType": "string",
+        "options": []
+      },
+      {
+        "field": "fleet",
+        "contentType": "string",
+        "rowSelector": "fleetDetails.name",
+        "rowEditSelector": "fleetId",
+        "required": true,
+        "searchType": "multiSelectSearch",
+        "searchSelector": "fleetId",
+        "editType": "selectSearch",
+        "filterType": "object-id",
+        "options": []
+      },
+      {
+        "field": "active",
+        "contentType": "boolean",
+        "rowSelector": "isActive",
+        "required": true,
+        "searchType": "select",
+        "filterType": "boolean",
+        "defaultValue": true,
+        "options": [
+          { "name": "active", "_id": true },
+          { "name": "inactive", "_id": false }
+        ],
+        "optionsTranslate": true
+      },
+      {
+        "field": "vehicle",
+        "contentType": "string",
+        "rowSelector": "defaultVehicleDetails.name",
+        "rowEditSelector": "defaultVehicleId",
+        "required": false,
+        "searchType": "text",
+        "editType": "selectSearch",
+        "filterType": "string",
+        "optionsFilter": ["fleetId"],
+        "options": []
+      },
+      {
+        "field": "user",
+        "contentType": "string",
+        "rowSelector": "userDetails.name",
+        "rowEditSelector": "userId",
+        "required": false,
+        "searchType": "text",
+        "editType": "selectSearch",
+        "filterType": "string",
+        "optionsValue": "userId",
+        "options": [],
+        "validators": ["noRepeat"]
+      }
+    ],
+    "actions": [
+      { "type": "INFO" },
+      { "type": "EDIT" },
+      { "type": "DELETE" }
+    ],
+    "multiActions": [
+      {
+        "icon": "checkmark-circle-outline",
+        "name": "activate",
+        "type": "ACTIVATE"
+      },
+      {
+        "icon": "close-circle-outline",
+        "name": "deactivate",
+        "type": "DEACTIVATE"
+      },
+      {
+        "icon": "trash-outline",
+        "name": "delete",
+        "type": "DELETE"
+      },
+      {
+        "icon": "pencil-outline",
+        "name": "edit",
+        "type": "EDIT"
+      }
+    ],
+    "editActions": [
+      { "type": "CANCEL" },
+      { "type": "DUPLICATE" },
+      { "type": "DELETE" }
+    ]
+  }

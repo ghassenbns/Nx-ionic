@@ -1,0 +1,18 @@
+<concordia-trips-map
+        #concordiaTripMap
+        *ngIf="renderIt"
+        [trips]="trip"
+        [mapOptions]="mapOptions"
+        [vehicleStyle]="vehicleStyle"
+        [isRealtime]="isRealtime"
+        [enableRealtimeControl]="enableRealtimeControl"
+        [historicalColor]="historicalColor"
+        [realtimeColor]="realtimeColor"
+        (onLoaded)="onLoaded($event)"
+        (replayTimeChanged)="onReplayTimeChanged($event)"
+        (tripEventClicked)="onTripEventClick($event)"
+        (driverEventClicked)="onDriverEventClick($event)"
+        (vehicleEventClicked)="onVehicleEventClick($event)"
+        (waypointClicked)="onWaypointClick($event)"
+        [labels]="mapLabels">
+</concordia-trips-map>

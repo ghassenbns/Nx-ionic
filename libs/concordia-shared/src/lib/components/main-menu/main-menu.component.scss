@@ -1,0 +1,16 @@
+:host {
+  ion-item {
+    border-left: 4px solid var(--ion-item-background);
+
+    & ion-icon {
+      margin-left: -4px;
+      margin-right: 12px;
+    }
+
+    &.active-item {
+      border-left-color: var(--ion-color-primary);
+      --ion-item-background: rgba(66,140,255,0.20);
+    }
+  }
+}
+

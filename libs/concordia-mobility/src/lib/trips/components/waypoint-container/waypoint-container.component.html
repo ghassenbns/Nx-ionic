@@ -1,0 +1,118 @@
+<ion-card class="ion-no-margin">
+  <ion-card-title>
+    <ion-toolbar mode="md"
+                 class="bb-1">
+      <ion-title slot="start"
+                 color="dark">
+        {{ 'trip.details.waypoints' | transloco }}
+      </ion-title>
+      <ion-buttons *ngIf="editable"
+                   class="mx-8"
+                   slot="end">
+        <ng-container *ngIf="!editMode; else editButtons">
+          <ion-button fill="clear"
+                      color="primary"
+                      data-test-id="toggleEditModeBtn"
+                      (click)="toggleEditMode(true)">
+            <ion-icon slot="icon-only"
+                      name="pencil-outline"></ion-icon>
+          </ion-button>
+        </ng-container>
+
+        <ng-template #editButtons>
+          <ion-buttons class="ion-hide-md-down">
+            <ion-button fill="clear"
+                        color="primary"
+                        expand="block"
+                        type="button"
+                        data-test-id="canselBtn"
+                        (click)="onCancel()">
+              {{ 'global.cancel' | transloco }}
+              <ion-icon slot="end"
+                        name="close-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="outline"
+                        color="primary"
+                        expand="block"
+                        type="submit"
+                        data-test-id="submitBtn"
+                        [disabled]="!changes || loading"
+                        (click)="onSubmit()">
+              {{ 'global.save' | transloco }}
+              <ion-icon slot="end"
+                        name="save-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+
+          <ion-buttons class="ion-hide-md-up">
+            <ion-button fill="clear"
+                        type="button"
+                        (click)="onCancel()">
+              <ion-icon color="danger"
+                        slot="icon-only"
+                        name="close-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear"
+                        type="submit"
+                        [disabled]="!changes || loading"
+                        (click)="onSubmit()">
+              <ion-icon color="primary"
+                        slot="icon-only"
+                        name="save"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ng-template>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-card-title>
+
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-no-padding ion-text-wrap ion-text-md-nowrap">
+
+      <ion-col style="height: 500px;">
+        <ion-button class="toggle ion-hide-md-down"
+                    data-test-id="toggleMapBtn"
+                    (click)="toggleMap()">
+          <ion-icon slot="icon-only"
+                    [name]="showMap ? 'caret-forward-outline' : 'caret-back-outline'"></ion-icon>
+        </ion-button>
+
+        <concordia-nx-ionic-map #mapComponent
+                                [data]="waypoints"
+                                [editMode]="editMode"
+                                [enableGeocoding]="true"
+                                [enableMarkerControl]="editMode"
+                                [allowMultiPointCreation]="editMode"
+                                [showMap]="showMap"
+                                (dataUpdate)="onDataUpdate($event)"
+                                (selectedPoint)="onSelectedPoint($event)">
+        </concordia-nx-ionic-map>
+      </ion-col>
+
+      <ion-col size-md="auto"
+               class="panel ion-no-padding ion-hide-md-down">
+        <div [ngClass]="{ 'active': showMap }">
+          <ng-container *ngTemplateOutlet="edit"></ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-hide-md-up">
+      <ion-col size="12"
+               class="ion-no-padding">
+        <div [ngClass]="{ 'active': showMap }">
+          <ng-container *ngTemplateOutlet="edit"></ng-container>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-card>
+
+<ng-template #edit>
+  <concordia-nx-ionic-features-edit [features]="waypoints && waypoints.features ? waypoints.features : []"
+                                    [editMode]="editMode"
+                                    (delete)="onDelete($event)"
+                                    (add)="onAdd($event)"
+                                    (reorder)="reOrder($event)"
+                                    (active)="onActive($event)">
+  </concordia-nx-ionic-features-edit>
+</ng-template>

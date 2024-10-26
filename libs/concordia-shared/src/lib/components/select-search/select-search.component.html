@@ -1,0 +1,35 @@
+<ion-input #input
+           #ngModel="ngModel"
+           [attr.data-cy]="name"
+           [clearInput]="!required"
+           [disabled]="disabled || !options || !options.length || readonly"
+           [errorText]="errorText"
+           [fill]="fill"
+           [labelPlacement]="label ? 'floating' : 'start'"
+           [label]="label ? label : null"
+           [name]="name"
+           [ngModel]="getValue(model)"
+           [placeholder]="placeholder"
+           [required]="required"
+           data-test-id="selectSearchInput"
+           aria-label=""
+           class="select text-truncate"
+           type="button"
+           (click)="showPopover($event)"
+           (ionInput)="onInput($event)"
+           (keyup.enter)="showPopover($event)">
+</ion-input>
+
+<ion-input [(ngModel)]="model"
+           [label]="label"
+           [name]="name"
+           [required]="required"
+           [disabled]="disabled"
+           data-test-id="selectSearchInput"
+           class="ion-hide"
+           label-placement="floating"
+           type="text"
+           placeholder=""
+           errorText="invalid rowSelector"
+           aria-label="">
+</ion-input>

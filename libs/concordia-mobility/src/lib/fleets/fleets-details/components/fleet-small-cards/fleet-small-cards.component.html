@@ -1,0 +1,43 @@
+<ion-grid>
+    <ion-row class="ion-no-padding">
+      <ion-col size="12"
+               size-md="3">
+        <concordia-ng-shared-small-card [name]="fleet && fleet.managerIds ? fleet.managerIds.length + '' : '0'"
+                                        [label]="'card.managers' | transloco"
+                                        data-test-id="managersSmallCard"
+                                        icon="construct-outline"
+                                        icon_color="danger">
+        </concordia-ng-shared-small-card>
+      </ion-col>
+
+      <ion-col size="12"
+               size-md="3">
+            <concordia-ng-shared-small-card [name]="fleet && fleet.vehicleIds ? fleet.vehicleIds.length + '' : '0'"
+                                            [label]="'fleets.details.vehicles' | transloco"
+                                            data-test-id="vehiclesSmallCard"
+                                            icon="car-outline"
+                                            icon_color="primary">
+        </concordia-ng-shared-small-card>
+      </ion-col>
+
+      <ion-col size="12"
+               size-md="3">
+        <concordia-ng-shared-small-card [name]="fleet && fleet.driverIds ? fleet.driverIds.length + '' : '0'"
+                                        [label]="'fleets.details.drivers' | transloco"
+                                        data-test-id="driversSmallCard"
+                                        icon="man-outline"
+                                        icon_color="success">
+        </concordia-ng-shared-small-card>
+      </ion-col>
+
+      <ion-col size="12"
+               size-md="3">
+      <concordia-ng-shared-small-card [name]="fleet && fleet.tripIds ? fleet.tripIds.length + '' : '0'"
+                                      [label]="'fleets.details.trips' | transloco"
+                                      data-test-id="driversSmallCard"
+                                      icon="analytics-outline"
+                                      icon_color="tertiary">
+        </concordia-ng-shared-small-card>
+      </ion-col>
+    </ion-row>
+</ion-grid>

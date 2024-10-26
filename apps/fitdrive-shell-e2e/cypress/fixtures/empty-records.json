@@ -1,0 +1,14 @@
+{
+  "data": [],
+  "pagination": {
+    "total": 0,
+    "perPage": 10,
+    "currentPage": 1,
+    "lastPage": 0,
+    "nextPageUrl": null,
+    "prevPageUrl": null,
+    "from": 1,
+    "to": 0
+  },
+  "status": "ok"
+}

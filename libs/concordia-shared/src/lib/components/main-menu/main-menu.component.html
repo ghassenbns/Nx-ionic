@@ -1,0 +1,42 @@
+<ion-accordion-group *ngFor="let menu of menus"
+                     [value]="activeUrl.includes(menu.title) ? menu.title : ''">
+  <ng-container [ngTemplateOutlet]="menu.children ? accordion : menuToggle"
+                [ngTemplateOutletContext]="{menu:menu}">
+  </ng-container>
+</ion-accordion-group>
+
+<ng-template #accordion let-menu='menu'>
+  <ion-accordion [value]="menu.title">
+
+    <ion-item slot="header"
+              lines="none">
+      <ion-icon [name]="menu.ionicIcon"
+                slot="start"></ion-icon>
+      <ion-label>{{ 'menu.' + menu.title | transloco }}</ion-label>
+    </ion-item>
+
+    <div slot="content">
+      <ng-container *ngFor="let subMenu of menu.children">
+        <ng-container [ngTemplateOutlet]="menuToggle"
+                      [ngTemplateOutletContext]="{menu:subMenu}">
+        </ng-container>
+      </ng-container>
+    </div>
+
+  </ion-accordion>
+</ng-template>
+
+<ng-template #menuToggle let-menu='menu'>
+  <ion-item [routerLink]="menu.url"
+            routerDirection="root"
+            lines="none"
+            [class.active-item]="activeUrl.includes(menu.url)
+            && (menu.url !=='energy/meters' || (menu.url ==='energy/meters'
+            && (!activeUrl.includes('consumption_comparison') && !activeUrl.includes('hierarchies'))))">
+    <ion-icon [name]="menu.ionicIcon"
+              slot="start"></ion-icon>
+    <ion-label>
+      {{ 'menu.' + menu.title | transloco }}
+    </ion-label>
+  </ion-item>
+</ng-template>

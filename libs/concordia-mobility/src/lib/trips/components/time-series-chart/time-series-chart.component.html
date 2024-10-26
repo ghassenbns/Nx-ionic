@@ -1,0 +1,59 @@
+<ion-card [class.d-grid]="title"
+          class="ion-no-margin h-100">
+  <ion-card-title *ngIf="title"
+                  class="p-8 bb-1">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-no-padding ion-justify-content-between ion-align-items-center">
+        <ion-col size="auto"
+                 class="ion-no-padding">
+        {{ title }}
+        </ion-col>
+        <ion-col *ngIf="vehicleSignalTypeName && group?.length"
+                 size="auto"
+                 class="ion-no-padding">
+          <ion-select [ngModel]="vehicleSignalTypeName"
+                      [disabled]="loading"
+                      name="select"
+                      aria-label=""
+                      interface="popover"
+                      class="w-100"
+                      (ionChange)="onSelect($event)">
+
+            <ng-container *ngFor="let option of group">
+              <ion-select-option [value]="option.name">
+                {{option.label}}
+              </ion-select-option>
+            </ng-container>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-title>
+
+  <div class="p-relative h-100 w-100"
+       (dblclick)="doubleClick()">
+    <ion-progress-bar *ngIf="loading && chartData?.datasets?.length"
+                      class="p-absolute z-1"
+                      type="indeterminate"></ion-progress-bar>
+    <ion-row class="h-100 w-100 ion-justify-content-center ion-align-items-center">
+      <canvas #barCanvas
+              style="max-width: 100%; max-height: 100%;">{{ chart }}</canvas>
+    </ion-row>
+
+    <ion-row *ngIf="!chartData?.datasets?.length && !loading"
+             class="p-absolute h-100 w-100 ion-justify-content-center ion-align-items-center">
+      <ion-text color="medium ion-text-center">
+        <ion-icon name="bar-chart-outline"
+                  size="large"
+                  class="ion-margin-bottom"></ion-icon>
+        <br>
+        {{ 'table.noDataFound' | transloco }}
+      </ion-text>
+    </ion-row>
+
+    <ion-skeleton-text *ngIf="loading && !chartData?.datasets?.length"
+                       [animated]="true"
+                       class="p-absolute h-100 w-100 ion-no-margin"></ion-skeleton-text>
+
+  </div>
+</ion-card>

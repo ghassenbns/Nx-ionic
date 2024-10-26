@@ -1,0 +1,907 @@
+<form #f="ngForm"
+      [ngClass]="{ 'small-view': smallView }"
+      (ngSubmit)="onSave(f)">
+  <p-table #dt
+           [breakpoint]="'960px'"
+           [columns]="strategy.columns"
+           [filterDelay]="0"
+           [filters]="filters"
+           [first]='first'
+           [lazy]="lazy"
+           [loading]="!editMode && loading"
+           [paginator]="!editMode"
+           [reorderableColumns]="true"
+           [rowHover]="true"
+           [rowsPerPageOptions]="rowsPerPageOptions"
+           [rows]="rows"
+           [showCurrentPageReport]="true"
+           [sortField]="sortField"
+           [sortOrder]="sortOrder"
+           [totalRecords]="totalRecords"
+           [value]="data"
+           [scrollable]="true"
+           [dataKey]="dataKey"
+           styleClass="p-datatable-sm"
+           (onLazyLoad)="load($event)">
+    <!-- FILTER SECTION -->
+    <ng-container *ngIf="!editMode">
+
+      <ng-template pTemplate="caption">
+        <ion-grid class="ion-hide-lg-up"
+                  data-test-id="tableFiltersMobileContainer">
+          <ion-row class="ion-align-items-center">
+
+            <ion-col class="ion-hide-lg-up">
+              <ion-button fill="outline"
+                          data-test-id="showHideColumnMobile"
+                          (click)="presentShowPopover($event)">
+                <ion-icon name="eye-off-outline"></ion-icon>
+              </ion-button>
+
+              <ion-button *ngIf="!smallView"
+                          fill="outline"
+                          data-test-id="tableAddNewEntityMobile"
+                          [disabled]="!canEdit"
+                          (click)="actionEvent.emit({ type: ActionEnum.ADD })">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col class="ion-hide-lg-up ion-text-right">
+              <ion-button *ngIf="isFiltered()"
+                          color="danger"
+                          (click)="clearFilters()">
+                <i class="pi pi-filter-slash"
+                   slot="icon-only"></i>
+              </ion-button>
+              <ion-button data-test-id="tableFiltersBtnMobile"
+                          (click)="openFiltersModal()">
+                <i [class]="isFiltered() ? 'pi pi-filter-fill' : 'pi pi-filter'"
+                   slot="icon-only"></i>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="size-sm"
+                     class="ion-hide">
+              <ion-item>
+                <ion-input [placeholder]="'table.globalSearch' | transloco"
+                           type="text"
+                           aria-label=""/>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="ion-hide-lg-down"
+                  data-test-id="tableFiltersDesktopContainer">
+          <ion-row class="ion-align-items-center">
+            <ion-col *ngIf="canEdit && !smallView"
+                     size="auto">
+              <ion-grid class="ion-no-padding">
+                <ion-row class="ion-align-items-center ion-nowrap">
+                  <ion-col class="ion-text-center">
+                    <ion-checkbox [checked]="isCheckedAll()"
+                                  [indeterminate]="indeterminate()"
+                                  aria-label="tableSelectAllCheckbox"
+                                  data-test-id="tableSelectAllCheckbox"
+                                  (ionChange)="onSelectAllRow($event)">
+                    </ion-checkbox>
+                  </ion-col>
+                  <ion-col class="ion-no-padding">
+                    <ion-button [disabled]="!selectedData.length"
+                                class="ion-no-padding"
+                                data-test-id="tableMultiEditMenu"
+                                fill="clear"
+                                color="medium"
+                                shape="round"
+                                (click)="presentMultiActionsPopover($event)">
+                      <ion-icon name="chevron-down-outline"
+                                class="mx-8"></ion-icon>
+                    </ion-button>
+
+                    <ion-popover [keepContentsMounted]="true"
+                                 [dismissOnSelect]="true"
+                                 [showBackdrop]="false"
+                                 [isOpen]="isOpen"
+                                 #multiActionsPopover
+                                 (didDismiss)="isOpen = false">
+                      <ng-template>
+                        <ion-content>
+                          <ion-list>
+                            <ng-container *ngFor="let action of strategy.multiActions">
+                              <ion-item [button]="true"
+                                        [detail]="false"
+                                        [disabled]="action.type === MultiActionEnum.DELETE && !canDelete"
+                                        lines="none"
+                                        (click)="multiActionEvent.emit({rows: selectedData, type: action.type})">
+                                <ion-icon slot="start"
+                                          [name]="action.icon"></ion-icon>
+                                {{ 'table.' + action.name | transloco }}
+                              </ion-item>
+                            </ng-container>
+                          </ion-list>
+                        </ion-content>
+                      </ng-template>
+                    </ion-popover>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+            <ion-col size="auto">
+              <ion-chip [outline]="true"
+                        [color]="showFilters ? 'primary' : ''"
+                        data-test-id="tableFiltersBtnDesktop"
+                        (click)="onShowFilters()">
+                {{ 'table.filters' | transloco }}
+                <ion-icon name="filter-outline"></ion-icon>
+              </ion-chip>
+            </ion-col>
+
+            <ion-col></ion-col>
+
+            <ion-col size="size-sm"
+                     class="ion-hide">
+              <ion-item>
+                <ion-input [placeholder]="'table.globalSearch' | transloco"
+                           type="text"
+                           aria-label=""/>
+              </ion-item>
+            </ion-col>
+            <ion-col *ngIf="!smallView"
+                     size="auto">
+              <ion-button [disabled]="!canEdit"
+                          [title]="'table.new' | transloco"
+                          fill="outline"
+                          class="ion-no-margin"
+                          data-test-id="tableAddNewEntityDesktop"
+                          (click)="actionEvent.emit({ type: ActionEnum.ADD })">
+                {{ 'global.new' | transloco }}
+                <ion-icon slot="end"
+                          name="add-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ng-container *ngIf="enableBulkAdd">
+
+              <ion-col *ngIf="!smallView"
+                       size="auto">
+                <ion-button [disabled]="!canEdit"
+                            [title]="'global.newBulk' | transloco"
+                            fill="outline"
+                            class="ion-no-margin"
+                            data-test-id="tableAddBulkNewEntityDesktop"
+                            (click)="actionEvent.emit({ type: ActionEnum.BULK_ADD })">
+                  {{ 'global.newBulk' | transloco }}
+                  <ion-icon slot="end"
+                            name="duplicate-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ng-container>
+
+            <ion-col *ngIf="smallView"
+                     size="auto">
+              <ion-button fill="outline"
+                          data-test-id="showHideColumnMobile"
+                          (click)="presentShowPopover($event)">
+                <ion-icon name="eye-off-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+          <ng-container *ngIf="showFilters"
+                        ngModelGroup="filters">
+            <!--            /// {{this.filters |json}}-->
+            <!--            /// {{this.table.filters | json}}-->
+
+            <ion-row data-test-id="filtersDesktop">
+              <ng-container *ngFor="let column of strategy.columns">
+                <ion-col *ngIf="column.searchType !=='hidden' && (showColumn(column.field) || column.addFilter)"
+                         size="12"
+                         [sizeMd]="smallView ? 12 : 6"
+                         [sizeLg]="smallView ? 12 : 4"
+                         [sizeXl]="smallView ? 12 : 3">
+                  <ng-container [ngSwitch]="column.searchType">
+                    <ion-item [lines]="column.searchType === 'date' ? 'none' : ''"
+                              [class]="column.searchType === 'date' ? 'item-none-padding-end' : ''">
+
+                      <ion-input *ngSwitchCase="'text'"
+                                 [attr.data-cy]="column.rowSelector"
+                                 [ngModel]="getFieldFilterValue(column.rowSelector)"
+                                 [name]="column.field"
+                                 [clearInput]="true"
+                                 [label]="('table.' + column.field) |transloco"
+                                 [placeholder]="'table.searchWith' |transloco:{ label: ('table.' + column.field) | transloco }"
+                                 aria-label=""
+                                 data-test-id="tableFilterInputDesktop"
+                                 type="text"
+                                 labelPlacement="floating"
+                                 (keydown)="onApplyFilter($event)"/>
+
+                      <ion-input *ngSwitchCase="'number'"
+                                 [attr.data-cy]="column.rowSelector"
+                                 [ngModel]="getFieldFilterValue(column.rowSelector)"
+                                 [name]="column.field"
+                                 [clearInput]="true"
+                                 [label]="('table.' + column.field) |transloco"
+                                 [placeholder]="'table.searchWith' |transloco:{ label: ('table.' + column.field) | transloco }"
+                                 aria-label=""
+                                 data-test-id="tableFilterInputDesktop"
+                                 type="number"
+                                 min="0"
+                                 labelPlacement="floating"
+                                 (keydown)="onApplyFilter($event)"/>
+
+                      <ion-select *ngSwitchCase="'select'"
+                                  [attr.data-cy]="column.rowSelector"
+                                  [ngModel]="getFieldFilterValue(column.searchSelector || column.rowSelector)"
+                                  [name]="column.field"
+                                  [placeholder]="'table.all' | transloco"
+                                  [label]="('table.' + column.field) |transloco"
+                                  aria-label=""
+                                  data-test-id="tableFilterSelectDesktop"
+                                  labelPlacement="floating"
+                                  interface="popover">
+
+                        <ion-select-option value=""
+                                           data-test-id="selectOptionAll"
+                                           class="bold">
+                          {{ 'table.all' | transloco }}
+                        </ion-select-option>
+
+                        <ng-container *ngFor="let option of column.options">
+                          <ng-container *ngIf="lazy">
+                            <ion-select-option *ngIf="(column.optionsField || 'name') as name"
+                                               [attr.data-cy]="option[name]"
+                                               [value]="column.optionsValue ? option[column.optionsValue] : option._id"
+                                               data-test-id="selectOption">
+                              {{ column.optionsTranslate ? ('table.' + option[name] | transloco) : option[name] }}
+                            </ion-select-option>
+                          </ng-container>
+                          <ng-container *ngIf="!lazy">
+                            <ion-select-option [value]="option">
+                              {{ option }}
+                            </ion-select-option>
+                          </ng-container>
+                        </ng-container>
+                      </ion-select>
+
+                      <ion-select *ngSwitchCase="'multiSelect'"
+                                  [ngModel]="getFieldFilterValue(column.searchSelector || column.rowSelector)"
+                                  [name]="column.field"
+                                  [placeholder]="'table.all' | transloco"
+                                  [label]="('table.' + column.field) |transloco"
+                                  [attr.data-cy]="column.rowSelector"
+                                  multiple="true"
+                                  aria-label=""
+                                  data-test-id="tableFilterMultiSelectDesktop"
+                                  labelPlacement="floating"
+                                  interface="popover">
+
+                        <!--                        <ion-select-option value=""-->
+                        <!--                                           class="bold">-->
+                        <!--                          {{'table.all' | transloco }}-->
+                        <!--                        </ion-select-option>-->
+
+                        <ng-container *ngFor="let option of column.options">
+                          <ng-container *ngIf="lazy">
+                            <ion-select-option *ngIf="(column.optionsField || 'name') as name"
+                                               [value]="column.optionsValue ? option[column.optionsValue] : option._id"
+                                               [attr.data-cy]="option[name]"
+                                               data-test-id="multiSelectOption">
+                              {{ column.optionsTranslate ? ('table.' + option[name] | transloco) : option[name] }}
+                            </ion-select-option>
+                          </ng-container>
+                          <ng-container *ngIf="!lazy">
+                            <ion-select-option [value]="option">
+                              {{ option }}
+                            </ion-select-option>
+                          </ng-container>
+                        </ng-container>
+                      </ion-select>
+
+                      <ng-container *ngSwitchCase="'selectSearch'">
+                        <ng-container *ngIf="column.searchSelector || column.rowEditSelector || column.rowSelector as rowSelector">
+                          <concordia-ng-shared-select-search *transloco="let t"
+                                                             #name="ngModel"
+                                                             [ngModel]="getFieldFilterValue(rowSelector)"
+                                                             [name]="rowSelector"
+                                                             [label]="('table.' + column.field) |transloco"
+                                                             [required]="false"
+                                                             [disabled]="!!column.disabled"
+                                                             [setTouched]="name.touched"
+                                                             [options]="filteredOptions(column.options, column.optionsFilter||[], getFieldFilterValue(rowSelector))"
+                                                             [rowSelector]="column.rowSelector"
+                                                             [optionsField]="column.optionsField || 'name'"
+                                                             [optionsValue]="column.optionsValue || ''"
+                                                             [optionsGroup]="column.optionsGroup || ''"
+                                                             [placeholder]="t('table.select') + t('table.' + column.field)"
+                                                             [attr.data-cy]="column.rowSelector"
+                                                             data-test-id="tableFilterSelectSearchDesktop"
+                                                             (changeValue)="onApplyFilter($event)">
+                          </concordia-ng-shared-select-search>
+                        </ng-container>
+                      </ng-container>
+
+                      <ng-container *ngSwitchCase="'multiSelectSearch'">
+                        <ng-container *ngIf="column.rowEditSelector || column.rowSelector as rowSelector">
+                          <concordia-ng-shared-search-multi-select *transloco="let t"
+                                                                   #name="ngModel"
+                                                                   [attr.data-cy]="column.rowSelector"
+                                                                   [ngModel]="getFieldFilterValue(column.searchSelector || column.rowSelector)"
+                                                                   [name]="rowSelector"
+                                                                   [label]="('table.' + column.field) |transloco"
+                                                                   [required]="false"
+                                                                   [disabled]="!!column.disabled"
+                                                                   [setTouched]="name.touched"
+                                                                   [options]="filteredOptions(column.options, column.optionsFilter||[], getFieldFilterValue(column.searchSelector || column.rowSelector))"
+                                                                   [rowSelector]="column.rowSelector"
+                                                                   [optionsField]="column.optionsField || 'name'"
+                                                                   [optionsValue]="column.optionsValue || '_id'"
+                                                                   [placeholder]="t('table.select') + t('table.' + column.field)"
+                                                                   data-test-id="tableFilterMultiSelectSearchDesktop">
+                          </concordia-ng-shared-search-multi-select>
+                        </ng-container>
+                      </ng-container>
+
+                      <ng-container *ngSwitchCase="'date'">
+                        <concordia-ng-shared-date-picker #name="ngModel"
+                                                         [attr.data-cy]="column.rowSelector"
+                                                         [ngModel]="getFieldFilterValue(column.rowSelector)"
+                                                         [label]="('table.' + column.field) |transloco"
+                                                         [name]="column.field"
+                                                         [disabled]="!!column.disabled"
+                                                         [setTouched]="name.touched"
+                                                         [options]="column.options"
+                                                         [rowSelector]="column.rowSelector"
+                                                         [hideSeconds]="column.hideSeconds || false"
+                                                         [optionsField]="column.optionsField || 'name'"
+                                                         [filterRange]="column.filterRange || false"
+                                                         [optionsValue]="column.optionsValue || ''"
+                                                         [optionsGroup]="column.optionsGroup || ''"
+                                                         errorText="invalid rowSelector"
+                                                         data-test-id="tableFilterDatePickerDesktop"
+                                                         (changeValue)="onApplyFilter($event)">
+                        </concordia-ng-shared-date-picker>
+                      </ng-container>
+                    </ion-item>
+                  </ng-container>
+
+                </ion-col>
+              </ng-container>
+
+            </ion-row>
+            <ion-row class="ion-justify-content-end">
+              <ion-col size="auto">
+                <ion-button fill="clear"
+                            data-test-id="tableResetFilters"
+                            type="button"
+                            [disabled]="disabledReset()"
+                            (click)="onResetFilter()">
+                  {{ 'global.resetFilters' | transloco }}
+                  <ion-icon slot="end"
+                            name="close-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="auto">
+                <ion-button fill="outline"
+                            data-test-id="tableApplyFilters"
+                            type="button"
+                            [disabled]="!!(this.form.controls['filters']
+                            && (this.form.controls['filters'].pristine || this.form.controls['filters'].invalid))"
+                            (click)="onApplyFilter($event)">
+                  {{ 'global.apply' | transloco }}
+                  <ion-icon slot="end"
+                            name="filter-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ng-container>
+
+        </ion-grid>
+
+      </ng-template>
+    </ng-container>
+
+    <!-- TABLE SECTION -->
+    <ng-template pTemplate="header"
+                 let-columns>
+      <tr class="ion-hide-lg-down"
+          data-test-id="tableHeader">
+        <th *ngIf="editMode"
+            style="width:3rem"></th>
+
+        <th pFrozenColumn
+            data-test-id="thHideColumns"
+            style="width:28px; padding: 0">
+          <ion-button *ngIf="!editMode"
+                      data-test-id="showHideColumn"
+                      fill="clear"
+                      color="medium"
+                      [title]="'table.viewColumn' | transloco"
+                      class="ion-no-margin ion-no-padding"
+                      (click)="presentShowPopover($event)">
+            <ion-icon slot="icon-only"
+                      name="eye-off-outline"></ion-icon>
+          </ion-button>
+        </th>
+
+        <th *ngIf="!editMode"
+            data-test-id="thSortById"
+            width="32px"
+            [pSortableColumn]="dataKey"
+            pFrozenColumn
+            [hidden]="!showColumn(FIRST)">
+          <p-sortIcon *ngIf="!editMode"
+                      [field]="dataKey"></p-sortIcon>
+        </th>
+
+        <ng-container *ngFor="let column of columns">
+          <th pSortableColumn="{{ column.rowSelector }}"
+              [hidden]="(!showColumn(column.field) && !editMode) ||
+                        (editMode && column.hidden?.includes(ModeEnum.LIST_EDIT)) ||
+                        column.editType==='hidden'"
+              [frozen]="column.frozen || false"
+              [attr.data-cy]="column.rowSelector"
+              data-test-id="th"
+              pFrozenColumn
+              pReorderableColumn>
+            {{ column.contentType !== 'hidden' ? ('table.' + column.field | transloco) : column.field }}
+            <p-sortIcon *ngIf="!editMode"
+                        field="{{ column.rowSelector }}"></p-sortIcon>
+          </th>
+        </ng-container>
+
+        <th *ngIf="strategy.actions.length"
+            [hidden]="!showColumn(ACTIONS)"
+            data-test-id="thActions"
+            alignFrozen="right"
+            pFrozenColumn>
+          {{ 'table.actions' | transloco }}
+        </th>
+      </tr>
+
+    </ng-template>
+
+    <ng-template pTemplate="body"
+                 let-row
+                 let-index="rowIndex">
+      <tr [ngModelGroup]="row.uuid"
+          [class]="row.toBeDeleted ? 'disabled' : ''"
+          [pReorderableRow]="index"
+          [attr.data-cy]="row && row[dataKey]"
+          data-test-id="tr"
+          class="p-selectable-row p-relative">
+
+        <td *ngIf="editMode">
+          <ion-input [(ngModel)]="row.toBeDeleted"
+                     class="ion-hide"
+                     aria-label=""
+                     name="toBeDeleted"/>
+          <ion-input [(ngModel)]="row && row[dataKey] || row.uuid"
+                     class="ion-hide"
+                     aria-label=""
+                     [name]="row && row[dataKey] ? dataKey : 'uuid'"
+                     fill="solid"/>
+          <ng-container *ngIf="f.controls[row.uuid]?.invalid || row.status === 'error'">
+            <ion-icon [title]="getError(row)"
+                      color="danger"
+                      name="alert-circle-outline"
+                      size="large"
+                      class="ion-no-padding">
+            </ion-icon>
+          </ng-container>
+
+          <ng-container *ngIf="row.status === 'done'">
+            <ion-icon color="success"
+                      name="checkmark-outline"
+                      size="large">
+            </ion-icon>
+          </ng-container>
+        </td>
+
+        <td *ngIf="!smallView"
+            class="center"
+            pFrozenColumn>
+          <span [attr.data-cy]="row._id"
+                data-test-id="trReorder"
+                class="pi pi-bars"
+                pReorderableRowHandle></span>
+        </td>
+
+        <td *ngIf="!editMode"
+            [hidden]="!showColumn(FIRST)"
+            [ngClass]="{ 'ion-hide': smallView }"
+            class="ion-hide-lg-down"
+            style="width: 32px; padding: 0; text-align: center"
+            pFrozenColumn>
+          <ion-checkbox *ngIf="canEdit"
+                        [attr.data-cy]="row && row[dataKey]"
+                        [checked]="isChecked(row && row[dataKey])"
+                        [disabled]="row.isEditable === false && row.isDeletable === false"
+                        (ionChange)="onSelectRow($event, row)"
+                        aria-label="trCheck"
+                        data-test-id="trCheck">
+          </ion-checkbox>
+        </td>
+
+        <ng-container *ngFor="let column of strategy.columns">
+          <ng-container *ngIf="!editMode">
+            <ng-container [ngSwitch]="column.contentType">
+              <ng-container *ngIf="showColumn(column.field)">
+                <td [title]="row | cellSelector : column"
+                    [style]="column.contentType === 'date' ? 'width: 50%' : ''"
+                    [attr.data-cy]="column.rowSelector"
+                    [frozen]="column.frozen || false"
+                    data-test-id="td"
+                    pFrozenColumn
+                    class="text-truncate max-width {{column.cssClass || ''}}">
+                  <span class="ion-margin-end text-label"
+                        [ngClass]="{ 'ion-hide-lg-up': !smallView }">
+                    {{ 'table.' + column.field | transloco | titlecase }}
+                  </span>
+                  <ng-container *ngSwitchCase="['string', 'number'] | switchMultiCase:column.contentType">
+                    <ng-container *ngIf="column.link; else noFn">
+                      <a [routerLink]="getLink(column.link.pref, row[column.link.field], column.link.sfx)"
+                         [attr.data-cy]="column.rowSelector"
+                         data-test-id="tdContentLink"
+                         routerDirection="root"
+                         (click)="onCleanSelectRow()">
+                        <ng-container *ngIf="column.optionsTranslate">
+                          {{ (column.translationPrefix || '') + (row | cellSelector : column) | transloco }}
+                        </ng-container>
+
+                        <ng-container *ngIf="!column.optionsTranslate">
+                          {{ row | cellSelector : column }}
+                        </ng-container>
+
+                      </a>
+                    </ng-container>
+                    <ng-template #noFn>
+                      <ion-text *ngIf="(row | cellSelector : column) || column.optionsTranslate; else emptyBlock"
+                                [attr.data-cy]="column.rowSelector"
+                                data-test-id="tdContentText">
+                        <ng-container *ngIf="column.optionsTranslate">
+                          {{ (column.translationPrefix || '') + (row | cellSelector : column) | transloco }}
+                        </ng-container>
+
+                        <ng-container *ngIf="!column.optionsTranslate">
+                          {{ row | cellSelector : column }}
+                        </ng-container>
+
+                      </ion-text>
+                    </ng-template>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'button'">
+                    <ion-button [color]="(row | cellSelector : column) ? 'success' : 'danger'"
+                                [attr.data-cy]="column.rowSelector"
+                                data-test-id="tdContentButton"
+                                shape="round"
+                                size="small">
+                      <ion-icon slot="icon-only"
+                                name="power-outline"
+                                color="light"/>
+                    </ion-button>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'switch'">
+                    <ng-container *ngIf="column.actions?.length">
+                      <ng-container *ngFor="let option of column.actions">
+                        <ion-button *ngIf="row[column.rowSelector] === option.value"
+                                    [color]="option.background"
+                                    [title]="option.name | transloco"
+                                    [disabled]="!canEdit || row.isEditable === false"
+                                    shape="round"
+                                    size="small"
+                                    (click)="actionEvent.emit({row, type: option.type})">
+                          <ion-icon slot="icon-only"
+                                    [name]="option.icon"
+                                    [color]="option.color"/>
+                        </ion-button>
+                      </ng-container>
+                    </ng-container>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'boolean'">
+                    <ion-icon [color]="(row | cellSelector : column) ? 'success' : 'danger'"
+                              [name]="(row | cellSelector : column)
+                                  ? 'checkmark-circle-outline'
+                                  : 'close-circle-outline'"
+                              [attr.data-cy]="column.rowSelector"
+                              data-test-id="tdContentBoolean"
+                              size="large">
+                    </ion-icon>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'date'">
+                    <ion-text *ngIf="(row | cellSelector : column); else emptyBlock"
+                              [attr.data-cy]="column.rowSelector"
+                              data-test-id="tdContentDate">
+                      {{ row | cellSelector : column | userDate :column.timezone | async }}
+                    </ion-text>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'enum'">
+                    <ion-text>
+                      <ion-chip [attr.data-cy]="column.rowSelector"
+                                data-test-id="tdContentEnum"
+                                class="pe-none chip-type-{{getId(row, column.rowSelector, column.rowEditSelector)}}">
+                        {{ (column.translationPrefix || '') + (row | cellSelector : column) | transloco }}
+                      </ion-chip>
+                    </ion-text>
+                  </ng-container>
+                  <ng-container *ngSwitchCase="'array'">
+                    <ion-text *ngIf="(row | cellArraySelector : column)"
+                              [attr.data-cy]="column.rowSelector"
+                              data-test-id="tdContentArray">
+                      {{ row | cellArraySelector : column }}
+                    </ion-text>
+                  </ng-container>
+                </td>
+              </ng-container>
+
+            </ng-container>
+          </ng-container>
+
+          <ng-container *ngIf="editMode && !column.hidden?.includes(ModeEnum.LIST_EDIT)">
+            <ng-container [ngSwitch]="column.editType || column.searchType">
+              <td style="padding: 0;"
+                  class="max-width"
+                  [ngClass]="{'ion-hide':column.editType ==='hidden' }">
+                <span class="p-column-title">
+                  {{ column.editType !== 'hidden' ? ('table.' + column.field | transloco) : column.field }}
+                </span>
+                <ng-container *ngSwitchCase="'text'">
+                  <ion-input [(ngModel)]="row[column.rowEditSelector ?? column.rowSelector]"
+                             [name]="column.rowEditSelector || column.rowSelector"
+                             [required]="!!column?.required"
+                             [concordiaNxIonicWhiteSpaceValidator]="!!column?.required"
+                             [placeholder]="'table.' + column.field | transloco"
+                             [type]="column.contentType"
+                             fill="solid"
+                             aria-label=""
+                             (ionInput)="onChange($event, row, column.field)"/>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'hidden'">
+                  <ion-item *ngIf="row && row[column.rowEditSelector ?? column.rowSelector]"
+                            class="ion-hide">
+                    <ion-input [(ngModel)]="row[column.rowEditSelector ?? column.rowSelector]"
+
+                               type="text"
+                               name="{{column.rowEditSelector ?? column.rowSelector}}"
+                               aria-label="hidden-property">
+                    </ion-input>
+                  </ion-item>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'select'">
+                  <ion-select *transloco="let t"
+                              [(ngModel)]="row[column.rowEditSelector || column.rowSelector]"
+                              [name]="column.rowEditSelector || column.rowSelector"
+                              [required]="!!column?.required"
+                              [placeholder]="t('table.select') + t('table.' + column.field)"
+                              [interfaceOptions]="{ size : 'auto', alignment: 'start'}"
+                              aria-label=""
+                              fill="solid"
+                              interface="popover"
+                              (ionChange)="onChange($event, row, column.field)">
+                    <ng-container *ngFor="let option of filteredOptions(column.options, column.optionsFilter||[], row)">
+                      <ng-container *ngIf="(column.optionsValue || '_id') as value">
+                        <ion-select-option *ngIf="(column.optionsField || 'name') as name"
+                                           [value]="option[value]">
+                          {{ column.optionsTranslate ? ('table.' + option[name] | transloco) : option[name] }}
+                        </ion-select-option>
+                      </ng-container>
+                    </ng-container>
+                  </ion-select>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'selectSearch'">
+                  <ng-container *ngIf="column.rowEditSelector || column.rowSelector as rowSelector">
+                    <concordia-ng-shared-select-search *transloco="let t"
+                                                       #name="ngModel"
+                                                       [(ngModel)]="row[rowSelector]"
+                                                       [name]="rowSelector"
+                                                       [required]="!!column.required"
+                                                       [disabled]="!!column.disabled"
+                                                       [setTouched]="name.touched"
+                                                       [options]="filteredOptions(column.options, column.optionsFilter||[], row)"
+                                                       [rowSelector]="column.rowSelector"
+                                                       [optionsField]="column.optionsField || 'name'"
+                                                       [optionsValue]="column.optionsValue || ''"
+                                                       [optionsGroup]="column.optionsGroup || ''"
+                                                       [placeholder]="t('table.select') + t('table.' + column.field)"
+                                                       [concordiaNxIonicNoRepeatValidator]="hasNoRepeatValidator(column.validators) && !row.toBeDeleted ? getFields(rowSelector) : []"
+                                                       [popoverOptions]="{ size : 'auto', alignment: 'start'}"
+                                                       fill="solid"
+                                                       (changeValue)="onChange($event, row, column.field)">
+                    </concordia-ng-shared-select-search>
+                  </ng-container>
+                </ng-container>
+
+                <ng-container *ngSwitchCase="'date'">
+                  {{ row | cellSelector : column }}
+                </ng-container>
+
+
+              </td>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+
+        <td *ngIf="strategy.actions.length"
+            [hidden]="!showColumn(ACTIONS)"
+            data-test-id="td-actions"
+            alignFrozen="right"
+            pFrozenColumn
+            class="ion-text-end-lg-up">
+          <span class="ion-hide-lg-up ion-margin-end text-label">
+            {{ 'table.actions' | transloco | titlecase }}
+          </span>
+          <span class="p-buttonset">
+            <ion-buttons data-test-id="actionButtons">
+              <ng-container *ngFor="let action of editMode ? strategy.editActions||[] : strategy.actions||[]">
+                <ng-container [ngSwitch]="action.type">
+                  <ng-container *ngIf="hasAction(action.type)">
+                    <ng-container *ngIf="action.actionType === ButtonEnum.LINK && action.link; else actions">
+                      <ion-router-link [routerLink]="getLink(action.link.pref, row[action.link.field], action.link.sfx)"
+                                       data-test-id="link"
+                                       routerDirection="root"
+                                       class="text-decoration-none">
+                        <ng-container *ngTemplateOutlet="actions"></ng-container>
+                      </ion-router-link>
+                    </ng-container>
+                    <ng-template #actions>
+                      <ion-button [color]="getColor(action.type)"
+                                  [disabled]="action.type === ActionEnum.CANCEL && !row.changed
+                                  || action.type === ActionEnum.DELETE && ( !canDelete || !canEdit )
+                                  || action.type === ActionEnum.DELETE && row.isDeletable === false
+                                  || action.type !== ActionEnum.DELETE && row.toBeDeleted
+                                  || action.type === ActionEnum.EDIT && !canEdit
+                                  || action.type === ActionEnum.EDIT && row.isEditable === false
+                                  || action.type === ActionEnum.DUPLICATE && !canEdit
+                                  || action.type === ActionEnum.DUPLICATE && row.isEditable === false
+                                  || actionsLoading"
+                                  [attr.data-cy]="row._id + '-' + action.type"
+                                  data-test-id="trBtn"
+                                  class="ion-no-margin"
+                                  fill="clear"
+                                  size="small"
+                                  type="button"
+                                  (click)="actionEvent.emit({row,type: action.type});">
+                        <ion-icon [name]="getIcon(action.type)"
+                                  slot="icon-only"></ion-icon>
+                      </ion-button>
+                    </ng-template>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ion-buttons>
+          </span>
+        </td>
+
+        <a *ngIf="strategy.link"
+           class="p-absolute h-100 w-100 cursor-pointer z-1"
+           [routerLink]="getLink(strategy.link.pref, row[strategy.link.field], strategy.link.sfx)"
+           routerDirection="root">
+        </a>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="loadingbody"
+                 let-row>
+      <ng-container *ngFor="let item of [].constructor(rows - (data?.length ? data.length : 0));">
+        <tr>
+          <td>
+            <span class="p-buttonset"><p-skeleton></p-skeleton></span>
+          </td>
+          <ng-container *ngFor="let column of strategy.columns">
+            <td>
+              <span class="p-column-title"
+                    *ngIf="column.contentType!=='hidden'">{{ 'table.' + column.field | transloco }}</span>
+              <span class="p-column-title"
+                    *ngIf="column.contentType==='hidden'">{{ column.field }}</span>
+
+              <span class="p-buttonset">
+                <p-skeleton></p-skeleton>
+              </span>
+            </td>
+          </ng-container>
+
+          <td *ngIf="strategy.actions.length">
+            <span class="p-column-title">
+              {{ 'table.actions' | transloco }}
+            </span>
+            <span class="p-buttonset">
+          <p-skeleton></p-skeleton>
+        </span>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td data-test-id="tdNoData"
+            [attr.colspan]="strategy.columns.length + 3">
+          {{ 'table.noDataFound' | transloco }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <ion-grid *ngIf="editMode">
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="auto">
+        <ion-button fill="clear"
+                    type="button"
+                    (click)="onAdd()">
+          {{ 'global.add' | transloco }}
+          <ion-icon slot="end"
+                    name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+
+      <ion-col size="auto">
+        <ion-button [disabled]="canSave() || isChanged() || loading || hasErrorStatus()"
+                    fill="outline"
+                    type="submit">
+          {{ 'global.save' | transloco }}
+          <ion-icon slot="end"
+                    name="save-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>
+
+<ion-popover [keepContentsMounted]="true"
+             [showBackdrop]="false"
+             [isOpen]="isOpenVisibility"
+             #shoColumnPopover
+             (didDismiss)="isOpenVisibility = false">
+  <ng-template>
+    <ion-content>
+      <ion-list>
+        <ng-container *ngIf="!smallView">
+          <ion-item lines="none">
+            <ion-checkbox [checked]="showColumn(FIRST) || false"
+                          aria-label=""
+                          justify="start"
+                          labelPlacement="end"
+                          (ionChange)="toggleShow($event, FIRST)">
+              #
+            </ion-checkbox>
+          </ion-item>
+        </ng-container>
+        <ng-container *ngFor="let column of strategy.columns">
+          <ion-item *ngIf="canShow(column.field)"
+                    lines="none">
+            <ion-checkbox [checked]="showColumn(column.field)"
+                          aria-label=""
+                          justify="start"
+                          labelPlacement="end"
+                          [disabled]="column.fixed"
+                          (ionChange)="toggleShow($event, column.field)">
+              {{ column.contentType !== 'hidden' ? ('table.' + column.field | transloco) : +column.field }}
+            </ion-checkbox>
+          </ion-item>
+        </ng-container>
+        <ng-container *ngIf="strategy.actions.length">
+          <ion-item lines="none">
+            <ion-checkbox [checked]="showColumn(ACTIONS)"
+                          aria-label=""
+                          justify="start"
+                          labelPlacement="end"
+                          (ionChange)="toggleShow($event, ACTIONS)">
+              {{ 'table.actions' | transloco }}
+            </ion-checkbox>
+          </ion-item>
+        </ng-container>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+
+<ng-template #emptyBlock>
+  <ion-text color="medium"
+            [ngClass]="{'ion-hide-lg-up': !smallView }">
+    {{ 'global.n/a' | transloco }}
+  </ion-text>
+</ng-template>

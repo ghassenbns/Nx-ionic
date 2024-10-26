@@ -1,0 +1,26 @@
+<ion-card class="card-table-pagination">
+  <ion-card-title>
+    <ion-item [class]="isOpen ? 'bb-1' : ''"
+              [disabled]="disabled"
+              lines="none"
+              button
+              detail="false"
+              data-test-id="openBtn"
+              (click)="onOpen()">
+      <ion-title slot="start"
+                 class="ion-no-padding"
+                 data-test-id="header">
+        {{header}}
+      </ion-title>
+      <ion-icon [class]="isOpen ? 'tr-05 r-180' : 'tr-05'"
+                slot="end"
+                name="chevron-down-outline"></ion-icon>
+
+    </ion-item>
+  </ion-card-title>
+
+  <ion-card-content *ngIf="isOpen"
+                    data-test-id="content">
+    <ng-content></ng-content>
+  </ion-card-content>
+</ion-card>

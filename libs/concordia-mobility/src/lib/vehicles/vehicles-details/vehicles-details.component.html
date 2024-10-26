@@ -1,0 +1,73 @@
+<ng-container *ngIf="vehicle$ | async as vehicle">
+  <concordia-ng-shared-page class="ion-page"
+                            [header]="vehicle.name">
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-lg="6">
+          <concordia-nx-ionic-vehicles-details-card [editMode]="editMode"
+                                                    [vehicle]="vehicle"
+                                                    [isLoading]="loading"
+                                                    (submitted)="updateVehicle($event)"/>
+        </ion-col>
+        <ion-col size="12" size-lg="6">
+          <concordia-nx-ionic-vehicles-map-card [vehicle]="vehicle"/>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <concordia-ng-shared-card-accordion [header]="'table.signals' | transloco">
+      <concordia-nx-ionic-signals-table [records]="vehicle.signalsConfig"
+                                        [data]="vehicle"
+                                        (changeValue)="updateVehicle($event)">
+      </concordia-nx-ionic-signals-table>
+    </concordia-ng-shared-card-accordion>
+
+    <concordia-ng-shared-card-accordion [header]="'vehicles.details.trips' | transloco">
+
+      <concordia-nx-ionic-trips-table [fleetId]="vehicle.fleetId"
+                                      [vehicleId]="vehicle._id"
+                                      [hiddenColumns]="['vehicle']"></concordia-nx-ionic-trips-table>
+
+    </concordia-ng-shared-card-accordion>
+
+    <!-- *Skeleton Templates* -->
+
+    <ng-template #headerLoadingTemplate>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 30%"></ion-skeleton-text>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+    </ng-template>
+
+    <ng-template #boxLoadingTemplate>
+      <div class="box-container">
+        <a *ngFor="let box of [1, 2, 3]"
+           class="overview-box ion-padding ion-margin">
+          <div class="box-info">
+              <span>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 30%"></ion-skeleton-text>
+              </span>
+            <ion-text>
+              <ion-skeleton-text
+                [animated]="true"
+                style="width: 15%"></ion-skeleton-text>
+            </ion-text>
+          </div>
+          <div class="box-icon">
+            <ion-thumbnail slot="end">
+              <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </ion-thumbnail>
+          </div>
+        </a>
+      </div>
+    </ng-template>
+  </concordia-ng-shared-page>
+</ng-container>

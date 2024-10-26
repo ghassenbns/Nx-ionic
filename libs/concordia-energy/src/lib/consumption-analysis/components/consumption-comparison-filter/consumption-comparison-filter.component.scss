@@ -1,0 +1,11 @@
+:host {
+  ion-chip {
+    font-size: 12px;
+  }
+
+  & .item-text-label {
+    left: 16px;
+    color: var(--ion-item-color, var(--ion-text-color, #000));
+    width: 100%;
+  }
+}

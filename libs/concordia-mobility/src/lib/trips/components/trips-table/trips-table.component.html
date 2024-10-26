@@ -1,0 +1,14 @@
+<concordia-ng-shared-data-table [actions]="actions"
+                                [canEdit]="canEdit$ | async"
+                                [canDelete]="canDelete$ | async"
+                                [filters]="filters"
+                                [hiddenColumns]="hiddenColumns"
+                                [loading]="loading"
+                                [sort]="sort"
+                                [strategy]="strategy"
+                                [tableData]="records"
+                                [smallView]="smallView"
+                                (actionEvent)="actionEvent($event)"
+                                (multiActionEvent)="multiActionEvent($event)"
+                                (loadEvent)="goTo($event)">
+</concordia-ng-shared-data-table>

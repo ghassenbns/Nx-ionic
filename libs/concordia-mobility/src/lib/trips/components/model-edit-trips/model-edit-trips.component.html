@@ -1,0 +1,9 @@
+<concordia-ng-shared-edit-item [strategy]="strategy"
+                               [model]="model"
+                               [loading]="loading"
+                               [clone]="clone"
+                               [readonlyFields]="readonlyFields"
+                               (changeValueEvent)="changeValue($event)"
+                               (editEvent)="edit($event)"
+                               (storeEvent)="clone ? onClone($event) : store($event)">
+</concordia-ng-shared-edit-item>

@@ -1,0 +1,173 @@
+@use '../../../../../styles/core/breakpoints.scss' as bp;
+//TODO : Change styles url to lib
+:host ::ng-deep {
+
+  .p-datatable-scrollable .p-frozen-column {
+    z-index: 1;
+  }
+
+  .p-datatable.p-datatable-hoverable-rows .p-datatable-tbody > tr:not(.p-highlight):hover {
+    background: var(--ion-color-light);
+  }
+
+  .p-datatable {
+    font-size: 12px;
+    font-family: var(--ion-font-family);
+
+    & ion-chip {
+      font-size: 12px;
+    }
+
+    & .p-datatable-thead > tr > th {
+      border: none;
+    }
+
+    & .p-datatable-tbody > tr > {
+      & td {
+        padding: 0 1px !important;
+        //border: none;
+        box-shadow: none;
+      }
+    }
+
+    &.p-datatable-sm {
+      & .p-datatable-header {
+        padding: 0;
+      }
+
+      .p-datatable-tbody > tr > {
+        & td {
+          padding: 0 0.375rem !important;
+          border: none;
+          box-shadow: 0 1px 0 0 var(--ion-color-light-shade) inset;
+        }
+
+      }
+    }
+
+    & .select-fill-solid {
+      --background: transpatent;
+    }
+
+    & .input-fill-solid.sc-ion-input-md-h {
+      --background: transpatent;
+    }
+
+    & .p-datatable-tbody > tr.disabled {
+      background: var(--ion-color-step-50, #f2f2f2);
+      cursor: not-allowed;
+
+      &:hover {
+        background: var(--ion-color-step-50, #f2f2f2);
+      }
+
+      & .input-fill-solid,
+      & .select-fill-solid {
+        pointer-events: none;
+        opacity: 50%;
+      }
+    }
+
+    .input-label-placement-start.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md {
+      margin-inline-end: 0 !important;
+    }
+
+    .input-fill-solid.sc-ion-input-md-h .input-wrapper.sc-ion-input-md {
+      padding-inline-start: 0 !important;
+      padding-inline-end: 0 !important;
+
+      & .native-input {
+        padding-inline-start: 0.375rem;
+        padding-inline-end: 0.375rem;
+      }
+    }
+
+    & ion-checkbox {
+      z-index: 0;
+    }
+  }
+
+  & th, & td {
+    white-space: nowrap;
+    max-width: 40%;
+    overflow: hidden;
+  }
+
+  & .p-datatable {
+    .p-paginator-bottom {
+      border-bottom: none;
+    }
+
+    .p-paginator-current {
+      margin-left: auto;
+    }
+  }
+
+  .max-width {
+    max-width: 200px;
+  }
+
+  .small-view {
+    .max-width {
+      max-width: none;
+    }
+
+    & th, & td {
+      white-space: normal;
+      max-width: none;
+    }
+
+    & .p-datatable {
+
+      &.p-datatable-sm {
+        .p-datatable-thead {
+          display: none;
+        }
+
+        .p-datatable-tbody > tr {
+          border-bottom: 1px solid var(--ion-color-light-shade);
+          display: flex;
+          flex-wrap: wrap;
+          padding-left: 16px;
+          padding-bottom: 4px;
+
+          > td {
+            border: 0 none !important;
+            width: 100%;
+            box-shadow: none;
+          }
+        }
+
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: bp.$breakpoint-lg) {
+  :host ::ng-deep {
+    .max-width {
+      max-width: none;
+    }
+
+    & th, & td {
+      white-space: normal;
+      max-width: none;
+    }
+
+    .p-datatable {
+      &.p-datatable-sm {
+        .p-datatable-tbody > tr {
+          border-bottom: 1px solid var(--ion-color-light-shade);
+          display: flex;
+          flex-wrap: wrap;
+          > td {
+            border: 0 none !important;
+            width: 100%;
+            box-shadow: none;
+          }
+        }
+      }
+    }
+  }
+}

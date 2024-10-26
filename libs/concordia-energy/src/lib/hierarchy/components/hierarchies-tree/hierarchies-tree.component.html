@@ -1,0 +1,70 @@
+<!--items: {{items | json}}-->
+<p-treeTable [value]="items"
+             [columns]="cols"
+             [loading]="loading"
+             [scrollable]="true"
+             [tableStyle]="{'width':'100%'}"
+             [(selection)]="selectedNode"
+             selectionMode="single"
+             dataKey="name"
+             (onNodeSelect)="nodeSelect($event)"
+             (onNodeUnselect)="nodeUnselect()">
+  <ng-template pTemplate="header"
+               let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{ col.header }}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body"
+               let-rowNode
+               let-rowData="rowData"
+               let-columns="columns">
+    <tr [ttRow]="rowNode"
+        [ttSelectableRow]="rowNode">
+      <td *ngFor="let col of columns; let i = index">
+        <p-treeTableToggler [rowNode]="rowNode"
+                            *ngIf="i === 0"/>
+
+        <ng-container [ngSwitch]="col.type">
+
+          <ng-container *ngSwitchCase="'string'">
+            {{ rowData[col.field] }}
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'icon'">
+            <ion-icon *ngIf="rowData[col.field]"
+                      name="eye-outline"
+                      size="large"
+                      title="Public"
+                      color="success"></ion-icon>
+
+            <ion-icon *ngIf="!rowData[col.field]"
+                      name="eye-off-outline"
+                      size="large"
+                      title="Private"
+                      color="dark"></ion-icon>
+          </ng-container>
+        </ng-container>
+
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="loadingbody"
+               let-row>
+    <tr>
+      <td>
+        <span class="p-buttonset"><p-skeleton></p-skeleton></span>
+      </td>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td>
+        {{ 'table.noDataFound' | transloco }}
+      </td>
+    </tr>
+  </ng-template>
+</p-treeTable>

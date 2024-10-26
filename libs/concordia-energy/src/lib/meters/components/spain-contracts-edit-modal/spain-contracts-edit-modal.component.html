@@ -1,0 +1,83 @@
+<concordia-ng-shared-edit-item modelIdField="meterContractId"
+                               [strategy]="strategy"
+                               [model]="model"
+                               [modalId]="modalId"
+                               [loading]="loading"
+                               [readonlyFields]="readonlyFields"
+                               (changeValueEvent)="changeValue($event)"
+                               (editEvent)="edit($event)"
+                               (storeEvent)="store($event)"
+>
+
+  <ng-container body>
+    <form #f="ngForm">
+      <ng-container *ngIf="contractedPower.length">
+        <ion-row class="ion-padding-horizontal">
+          <ion-col>
+            <h4>{{ 'table.contractedPower' | transloco }} :</h4>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          <ng-container *ngFor="let power of contractedPower; index as idx">
+            <ion-col sizeLg="4"
+                     [ngModelGroup]="power.uuid">
+              <ion-item lines="none">
+
+                <ion-input
+                        [(ngModel)]="power.value"
+                        [label]="('table.contractedPowerValue' | transloco) + (idx+1)"
+                        [required]="true"
+                        concordiaNxIonicTypeValidator="number"
+                        [errorText]="'errors.invalidField' | transloco"
+                        type="number"
+                        label-placement="floating"
+                        name="value"
+                        aria-label="value">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+
+          </ng-container>
+        </ion-row>
+
+      </ng-container>
+
+      <ng-container *ngIf="energyPrice.length">
+        <ion-row class="ion-padding-horizontal">
+          <ion-col>
+            <h4>{{ 'table.energyPrice' | transloco }} :</h4>
+          </ion-col>
+
+        </ion-row>
+
+        <ion-row>
+          <ng-container *ngFor="let price of energyPrice; index as idx">
+            <ion-col sizeLg="4"
+                     [ngModelGroup]="price.uuid">
+              <ion-item lines="none">
+
+                <ion-input
+                        [(ngModel)]="price.value"
+                        [label]="('table.energyPriceValue' | transloco) + (idx+1)"
+                        [required]="true"
+                        concordiaNxIonicTypeValidator="number"
+                        [errorText]="'errors.invalidField' | transloco"
+                        type="number"
+                        label-placement="floating"
+                        name="value"
+                        aria-label="value">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+
+          </ng-container>
+        </ion-row>
+
+      </ng-container>
+
+    </form>
+  </ng-container>
+
+</concordia-ng-shared-edit-item>

@@ -1,0 +1,121 @@
+<ion-header [ngClass]="{ 'hidden-header': !userPage() || (hidePageElement$ | async) }"
+            [translucent]="true"
+            data-test-id="navbar"
+            collapse="fade"
+            mode="md">
+  <ion-toolbar>
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-align-items-center ion-justify-content-between ion-nowrap">
+        <ion-col>
+          <ion-row class="ion-align-items-center ion-nowrap">
+            <ion-col size="auto">
+              <ion-toolbar>
+                <ion-buttons slot="start">
+                  <ion-button class="ion-hide-lg-down"
+                              data-test-id="toggleMenuBtn"
+                              (click)="onToggle()">
+                    <ion-icon slot="icon-only"
+                              name="menu"></ion-icon>
+                  </ion-button>
+                  <ion-menu-button class="ion-hide-lg-up"
+                                   autoHide="false">
+                  </ion-menu-button>
+                </ion-buttons>
+              </ion-toolbar>
+            </ion-col>
+
+            <ion-col>
+              <ion-title class="px-8">
+                <a class="logo"
+                   routerLink="/">
+                  <ion-img *ngIf="(theme$ | async) as theme"
+                           src="assets/logo/{{ customerName.toLowerCase() }}_{{theme}}.{{logoFormat}}"
+                           [alt]="customerName"></ion-img>
+                </a>
+              </ion-title>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+        <ion-col size="6">
+          <concordia-ng-shared-user-menu [name]="name"
+                                         [darkTheme]="darkTheme"
+                                         [loading]="loading"
+                                         (toggleTheme)="onToggleTheme($event)"
+                                         (logout)="logOut()">
+          </concordia-ng-shared-user-menu>
+        </ion-col>
+
+        <ion-col *ngIf="helpPanel "
+                 size="fix">
+          <ion-button class="ion-hide-lg-down"
+                      fill="clear"
+                      color="dark"
+                      (click)="onToggleHelpPanel()">
+            <ion-icon slot="icon-only"
+                      name="help-outline">
+            </ion-icon>
+          </ion-button>
+          <ion-button class="ion-hide-lg-up"
+                      fill="clear"
+                      color="dark"
+                      (click)="onToggleHelpMenu()">
+            <ion-icon slot="icon-only"
+                      name="help-outline">
+            </ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-split-pane *ngIf="{ hidePageElement: hidePageElement$ | async } as data"
+                [ngClass]="{ 'show-split-panel': showMenu$ | async,
+                'hidden-menu': !userPage() || data.hidePageElement}"
+                contentId="main"
+                class="h-100">
+  <ion-menu contentId="main">
+    <ion-list>
+      <concordia-ng-shared-main-menu [menus]="menus"
+                                     [activeUrl]="activeUrl">
+      </concordia-ng-shared-main-menu>
+    </ion-list>
+    <div class="menu-footer">
+      <ion-grid class="ion-no-margin ion-no-padding">
+        <ion-row class="ion-no-margin ion-no-padding ion-justify-content-between">
+          <ion-col class="ion-no-margin ion-no-padding small-start-padding">
+            <concordia-ng-shared-app-version [versionNumber]="appVersion"
+                                             versionPrefix="{{ 'appVersion.prefix' | transloco }}"></concordia-ng-shared-app-version>
+          </ion-col>
+          <ion-col class="ion-no-margin ion-no-padding small-end-padding">
+            <concordia-ng-shared-app-version [versionNumber]="apiVersion"
+                                             versionPrefix="{{ 'apiVersion.prefix' | transloco }}"></concordia-ng-shared-app-version>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-menu>
+
+  <div id="main"
+       class="ion-page">
+    <ion-row class="w-100 h-100">
+      <ion-col>
+        <ion-router-outlet></ion-router-outlet>
+      </ion-col>
+      <ion-col *ngIf="!data.hidePageElement"
+               class="ion-no-padding ion-hide-lg-down h-100"
+               size="auto">
+        <ion-content @animationTrigger
+                     *ngIf="showHelpPanel$ | async"
+                     class="panel">
+          <ng-container *ngTemplateOutlet="helpBlock"></ng-container>
+        </ion-content>
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-split-pane>
+
+<ng-template #helpBlock>
+  <concordia-ng-shared-help-container></concordia-ng-shared-help-container>
+</ng-template>

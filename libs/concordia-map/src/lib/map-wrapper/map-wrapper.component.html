@@ -1,0 +1,28 @@
+<ng-container *ngIf="{theme: theme$|async,
+renderIt: renderIt} as uiData">
+
+  <concordia-map
+          *ngIf="uiData.renderIt"
+          #concordiaMap
+          [ngClass]="{'dark':uiData.theme==='dark'}"
+          [data]="data"
+          [mapOptions]="_mapOptions"
+          [editMode]="editMode"
+          [enableGeocoding]="enableGeocoding"
+          [enableFullScreen]="enableFullScreen"
+          [enablePopup]="enablePopup"
+          [enableSelection]="enableSelection"
+          [enableMarkerControl]="enableMarkerControl"
+          [allowMultiPointCreation]="allowMultiPointCreation"
+          [orsToken]="orsToken"
+          [symbolLayerPaint]="symbolLayerPaint"
+          [maxFitZoom]="maxFitZoom"
+          (dataUpdate)="onDataUpdate($event)"
+          (selectedPoint)="onSelectedPoint($event)"
+          (mouseEnterMarker)="onMouseEnterMarker($event)"
+          (mouseLeaveMarker)="onMouseLeaveMarker($event)"
+          (loaded)="onLoaded($event)">
+  </concordia-map>
+
+</ng-container>
+<!--  <span>{{ _mapOptions|json }}</span>-->

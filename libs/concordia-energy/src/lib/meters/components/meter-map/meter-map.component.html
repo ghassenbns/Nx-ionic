@@ -1,0 +1,22 @@
+<ng-container *ngIf="!isLoading; else loadingTemplate">
+
+  <concordia-nx-ionic-map #mapComponent
+                          style="height: 300px"
+                          [mapOptions]="mapOptions"
+                          [maxFitZoom]=mapOptions.zoom
+                          [data]="meterLocation"
+                          [enableSelection]="false"
+                          [enableFullScreen]="false"
+                          [showMap]="showMap"
+  ></concordia-nx-ionic-map>
+</ng-container>
+
+
+<!-- *Loading Skeleton template* -->
+<ng-template #loadingTemplate>
+
+  <ion-skeleton-text [animated]="true"
+                     style="height: 100%;"></ion-skeleton-text>
+
+</ng-template>
+<!-- </concordia-ng-shared-card> -->

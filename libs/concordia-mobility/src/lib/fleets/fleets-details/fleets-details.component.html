@@ -1,0 +1,62 @@
+<ng-container *ngIf="{fleet: fleet$ | async } as data">
+  <concordia-ng-shared-page class="ion-page"
+                            [header]="data.fleet?.name || ''">
+
+    <concordia-nx-ionic-fleet-small-cards [fleet]="data.fleet">
+    </concordia-nx-ionic-fleet-small-cards>
+
+    <concordia-nx-ionic-fleet-edit [fleet]="data.fleet"
+                                   [loading]="loading"
+                                   (submitted)="updateFleet($event)">
+    </concordia-nx-ionic-fleet-edit>
+
+    <concordia-ng-shared-card-accordion *ngIf="!loading; else accordionLoadingTemplate"
+                                        [header]="'fleets.details.vehicles' | transloco">
+
+      <concordia-nx-ionic-vehicles-table *ngIf="data.fleet && data.fleet._id"
+                                         [fleetId]="data.fleet._id"
+                                         [hiddenColumns]="['fleet']"
+                                         (submitted)="getFleet(data.fleet._id)">
+      </concordia-nx-ionic-vehicles-table>
+
+    </concordia-ng-shared-card-accordion>
+
+    <concordia-ng-shared-card-accordion *ngIf="!loading; else accordionLoadingTemplate"
+                                        [header]="'fleets.details.drivers' | transloco">
+
+      <concordia-nx-ionic-drivers-table *ngIf="data.fleet && data.fleet._id"
+                                        [fleetId]="data.fleet._id"
+                                        [hiddenColumns]="['fleet']"
+                                        (submitted)="getFleet(data.fleet._id)">
+      </concordia-nx-ionic-drivers-table>
+
+    </concordia-ng-shared-card-accordion>
+
+    <concordia-ng-shared-card-accordion *ngIf="!loading; else accordionLoadingTemplate"
+                                        [header]="'fleets.details.trips' | transloco">
+
+      <concordia-nx-ionic-trips-table *ngIf="data.fleet && data.fleet._id"
+                                      [fleetId]="data.fleet._id"
+                                      [hiddenColumns]="['fleet']"
+                                      (submitted)="getFleet(data.fleet._id)">
+      </concordia-nx-ionic-trips-table>
+
+    </concordia-ng-shared-card-accordion>
+
+  </concordia-ng-shared-page>
+</ng-container>
+
+<!-- *Skeleton Templates* -->
+
+<ng-template #accordionLoadingTemplate>
+  <ion-accordion
+    [disabled]="true"
+    class="ion-margin-vertical">
+    <ion-item
+      slot="header"
+      color="light"
+      lines="none">
+      <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+    </ion-item>
+  </ion-accordion>
+</ng-template>

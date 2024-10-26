@@ -1,0 +1,12 @@
+<concordia-ng-shared-data-table [loading]="loading"
+                                [actionsLoading]="!!(loadingEntity$ | async)"
+                                [canEdit]="canEdit$ | async"
+                                [canDelete]="canDelete$ | async"
+                                [tableData]="records"
+                                [strategy]="strategy"
+                                [filters]="filters"
+                                [sort]="sort"
+                                (actionEvent)="actionEvent($event)"
+                                (multiActionEvent)="multiActionEvent($event)"
+                                (loadEvent)="goTo($event)">
+</concordia-ng-shared-data-table>

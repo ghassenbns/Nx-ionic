@@ -1,0 +1,237 @@
+.h-100 {
+  height: 100% !important;
+}
+
+.mxh-200px {
+  max-height: 200px;
+}
+
+.w-auto {
+  width: auto !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.w-50 {
+  width: 50% !important;
+}
+
+.mxw-100 {
+  max-width: 100%;
+}
+
+.yyy * {
+  outline: 1px solid red;
+}
+
+// cursor
+.cursor-pointer {
+  cursor: pointer;
+}
+
+// margin
+.pt-4 {
+  padding-top: 4px;
+}
+
+.pt-8 {
+  padding-top: 8px;
+}
+
+.mr--16 {
+  margin-right: -16px;
+}
+
+.mr--8 {
+  margin-right: -8px;
+}
+
+.mb-8 {
+  margin-bottom: 8px;
+}
+
+.mx-8 {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+// padding
+.p-8 {
+  padding: 8px;
+}
+
+.p-0 {
+  padding: 0px;
+}
+
+.py-8 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.px-8 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.pt-20 {
+  padding-top: 20px;
+}
+
+.pb-8 {
+  padding-bottom: 8px;
+}
+
+// border
+.bb-1 {
+  border-bottom: 1px var(--border-style) var(--border-color);
+}
+
+.bt-1 {
+  border-top: 1px var(--border-style) var(--border-color);
+}
+
+.br-1 {
+  border-right: 1px var(--border-style) var(--border-color);
+}
+
+.bl-1 {
+  border-left: 1px var(--border-style) var(--border-color);
+}
+
+// transition
+.tr-05 {
+  transition: transform .5s;
+}
+
+// transform
+.r-180 {
+  transform: rotate(180deg);
+}
+
+//ellipsis
+.text-truncate,
+.text-truncate .native-input {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-decoration-none {
+  text-decoration: none;
+}
+
+.text-decoration-line-through {
+  text-decoration: line-through;
+}
+
+.text-label {
+  display: block;
+  margin-bottom: 8px;
+  transform: translateY(50%) scale(0.75);
+  transform-origin: left top;
+}
+
+.text-error {
+  color: var(--ion-color-danger);
+}
+
+// positions
+.p-sticky {
+  position: sticky;
+  top: 0;
+}
+
+.p-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.p-relative {
+  position: relative;
+}
+
+// overflow
+.overflow-hidden {
+  overflow: hidden !important;
+}
+
+.overflow-auto {
+  overflow: auto !important;
+}
+
+// ion-icon size
+ion-icon.is-24 {
+  font-size: 24px;
+}
+
+// z-index
+.z-1 {
+  z-index: 1;
+}
+
+// display
+.d-flex {
+  display: flex;
+}
+
+.d-block {
+  display: block;
+}
+
+.flex-direction {
+  flex-direction: column;
+}
+
+// freezeToggle
+.freezeToggle {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    display: block;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    cursor: pointer;
+  }
+}
+
+
+// text-align
+.text-left {
+  text-align: left !important;
+}
+
+.text-right {
+  text-align: right !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+//
+.b-base {
+  background: var(--ion-card-background);
+}

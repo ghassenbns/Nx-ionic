@@ -1,0 +1,47 @@
+<div class="p-relative h-100 w-100 ion-padding-bottom"
+     (dblclick)="doubleClick()">
+  <div *ngIf="false && chartData?.datasets?.length"
+       class="type-toggle btn-block">
+    <ion-button [disabled]="this.chartType === 'line'"
+                [title]="'chartType.line' | transloco"
+                [fill]="this.chartType === 'line' ? 'solid' : 'clear'"
+                size="small"
+                (click)="onChangeChartType('line')">
+      <ion-icon slot="icon-only"
+                name="analytics-outline"></ion-icon>
+    </ion-button>
+    <ion-button [disabled]="this.chartType === 'bar'"
+                [title]="'chartType.bar' | transloco"
+                [fill]="this.chartType === 'bar' ? 'solid' : 'clear'"
+                size="small"
+                (click)="onChangeChartType('bar')">
+      <ion-icon slot="icon-only"
+                name="stats-chart-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <ion-row class="h-100 w-100 ion-justify-content-center ion-align-items-center">
+    <canvas #lineCanvas
+            style="max-width: 100%; height: 500px;">{{ chart }}</canvas>
+  </ion-row>
+
+  <ion-progress-bar *ngIf="loading && chartData?.datasets?.length"
+                    class="p-absolute z-1"
+                    type="indeterminate"></ion-progress-bar>
+
+  <ion-row *ngIf="!chartData?.datasets?.length && !loading"
+           class="p-absolute h-100 w-100 ion-justify-content-center ion-align-items-center b-base">
+    <ion-text color="medium ion-text-center">
+      <ion-icon name="bar-chart-outline"
+                size="large"
+                class="ion-margin-bottom"></ion-icon>
+      <br>
+      {{ 'table.noDataFound' | transloco }}
+    </ion-text>
+  </ion-row>
+
+  <ion-skeleton-text *ngIf="loading && !chartData?.datasets?.length"
+                     [animated]="true"
+                     class="p-absolute h-100 w-100 ion-no-margin"></ion-skeleton-text>
+
+</div>

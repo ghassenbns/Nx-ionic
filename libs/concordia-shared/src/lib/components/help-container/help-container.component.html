@@ -1,0 +1,36 @@
+<ion-toolbar class="bb-1 ion-no-padding"
+             lines="none">
+  <ion-title class="cursor-pointer"
+             (click)="reset()">
+    <ion-icon name="help-outline"/>
+    {{'global.help' | transloco}}
+  </ion-title>
+  <ion-buttons slot="end">
+    <ion-button (click)="closeRightMenuPanel()">
+      <ion-icon name="close-outline"
+                slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-buttons>
+</ion-toolbar>
+
+<concordia-ng-shared-help [page]="helpPanel$ | async"
+                          [subPage]="helpSubPanel$ | async"
+                          [theme]="theme$ | async"
+                          [data]="helpData$ | async"
+                          [lang]="lang$ | async"></concordia-ng-shared-help>
+
+<ion-item class="bt-1 mt-auto w-100"
+          lines="none">
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row class="ion-no-margin ion-no-padding ion-justify-content-between">
+      <ion-col class="ion-no-margin ion-no-padding small-start-padding">
+        <concordia-ng-shared-app-version [versionNumber]="appVersion"
+                                         versionPrefix="{{ 'appVersion.prefix' | transloco }}"></concordia-ng-shared-app-version>
+      </ion-col>
+      <ion-col class="ion-no-margin ion-no-padding small-end-padding">
+        <concordia-ng-shared-app-version [versionNumber]="(apiVersion$ | async) ?? ''"
+                                         versionPrefix="{{ 'apiVersion.prefix' | transloco }}"></concordia-ng-shared-app-version>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-item>

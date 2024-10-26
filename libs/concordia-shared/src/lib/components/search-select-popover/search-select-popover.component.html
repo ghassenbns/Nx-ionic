@@ -1,0 +1,51 @@
+<ion-searchbar [(ngModel)]="search"></ion-searchbar>
+
+<ion-list lines="none">
+  <ng-container *ngIf="groupField">
+    <ng-container *ngFor="let group of groupOptions | keyvalue">
+      <ng-container *ngIf="group.value as options">
+        <ion-item *ngIf="showGroupTitle(options, search)"
+                  [button]="false"
+                  [detail]="false"
+                  data-test-id="group">
+<!--          todo maybe will add some params-->
+          <b [transloco]="groupField + '.'+ group.key"></b>
+        </ion-item>
+
+        <ion-content *ngFor="let option of group.value">
+          <ion-item *ngIf="showItemTitle(option[field]+'', search)"
+                    [button]="true"
+                    [detail]="false"
+                    data-test-id="item"
+                    (click)="onSelectOption(option)">
+              <ion-text class="text-truncate">
+                  {{option[field]}}
+              </ion-text>
+          </ion-item>
+        </ion-content>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="!groupField">
+    <ion-content *ngFor="let option of options">
+      <ion-item *ngIf="!search || showItemTitle(option[field]+'', search)"
+                [button]="true"
+                [detail]="false"
+                [disabled]="option.hidden"
+                data-test-id="item"
+                (click)="onSelectOption(option)">
+          <ion-text class="text-truncate"
+                    [title]="option[field]">
+              {{option[field]}}
+          </ion-text>
+      </ion-item>
+    </ion-content>
+  </ng-container>
+
+  <ng-container *ngIf="!options.length || noData(options, search)">
+    <ion-item>
+      No data found.
+    </ion-item>
+  </ng-container>
+</ion-list>

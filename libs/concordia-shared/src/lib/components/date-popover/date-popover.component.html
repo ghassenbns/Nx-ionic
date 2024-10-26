@@ -1,0 +1,17 @@
+<ngx-daterangepicker-material *ngIf="startDate && endDate"
+                              [timePicker]="true"
+                              [timePicker24Hour]="timePicker24Hour"
+                              [timePickerSeconds]="timePickerSeconds"
+                              [singleDatePicker]="singleDatePicker"
+                              [startDate]="startDate"
+                              [endDate]="endDate"
+                              [locale]="locale"
+                              [ranges]="singleDatePicker ? [] : ranges"
+                              [showCustomRangeLabel]="!singleDatePicker"
+                              [alwaysShowCalendars]="true"
+                              [linkedCalendars]="true"
+                              [showClearButton]="false"
+                              [minDate]="minDate"
+                              [maxDate]="maxDate"
+                              (datesUpdated)="chosenDate($event)">
+</ngx-daterangepicker-material>

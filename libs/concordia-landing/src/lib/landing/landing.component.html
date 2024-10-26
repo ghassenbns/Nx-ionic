@@ -1,0 +1,14 @@
+<concordia-ng-shared-page>
+  <ion-grid class="full-height">
+    <ion-row class="ion-justify-content-center full-height">
+      <ion-col size="12"
+               sizeMd="6"
+               class="ion-align-self-center">
+        <ion-img *ngIf="customerName && (theme$ | async) as theme"
+                 class="landing-background"
+                 alt="{{ customerName }}"
+                 src="assets/bg/{{ getUrl(theme) | lowercase}}"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</concordia-ng-shared-page>

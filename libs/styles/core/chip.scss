@@ -1,0 +1,11 @@
+@for $i from 1 to 12 {
+  ion-chip.chip-type-#{$i} {
+    --background: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), .12);
+    --color: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 1);
+  }
+
+  body.dark ion-chip.chip-type-#{$i} {
+    --background: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), .2);
+    --color: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 1);
+  }
+}

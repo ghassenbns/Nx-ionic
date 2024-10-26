@@ -1,0 +1,184 @@
+<concordia-ng-shared-card
+  [cardConfig]="cardConfig"
+  [editMode]="editMode"
+  (isEditingEvent)="onEditModal($event,trip)">
+  <ng-container *ngIf="!isLoading; else loadingTemplate">
+    <ion-list class="ion-padding-vertical">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <ion-col size="12" size-md="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.name' | transloco }}
+                </p>
+                <p class="text-truncate ion-no-margin"
+                   [title]="trip.name">
+                  {{ trip.name }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.description' | transloco }}
+                </p>
+                <p class="text-truncate ion-no-margin"
+                   [title]="trip.description">
+                  {{ trip.description }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.fleet' | transloco }}
+                </p>
+                <p class="text-truncate ion-no-margin"
+                   [title]="trip.fleetDetails?.name">
+                  {{ trip.fleetDetails?.name }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.status' | transloco }}
+                </p>
+                <ion-chip class="pe-none chip-type-{{trip.tripStatusDetails.tripStatusId }}">
+                  {{trip.tripStatusDetails.label  }}
+                </ion-chip>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.plannedStartDate' | transloco }}
+                </p>
+                <p class="text-truncate ion-no-margin"
+                   [title]="trip.plannedStartDate | userDate | async">
+                  {{ trip.plannedStartDate | userDate | async }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.plannedEndDate' | transloco }}
+                </p>
+                <p class="text-truncate ion-no-margin"
+                   [title]="trip.plannedEndDate | userDate | async">
+                  {{ trip.plannedEndDate | userDate | async }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.actualStartDate' | transloco }}
+                </p>
+                <p *ngIf="trip.actualStartDate; else emptyBlock"
+                   class="text-truncate ion-no-margin"
+                   [title]="trip.actualStartDate | userDate | async">
+                  {{ trip.actualStartDate | userDate  | async}}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.actualEndDate' | transloco }}
+                </p>
+                <p *ngIf="trip.actualEndDate; else emptyBlock"
+                   class="text-truncate ion-no-margin"
+                   [title]="trip.actualEndDate | userDate | async">
+                  {{ trip.actualEndDate | userDate | async}}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.vehicle' | transloco }}
+                </p>
+                <p *ngIf="trip.vehicleDetails?.name; else emptyBlock"
+                   class="text-truncate ion-no-margin"
+                   [title]="trip.vehicleDetails?.name ">
+                  {{ trip.vehicleDetails?.name }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.vehicleRegistrationNumber' | transloco }}
+                </p>
+                <p *ngIf="trip.vehicleDetails?.registrationNumber; else emptyBlock"
+                   class="text-truncate ion-no-margin"
+                   [title]="trip.vehicleDetails?.registrationNumber ">
+                  {{ trip.vehicleDetails?.registrationNumber }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col size="12" size-md="6">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'table.vehicleRegistrationNumber' | transloco }}
+                </p>
+                <p *ngIf="trip.driverDetails?.name; else emptyBlock"
+                   class="text-truncate ion-no-margin"
+                   [title]="trip.driverDetails?.name ">
+                  {{ trip.driverDetails?.name }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </ion-list>
+  </ng-container>
+
+  <!-- *Loading Skeleton template* -->
+  <ng-template #loadingTemplate>
+    <ion-list>
+      <ion-item
+        *ngFor="let line of [1, 2, 3, 4, 5]"
+        lines="none">
+        <ion-skeleton-text
+          [animated]="true"
+          style="width: 20%"></ion-skeleton-text>
+        <ion-skeleton-text
+          [animated]="true"
+          class="ion-margin-start"
+          style="width: 80%"></ion-skeleton-text>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+</concordia-ng-shared-card>
+
+<ng-template #emptyBlock>
+  <ion-text color="medium">
+    {{ 'global.n/a' | transloco }}
+  </ion-text>
+</ng-template>

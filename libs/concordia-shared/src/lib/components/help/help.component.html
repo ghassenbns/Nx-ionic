@@ -1,0 +1,15 @@
+<div class="ion-padding">
+  <markdown *ngIf="data"
+            concordiaNxIonicClickStopPropagation
+            [data]="setTheme(data, theme)">
+  </markdown>
+
+  <ion-card *ngIf="(error$ | async) && !data"
+            color="danger">
+    <ion-card-content>
+      {{'global.helpError'  | transloco}}
+    </ion-card-content>
+  </ion-card>
+</div>
+
+

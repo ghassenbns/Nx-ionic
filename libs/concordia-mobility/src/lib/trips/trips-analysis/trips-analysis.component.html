@@ -1,0 +1,310 @@
+<ng-container *ngIf="{
+  trip: trip$ | async,
+  loading: loading$ | async,
+  format: format$ | async,
+  vehiclesData: vehiclesData$ | async,
+  vehiclesFuelLevelData: vehiclesFuelLevelData$ | async,
+  loadingSignalsData: loadingSignalsData$ | async,
+  loadingMapData: loadingMapData$ | async,
+  vehicleSignalTypeGroupName: vehicleSignalTypeGroupName$ | async,
+  vehiclesSignalTypeGroups: vehiclesSignalTypeGroupsFiltered$ | async,
+  vehiclesCountSignals: vehiclesCountSignals$ | async,
+  vehiclesDurationSignals: vehiclesDurationSignals$ | async,
+  loadingCountOrDurationSignals: loadingCountOrDurationSignals$ | async,
+  isSummaryEventsData: isSummaryEventsData$ | async,
+  chartTime: chartTime$ | async,
+  trajectoryTime: trajectoryTime$ | async,
+  zoomTime: zoomTime$ | async
+} as data">
+  <concordia-ng-shared-page class="ion-page"
+                            [helpMenu]="false">
+    <div class="d-grid h-100">
+      <ion-grid class="py-8 w-100">
+        <ion-row class="ion-justify-content-between">
+          <ion-col size="11"
+                   sizeLg="12"
+                   class="ion-no-padding">
+
+            <ion-row class="ion-align-items-center ion-justify-content-between">
+              <ion-col sizeLg="auto"
+                       size="12"
+                       class="ion-no-padding">
+                <ion-row class="ion-align-items-center">
+                  <ion-col size="auto"
+                           class="ion-no-padding">
+                    <ion-title class="ion-no-padding">
+                      <ion-chip class="pe-none chip-type-{{data?.trip?.tripStatusDetails?.tripStatusId }}">
+                        <ion-skeleton-text *ngIf="data.loading"
+                                          [animated]="true"
+                                          style="width: 40px;"></ion-skeleton-text>
+                        <ng-container *ngIf="!data.loading && data.trip">
+                          {{data.trip.tripStatusDetails.label}}
+                        </ng-container>
+                      </ion-chip>
+                    </ion-title>
+                  </ion-col>
+
+                  <ion-col>
+                    <ion-title class="ion-no-padding">
+                      <ion-skeleton-text *ngIf="data.loading"
+                                         [animated]="true"
+                                         style="width: 50%; height: 50%;"></ion-skeleton-text>
+
+                      <ng-container *ngIf="!data.loading && data.trip && data.trip.name;" >
+                        {{ data.trip.name }}
+                      </ng-container>
+                    </ion-title>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+
+              <ion-col size="12"
+                       sizeLg="auto"
+                       class="ion-no-padding">
+                <ion-row>
+                  <ion-col size="auto">
+                    <ion-icon name="alarm-outline"
+                              color="success"></ion-icon>
+                  </ion-col>
+
+                  <ion-col class="text-truncate">
+                    <ion-skeleton-text *ngIf="data.loading"
+                                      [animated]="true"
+                                      style="width: 100px;"></ion-skeleton-text>
+
+                    <ng-container *ngIf="!data.loading && data.trip">
+                      <ion-text *ngIf="data.trip.actualStartDate ?? data.trip.plannedStartDate as date">
+                        {{ date | userDate | async }}
+                      </ion-text>
+
+                      <ion-text *ngIf="data.trip.actualStartDate"
+                                color="medium">
+                        <sup class="text-decoration-line-through">
+                          {{ data.trip.plannedStartDate | userDate | async }}
+                        </sup>
+                      </ion-text>
+                    </ng-container>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+
+              <ion-col size="12"
+                       sizeLg="auto"
+                       class="ion-no-padding">
+                <ion-row>
+                  <ion-col size="auto">
+                    <ion-icon name="alarm-outline"
+                              color="danger"></ion-icon>
+                  </ion-col>
+
+                  <ion-col class="text-truncate">
+                    <ion-skeleton-text *ngIf="data.loading"
+                                       [animated]="true"
+                                       style="width: 100px;"></ion-skeleton-text>
+
+                    <ng-container *ngIf="!data.loading && data.trip">
+                      <ion-text *ngIf="data.trip.actualEndDate ?? data.trip.plannedEndDate as date">
+                        {{ date | userDate | async }}
+                      </ion-text>
+
+                      <ion-text *ngIf="data.trip.actualEndDate"
+                                color="medium">
+                        <sup class="text-decoration-line-through">
+                          {{ data.trip.plannedEndDate | userDate | async }}
+                        </sup>
+                      </ion-text>
+                    </ng-container>
+                  </ion-col>
+                </ion-row>
+              </ion-col>
+              <ion-col>
+                <ion-row class="ion-align-items-center ion-justify-content-between">
+                  <ion-col class="text-truncate">
+                    <ion-row>
+                      <ion-col class="ion-no-padding text-truncate">
+                        <concordia-ng-shared-small-button [id]="data?.trip?.driverDetails?._id"
+                                                          [content]="data?.trip?.driverDetails?.name"
+                                                          [loading]="!!data.loading"
+                                                          icon="man-outline"
+                                                          icon_color="success"
+                                                          link="drivers">
+                        </concordia-ng-shared-small-button>
+                      </ion-col>
+
+                      <ion-col class="ion-no-padding text-truncate">
+                        <concordia-ng-shared-small-button [id]="data?.trip?.vehicleDetails?._id"
+                                                          [content]="data?.trip?.vehicleDetails?.name"
+                                                          [loading]="!!data.loading"
+                                                          icon="car-outline"
+                                                          icon_color="primary"
+                                                          link="vehicles">
+                        </concordia-ng-shared-small-button>
+                      </ion-col>
+
+                      <ion-col class="ion-no-padding text-truncate">
+                        <concordia-ng-shared-small-button [id]="data.trip?.fleetDetails?._id"
+                                                          [content]="data?.trip?.fleetDetails?.name"
+                                                          [loading]="!!data.loading"
+                                                          icon="bus-outline"
+                                                          icon_color="danger"
+                                                          link="fleets">
+                        </concordia-ng-shared-small-button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-col>
+
+                  <ion-col size="auto"
+                          class="ion-no-padding ion-hide-lg-down">
+                      <ion-col size="auto" class="ion-hide-lg-up ion-no-padding">
+                        <ion-button fill="clear"
+                                    color="primary"
+                                    class="ion-no-margin"
+                                    (click)="onShowRightMenu()">
+                          <ion-icon slot="icon-only"
+                                    name="trail-sign-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+
+                      <ion-col size="auto"
+                              class="ion-hide-lg-down ion-no-padding">
+                        <ion-button fill="clear"
+                                    color="primary"
+                                    class="ion-no-margin"
+                                    (click)="onShowRightPanel()">
+                        <ion-icon slot="icon-only"
+                                  name="trail-sign-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+
+                      <ion-col *ngIf="data?.trip?._id && canChange(data?.trip)"
+                              size="auto"
+                              class="ion-no-padding">
+                        <ion-button [disabled]="data.loading || data.loadingSignalsData || data.loadingMapData"
+                                    fill="clear"
+                                    color="primary"
+                                    class="ion-no-margin"
+                                    (click)="reloadTrip(data?.trip?._id)">
+                          <ion-icon slot="icon-only"
+                                    name="refresh-outline"></ion-icon>
+                        </ion-button>
+                      </ion-col>
+                  </ion-col>
+
+                </ion-row>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+
+          <ion-col size="1"
+                   class="ion-no-padding ion-hide-lg-up">
+            <ion-row>
+              <ion-col size="auto"
+                       class="ion-hide-lg-up ion-no-padding">
+                <ion-button fill="clear"
+                            color="primary"
+                            class="ion-no-margin"
+                            (click)="onShowRightMenu()">
+                  <ion-icon slot="icon-only"
+                            name="trail-sign-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="auto"
+                       class="ion-hide-lg-down ion-no-padding">
+                <ion-button fill="clear"
+                            color="primary"
+                            class="ion-no-margin"
+                            (click)="onShowRightPanel()">
+                <ion-icon slot="icon-only"
+                          name="trail-sign-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+
+              <ion-col *ngIf="data?.trip?._id && canChange(data?.trip)"
+                       size="auto"
+                       class="ion-no-padding">
+                <ion-button [disabled]="data.loading || data.loadingSignalsData || data.loadingMapData"
+                            fill="clear"
+                            color="primary"
+                            class="ion-no-margin"
+                            (click)="reloadTrip(data?.trip?._id)">
+                  <ion-icon slot="icon-only"
+                            name="refresh-outline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+
+      </ion-grid>
+
+      <ion-grid class="container py-0 h-100">
+        <ion-row style="height: calc(100% - 260px);">
+          <ion-col size="12"
+                   size-md="6">
+            <concordia-nx-ionic-time-series-chart [title]="'trip.analysis.signalsData' | transloco "
+                                                  [data]="data.vehiclesData || []"
+                                                  [vehicleSignalTypeName]="data.vehicleSignalTypeGroupName || ''"
+                                                  [loading]="!!data.loadingSignalsData"
+                                                  [format]="data.format ?? ''"
+                                                  [group]="data.vehiclesSignalTypeGroups"
+                                                  [linkedTime]="data.trajectoryTime"
+                                                  [zoomTime]="data.zoomTime"
+                                                  [theme]="(theme$ | async) ?? 'light'"
+                                                  (selectTime)="tripStateService.toggleChartTime($event)"
+                                                  (selectEvent)="changeSignalsTimeSeries($event)">
+              </concordia-nx-ionic-time-series-chart>
+          </ion-col>
+
+          <ion-col size="12"
+                   size-md="6">
+            <concordia-nx-ionic-vehicle-trajectory [trip]="data.trip ?? null"
+                                                   [loading]="!!data.loadingMapData"
+                                                   [time]="data.chartTime"
+                                                   (replayTimeChanged)="onReplayTimeChanged($event)"
+                                                   (replayZoomTime)="onReplayZoomTime($event)">
+            </concordia-nx-ionic-vehicle-trajectory>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="height: 260px;">
+          <ion-col size="12"
+                   size-md="6">
+            <concordia-nx-ionic-time-series-chart [label]="'trip.analysis.fuelLevel' | transloco "
+                                                  [data]="data.vehiclesFuelLevelData || []"
+                                                  [loading]="!!data.loadingSignalsData"
+                                                  [format]="data.format ?? ''"
+                                                  [hidden]="['VDHR_917']"
+                                                  [linkedTime]="data.trajectoryTime"
+                                                  [colors]="fuelLevelColors"
+                                                  [stats]="fuelLevelStats"
+                                                  [theme]="(theme$ | async) ?? 'light'"
+                                                  type="fill"
+                                                  (selectTime)="tripStateService.toggleChartTime($event)">
+              </concordia-nx-ionic-time-series-chart>
+          </ion-col>
+          <ion-col size="12"
+                   size-md="6">
+
+            <concordia-nx-ionic-chart-card [data]="!!data.isSummaryEventsData"
+                                           [loading]="!!data.loadingCountOrDurationSignals">
+              <p-chart *ngIf="data.vehiclesCountSignals"
+                       [data]="data.vehiclesCountSignals"
+                       [options]="optionsHarshEvents"
+                       type="bar"
+                       height="50%"
+                       width="99%"></p-chart>
+
+              <p-chart *ngIf="data.vehiclesDurationSignals"
+                       [data]="data.vehiclesDurationSignals"
+                       [options]="optionsLongEvents"
+                       type="bar"
+                       height="50%"
+                       width="99%"></p-chart>
+            </concordia-nx-ionic-chart-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </concordia-ng-shared-page>
+</ng-container>

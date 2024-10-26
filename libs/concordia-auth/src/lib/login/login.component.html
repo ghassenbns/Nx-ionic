@@ -1,0 +1,56 @@
+<form *ngIf="form"
+      [formGroup]="form"
+      data-test-id="loginForm"
+      (ngSubmit)="onSubmit()">
+
+    <ion-input [label]="'auth.login.e-MailAddress' | transloco"
+               [errorText]="'auth.login.invalidEmail' | transloco"
+               class="ion-margin-bottom ion-padding-horizontal"
+               position="stacked"
+               placeholder="{{'auth.login.enterE-MailAddress' | transloco}}"
+               type="email"
+               data-test-id="username"
+               aria-label="username"
+               label-placement="stacked"
+               formControlName="username">
+    </ion-input>
+
+    <ion-input [label]="'auth.login.password' | transloco"
+               [errorText]="'auth.login.invalidPassword' | transloco"
+               class="ion-margin-bottom ion-padding-horizontal"
+               position="stacked"
+               data-test-id="password"
+               aria-label="password"
+               label-placement="stacked"
+               placeholder="{{'auth.login.enterPassword' | transloco}}"
+               type="password"
+               formControlName="password">
+    </ion-input>
+
+  <!-- <ion-item lines="none"
+            class="ion-item-none-bg ion-margin-bottom">
+    <ion-checkbox aria-label="remember me"
+                  slot="start"
+                  class="ion-margin-right-8"></ion-checkbox>
+    <ion-label>{{'auth.login.rememberMe' | transloco}}</ion-label>
+  </ion-item> -->
+
+  <ion-button *ngIf="status$ | async as status"
+              [disabled]="status.pending"
+              data-test-id="submit"
+              class="ion-margin-bottom"
+              expand="full"
+              size="large"
+              type="submit">
+    <ion-spinner *ngIf="status.pending"></ion-spinner>
+    <ion-icon *ngIf="!status.pending"
+              name="log-in-outline"></ion-icon>
+    <ion-label class="ion-margin-start">{{'auth.login.login' | transloco}}</ion-label>
+  </ion-button>
+
+  <!-- <div class="ion-text-center pt-40">
+    <a routerLink="../reset">
+      <h5>{{'auth.login.forgotYourPassword' | transloco}}</h5>
+    </a>
+  </div> -->
+</form>

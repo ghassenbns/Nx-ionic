@@ -1,0 +1,10 @@
+<ion-app [class]="displayDensity$ | async">
+  <ion-content>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-content>
+
+  <ng-container *ngIf="pending$ | async">
+    <ion-progress-bar class="progress-bar"
+                      type="indeterminate"></ion-progress-bar>
+  </ng-container>
+</ion-app>

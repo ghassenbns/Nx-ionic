@@ -1,0 +1,33 @@
+<ion-card class="d-grid h-100 ion-no-margin">
+  <ion-card-title class="p-8 bb-1">
+        {{ 'trip.analysis.vehicleTrajectory' | transloco }}
+  </ion-card-title>
+
+  <div class="p-relative h-100">
+    <concordia-nx-ionic-trips-map *ngIf="trip && isValidTrip"
+                                  [trip]="[trip]"
+                                  [time]="time"
+                                  (replayTimeChanged)="onReplayTimeChanged($event)"
+                                  (tripEventClicked)="onTripEventClicked($event)"
+                                  (driverEventClicked)="onDriverEventClicked($event)"
+                                  (vehicleEventClicked)="onVehicleEventClicked($event)"
+                                  (waypointClicked)="onWaypointClicked($event)"
+                                  [mapLabels]="mapLabels">
+    </concordia-nx-ionic-trips-map>
+
+    <ion-row *ngIf="!loading && !isValidTrip"
+             class="h-100 ion-justify-content-center ion-align-items-center">
+      <ion-text color="medium ion-text-center">
+        <ion-icon name="map-outline"
+                  size="large"
+                  class="ion-margin-bottom"></ion-icon>
+        <br>
+        {{ 'table.noDataFound' | transloco }}
+      </ion-text>
+    </ion-row>
+
+    <ion-skeleton-text *ngIf="loading && !trip"
+                       [animated]="true"
+                       class="h-100 ion-no-margin"></ion-skeleton-text>
+  </div>
+</ion-card>

@@ -1,0 +1,208 @@
+<form #f="ngForm"
+      *ngIf="{
+      isLessAdmin: isLessAdmin$ | async,
+      user: user$ | async
+      } as data;">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-chip [outline]="true"
+                  [color]="showFilters ? 'primary' : ''"
+                  (click)="onShowFilters()">
+          {{ 'table.filters' | transloco }}
+          <ion-icon name="filter-outline"></ion-icon>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="showFilters">
+      <ion-row>
+        <ion-col [class.ion-hide]="data.isLessAdmin"
+                 style="min-width: 200px">
+          <ion-item>
+            <concordia-ng-shared-select-search *transloco="let t"
+                                               ngModel
+                                               #viewAsUserId="ngModel"
+                                               [(ngModel)]="item.viewAsUserId"
+                                               [label]="'consumptionComparison.viewAsUser' |transloco"
+                                               [required]="true"
+                                               [setTouched]="viewAsUserId.touched"
+                                               [options]="(availableUsers$ | async) ?? []"
+                                               [placeholder]="t('table.select') + t('consumptionComparison.viewAsUser')"
+                                               name="viewAsUserId"
+                                               optionsGroup="userLevelId"
+                                               optionsField="name"
+                                               optionsValue="userId"
+                                               (changeValue)="loadMeter($event, this.item.meterIds, true)">
+            </concordia-ng-shared-select-search>
+          </ion-item>
+        </ion-col>
+
+        <ion-col style="min-width: 200px">
+          <ion-item *ngIf="{metersList: metersList$ | async} as date">
+            <concordia-ng-shared-select-search *transloco="let t"
+                                               #name="ngModel"
+                                               [(ngModel)]="item.meterId"
+                                               [label]="'consumptionComparison.meter' |transloco"
+                                               [required]="true"
+                                               [setTouched]="name.touched"
+                                               [options]="getMeters(date.metersList, f.value.viewAsUserId, item.meterIds)"
+                                               [placeholder]="t('table.select') + t('consumptionComparison.meter')"
+                                               name="meterId"
+                                               optionsField="name"
+                                               optionsValue="_id"
+                                               (changeValue)="setMeterId($event)">
+            </concordia-ng-shared-select-search>
+          </ion-item>
+        </ion-col>
+
+        <ion-col style="min-width: 280px">
+          <ion-item lines="none"
+                    class="item-none-padding-end">
+            <concordia-ng-shared-date-picker #dateRange="ngModel"
+                                             [(ngModel)]="item.dateRange"
+                                             [label]="'consumptionComparison.dateRange' | transloco"
+                                             [filterRange]="true"
+                                             [hideSeconds]="false"
+                                             [required]="true"
+                                             [setTouched]="dateRange.touched"
+                                             [maxDateFull]="maxDateFull"
+                                             name="dateRange"
+                                             errorText="invalid"
+                                             (changeValue)="onSetDate($event)">
+            </concordia-ng-shared-date-picker>
+          </ion-item>
+        </ion-col>
+
+        <ion-col sizeMd="6"
+                 sizeLg="4"
+                 sizeXl="4"
+                 size="12"
+                 style="min-width: 260px">
+          <ion-row class="w-100 ion-nowrap ion-no-padding">
+            <ion-col class="ion-no-padding">
+              <div class="d-flex w-100 p-relative">
+                <ion-item lines="none"
+                          class="item-none-padding-end"
+                          style="width: 64px">
+                  <ion-input [(ngModel)]="item.comparisonLookback"
+                             [required]="true"
+                             [concordiaNxIonicMinValueValidator]="0"
+                             [concordiaNxIonicMaxValueValidator]="9.1"
+                             [errorText]="'errors.invalidField' | transloco "
+                             helperText="0-9"
+                             label="&nbsp;"
+                             name="comparisonLookback"
+                             aria-label=""
+                             type="number"
+                             min="0"
+                             max="9"
+                             labelPlacement="floating"
+                             concordiaNxIonicTypeValidator="number"
+                             (keydown)="onEnterApplyFilter($event)"/>
+                </ion-item>
+                <ion-item class="item-none-padding-end w-100">
+                  <ion-select [(ngModel)]="item.comparisonTarget"
+                              [required]="true"
+                              [placeholder]="'table.all' | transloco"
+                              label="&nbsp;"
+                              name="comparisonTarget"
+                              aria-label=""
+                              labelPlacement="floating"
+                              interface="popover">
+
+                    <ng-container *ngFor="let option of comparisonTargets">
+                      <ion-select-option [value]="option"
+                                         [disabled]="disabledComparisonOption(option, f?.value?.dateRange ?? [])">
+                        {{ 'compareWith.' + option | transloco }}
+                      </ion-select-option>
+                    </ng-container>
+                  </ion-select>
+                </ion-item>
+                <ion-text class="text-label item-text-label p-absolute z-1">
+                  <span class="text-truncate d-block">
+                    {{'consumptionComparison.comparisonTarget' | transloco}}
+                  </span>
+                </ion-text>
+              </div>
+            </ion-col>
+            <ion-col size="fix">
+              <ion-item style="width: 104px"
+                        lines="none"
+                        class="item-none-padding-end">
+                <div class="btn-block">
+                  <div class="text-label">
+                    <span class="d-block text-truncate">
+                      {{'consumptionComparison.aggregationPeriod' | transloco}}:
+                    </span>
+                  </div>
+                  <div class="pt-4">
+                    <ng-container *ngFor="let option of aggregationPeriods">
+                      <ion-button [fill]="item.aggregationPeriod === option ? 'solid' : 'clear'"
+                                  [disabled]="item.aggregationPeriod === option
+                              || disabledAggregationPeriodsOption(option, f?.value?.dateRange ?? [])"
+                                  [class.active]="aggregationPeriod.valid && item.aggregationPeriod === option"
+                                  size="small"
+                                  (click)="setAggregationPeriod(option)">
+                        {{getName(option)}}</ion-button>
+                    </ng-container>
+                  </div>
+                  <div *ngIf="aggregationPeriod.invalid"
+                       class="text-error pt-4">
+                    <span class="text-truncate">
+                      {{'errors.invalidField' | transloco }}
+                    </span>
+                  </div>
+                </div>
+
+                <ion-select #aggregationPeriod="ngModel"
+                            [(ngModel)]="item.aggregationPeriod"
+                            [placeholder]="'table.all' | transloco"
+                            [label]="'consumptionComparison.aggregationPeriod' |transloco"
+                            [required]="true"
+                            concordiaNxIonicValidAggregationPeriod
+                            class="ion-hide"
+                            name="aggregationPeriod"
+                            aria-label=""
+                            labelPlacement="floating"
+                            interface="popover">
+
+                  <ng-container *ngFor="let option of aggregationPeriods">
+                    <ion-select-option [value]="option"
+                                       [disabled]="disabledAggregationPeriodsOption(option, f?.value?.dateRange ?? [])">
+                      {{ 'period.' + option | transloco }}
+                    </ion-select-option>
+                  </ng-container>
+                </ion-select>
+
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-end">
+        <ion-col size="auto">
+          <ion-button [disabled]="loading || disabledReset()"
+                      fill="clear"
+                      type="button"
+                      (click)="onResetFilter()">
+            {{ 'global.resetFilters' | transloco }}
+            <ion-icon slot="end"
+                      name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+
+        <ion-col size="auto">
+          <ion-button fill="outline"
+                      type="button"
+                      [disabled]="loading || f.pristine"
+                      (click)="onApplyFilter()">
+            {{ 'global.apply' | transloco }}
+            <ion-icon slot="end"
+                      name="filter-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</form>
+

@@ -1,0 +1,89 @@
+<ion-row id="trip-content"
+         class="h-100">
+  <ion-col class="ion-no-padding">
+    <ion-content class="ion-padding-start ion-padding-end">
+      <div *ngIf="header"
+           class="pt-20 pb-8">
+        <ion-row>
+          <ion-col>
+            <ion-title class="px-8">{{ header }}</ion-title>
+          </ion-col>
+          <ng-container *ngIf="rightMenu">
+            <ion-col size="auto"
+                     class="ion-hide-lg-up ion-no-padding">
+              <ion-button fill="clear"
+                          color="primary"
+                          class="ion-no-margin"
+                          (click)="onShowRightMenu()">
+                <ion-icon slot="icon-only"
+                          name="trail-sign-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+
+            <ion-col size="auto"
+                     class="ion-hide-lg-down ion-no-padding">
+              <ion-button fill="clear"
+                          color="primary"
+                          class="ion-no-margin"
+                          (click)="onShowRightPanel()">
+                <ion-icon slot="icon-only"
+                          name="trail-sign-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ng-container>
+        </ion-row>
+      </div>
+
+      <ion-card *ngIf="card"
+                [style.height]="cardHeight"
+                class="ion-padding-start ion-padding-end mt-4 card-table-pagination">
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+      </ion-card>
+
+      <ng-container *ngIf="!card">
+        <ng-container *ngTemplateOutlet="content"></ng-container>
+      </ng-container>
+
+    </ion-content>
+  </ion-col>
+
+  <ion-col *ngIf="rightMenu && !!(showRightPanel$ | async)"
+           @animationTrigger
+           class="ion-no-padding ion-hide-lg-down h-100"
+           size="auto">
+    <ion-content class="panel"
+                 [ngClass]="{ 'show-right-panel': showRightPanel$ | async }">
+      <ion-item class="bl-1 ion-no-padding"
+                lines="none">
+        <ng-container *ngTemplateOutlet="rightBlock"></ng-container>
+      </ion-item>
+    </ion-content>
+  </ion-col>
+</ion-row>
+
+<ion-menu *ngIf="helpMenu || rightMenu"
+          menuId="trip-content"
+          side="end"
+          contentId="trip-content"
+          [ngClass]="{ 'help-menu': showHelpMenu$ | async }"
+          (ionDidClose)="closeRightMenuPanel()">
+  <ion-content *ngIf="rightMenu && (showRightMenu$ | async)">
+    <ng-container *ngTemplateOutlet="rightBlock"></ng-container>
+  </ion-content>
+  <ion-content *ngIf="showHelpMenu$ | async">
+    <ng-container *ngTemplateOutlet="helpBlock"></ng-container>
+  </ion-content>
+</ion-menu>
+
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>
+
+<ng-template #rightBlock>
+  <ng-content select="[right-panel]"></ng-content>
+</ng-template>
+
+<ng-template #helpBlock>
+  <concordia-ng-shared-help-container></concordia-ng-shared-help-container>
+</ng-template>
+

@@ -1,0 +1,82 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "*": ["definitions/*"],
+      "@concordia-nx-ionic/concordia-api": ["libs/concordia-api/src/index.ts"],
+      "@concordia-nx-ionic/concordia-api-store": [
+        "libs/concordia-api-store/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-auth": [
+        "libs/concordia-auth/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-auth-api": [
+        "libs/concordia-auth-api/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-auth-api-service": [
+        "libs/concordia-auth-api/src/lib/auth-api.service.ts"
+      ],
+      "@concordia-nx-ionic/concordia-config": [
+        "libs/concordia-config/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-core": [
+        "libs/concordia-core/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-core-reducers": [
+        "libs/concordia-core/src/lib/con-reducers/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-energy": [
+        "libs/concordia-energy/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-energy-api": [
+        "libs/concordia-energy-api/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-energy-store": [
+        "libs/concordia-energy-store/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-help": [
+        "libs/concordia-help/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-landing": [
+        "libs/concordia-landing/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-map": ["libs/concordia-map/src/index.ts"],
+      "@concordia-nx-ionic/concordia-mobility": [
+        "libs/concordia-mobility/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-mobility-api": [
+        "libs/concordia-mobility-api/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-mobility-store": [
+        "libs/concordia-mobility-store/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-services": [
+        "libs/concordia-services/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-shared": [
+        "libs/concordia-shared/src/index.ts"
+      ],
+      "@concordia-nx-ionic/concordia-ui": ["libs/concordia-ui/src/index.ts"],
+      "@concordia-nx-ionic/concordia-util": [
+        "libs/concordia-util/src/index.ts"
+      ],
+      "@concordia-nx-ionic/landing-list": ["libs/landing-list/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

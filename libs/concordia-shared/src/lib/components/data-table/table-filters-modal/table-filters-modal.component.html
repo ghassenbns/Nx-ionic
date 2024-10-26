@@ -1,0 +1,159 @@
+<ion-header data-test-id="filtersHeaderMobile">
+  <ion-toolbar>
+    <ion-title>{{ 'table.sorting' | transloco }} & {{ 'table.filters' | transloco }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding"
+             data-test-id="filtersMobile">
+  <ng-container *ngFor="let column of columns">
+    <ion-row *ngIf="column.searchType !=='hidden' && (showColumn(column.field) || column.addFilter)"
+             class="ion-no-padding">
+      <ion-col size="fix"
+               class="ion-no-padding">
+        <ion-item lines="none"
+                  class="ion-no-padding"
+                  (click)="onSort(column.rowSelector)">
+
+          <i [class]="table._sortField !== column.rowSelector
+                  ? 'pi pi-sort-alt icon'
+                  : table._sortOrder === 1
+                  ? 'pi pi-sort-amount-up icon'
+                  : 'pi pi-sort-amount-down icon'"></i>
+
+        </ion-item>
+      </ion-col>
+      <ion-col class="ion-no-padding"
+               style="width: calc(100% - 60px)">
+        <ng-container [ngSwitch]="column.searchType">
+          <ion-item [lines]="column.searchType === 'date' ? 'none' : ''"
+                    [class]="column.searchType === 'date' ? 'item-none-padding-end' : ''">
+
+            <ion-input *ngSwitchCase="'text'"
+                       [value]="getFieldFilterValue(column.rowSelector)"
+                       [clearInput]="true"
+                       [label]="'table.' + column.field | transloco"
+                       [attr.data-cy]="column.rowSelector"
+                       data-test-id="tableFilterInputMobile"
+                       aria-label=""
+                       type="text"
+                       labelPlacement="floating"
+                       (ionChange)="onChangeTextFilter($event, column.rowSelector)"
+                       (ionInput)="onTextFilter($event, column.rowSelector)"
+                       (keydown)="onApplyFilter($event)"/>
+
+            <ion-input *ngSwitchCase="'number'"
+                       [value]="getFieldFilterValue(column.rowSelector)"
+                       [name]="column.field"
+                       [clearInput]="true"
+                       [label]="('table.' + column.field) |transloco"
+                       [placeholder]="'table.searchWith' |transloco:{ label: ('table.' + column.field) | transloco }"
+                       aria-label=""
+                       type="number"
+                       min="0"
+                       labelPlacement="floating"
+                       (ionChange)="onChangeTextFilter($event, column.rowSelector)"
+                       (ionInput)="onTextFilter($event, column.rowSelector)"
+                       (keydown)="onApplyFilter($event)"/>
+
+            <ion-select *ngSwitchCase="'select'"
+                        [value]="getFieldFilterValue(column.searchSelector || column.rowSelector)"
+                        [label]="'table.' + column.field | transloco"
+                        [attr.data-cy]="column.rowSelector"
+                        data-test-id="tableFilterSelectMobile"
+                        aria-label=""
+                        interface="popover"
+                        labelPlacement="floating"
+                        (ionChange)="onSelect($event, column?.searchSelector || column.rowSelector)">
+              <ion-select-option value=""
+                                 class="bold">
+                {{ 'table.all' | transloco }}
+              </ion-select-option>
+
+              <ng-container *ngFor="let option of column.options">
+                <ng-container *ngIf="lazy">
+                  <ion-select-option *ngIf="(column.optionsField || 'name') as name"
+                                     [value]="column.optionsValue ? option[column.optionsValue] : option._id">
+                    {{ column.optionsTranslate ? ('table.' + option[name] | transloco) : option[name] }}
+                  </ion-select-option>
+                </ng-container>
+
+                <ng-container *ngIf="!lazy">
+                  <ion-select-option [value]="option">
+                    {{ option }}
+                  </ion-select-option>
+                </ng-container>
+              </ng-container>
+            </ion-select>
+
+            <ng-container *ngSwitchCase="'selectSearch'">
+              <ng-container *ngIf="column.rowEditSelector || column.rowSelector as rowSelector">
+                <concordia-ng-shared-select-search *transloco="let t"
+                                                   #name="ngModel"
+                                                   [ngModel]="getFieldFilterValue(column.searchSelector || column.rowSelector)"
+                                                   [name]="rowSelector"
+                                                   [label]="('table.' + column.field) |transloco"
+                                                   [required]="false"
+                                                   [disabled]="!!column.disabled"
+                                                   [setTouched]="name.touched"
+                                                   [options]="column.options"
+                                                   [rowSelector]="column.rowSelector"
+                                                   [optionsField]="column.optionsField || 'name'"
+                                                   [optionsValue]="column.optionsValue || ''"
+                                                   [optionsGroup]="column.optionsGroup || ''"
+                                                   [placeholder]="t('table.select') + t('table.' + column.field)"
+                                                   (changeValue)="onSelectFilter($event, column?.searchSelector || column.rowSelector)">
+                </concordia-ng-shared-select-search>
+
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'multiSelectSearch'">
+              <ng-container *ngIf="column.rowEditSelector || column.rowSelector as field">
+                <concordia-ng-shared-search-multi-select *transloco="let t"
+                                                         #name="ngModel"
+                                                         [ngModel]="getFieldFilterValue(column.searchSelector || column.rowSelector)"
+                                                         [name]="field"
+                                                         [label]="('table.' + column.field) |transloco"
+                                                         [required]="false"
+                                                         [disabled]="!!column.disabled"
+                                                         [setTouched]="name.touched"
+                                                         [options]="filteredOptions(column.options, column.optionsFilter||[], getFieldFilterValue(column.searchSelector || column.rowSelector))"
+                                                         [rowSelector]="column.rowSelector"
+                                                         [optionsField]="column.optionsField || 'name'"
+                                                         [optionsValue]="column.optionsValue || '_id'"
+                                                         [placeholder]="t('table.select') + t('table.' + column.field)"
+                                                         [attr.data-]="column.rowSelector"
+                                                         data-test-id="tableFilterMultiSelectMobile"
+                                                         (changeValue)="onSelectFilter($event, column?.searchSelector || column.rowSelector)">
+                </concordia-ng-shared-search-multi-select>
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'date'">
+              <concordia-ng-shared-date-picker #name="ngModel"
+                                               [attr.data-cy]="column.rowSelector"
+                                               [ngModel]="getFieldFilterValue(column.rowSelector)"
+                                               [label]="('table.' + column.field) |transloco"
+                                               [name]="column.field"
+                                               [disabled]="!!column.disabled"
+                                               [setTouched]="name.touched"
+                                               [options]="column.options"
+                                               [rowSelector]="column.rowSelector"
+                                               [hideSeconds]="column.hideSeconds || false"
+                                               [optionsField]="column.optionsField || 'name'"
+                                               [filterRange]="column.filterRange || false"
+                                               [optionsValue]="column.optionsValue || ''"
+                                               [optionsGroup]="column.optionsGroup || ''"
+                                               errorText="invalid rowSelector"
+                                               (changeValue)="onSelectFilter($event, column?.searchSelector || column.rowSelector)">
+              </concordia-ng-shared-date-picker>
+            </ng-container>
+
+
+          </ion-item>
+        </ng-container>
+
+      </ion-col>
+    </ion-row>
+  </ng-container>
+</ion-content>

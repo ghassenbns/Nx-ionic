@@ -1,0 +1,81 @@
+<ng-container *ngIf="trip$ | async as trip">
+  <concordia-ng-shared-page class="ion-page">
+    <div *ngIf="trip?.name"
+         class="pt-20 d-flex">
+      <ion-title class="ion-no-padding">
+        <ion-chip class="pe-none chip-type-{{trip.tripStatusDetails.tripStatusId }}">
+          {{trip.tripStatusDetails.label  }}
+        </ion-chip>
+        {{ trip.name }}
+      </ion-title>
+      <ion-buttons *ngIf="trip.isEditable"
+                   slot="end">
+        <ion-button fill="clear"
+                    color="primary"
+                    (click)="onEditModal($event, trip)">
+          <ion-icon slot="icon-only"
+                    name="pencil-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+
+    <ion-row>
+      <ion-col size="auto">
+        <ion-row>
+          <ion-col size="auto">
+            <ion-icon name="alarm-outline"
+                      color="success"></ion-icon>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-text *ngIf="trip.actualStartDate ?? trip.plannedStartDate as date">
+              {{ date | userDate | async }}
+            </ion-text>
+            <ion-text *ngIf="trip.actualStartDate"
+                      color="medium">
+              <sup class="text-decoration-line-through">
+                {{ trip.plannedStartDate | userDate | async }}
+              </sup>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col size="auto">
+        <ion-row>
+          <ion-col size="auto">
+            <ion-icon name="alarm-outline"
+                      color="danger"></ion-icon>
+          </ion-col>
+          <ion-col size="auto">
+            <ion-text *ngIf="trip.actualEndDate ?? trip.plannedEndDate as date">
+              {{ date | userDate | async }}
+            </ion-text>
+            <ion-text *ngIf="trip.actualEndDate"
+                      color="medium">
+              <sup class="text-decoration-line-through">
+                {{ trip.plannedEndDate | userDate | async }}
+              </sup>
+            </ion-text>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+    </ion-row>
+
+    <concordia-nx-ionic-trip-small-cards [trip]="trip">
+    </concordia-nx-ionic-trip-small-cards>
+
+    <!--    <concordia-nx-ionic-trips-card [trip]="trip"-->
+    <!--                                   [editMode]="editMode"-->
+    <!--                                   class="ion-padding-bottom"-->
+    <!--                                   (submitted)="updateTrip($event)">-->
+    <!--    </concordia-nx-ionic-trips-card>-->
+
+    <concordia-nx-ionic-waypoint-container [_id]="trip._id"
+                                           [waypoints]="trip.waypoints"
+                                           [editable]="trip.isWaypointsEditable"
+                                           class="ion-padding-bottom"
+                                           (submitted)="updateTrip($event)">
+    </concordia-nx-ionic-waypoint-container>
+
+  </concordia-ng-shared-page>
+</ng-container>

@@ -1,0 +1,82 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx", "simple-import-sort", "sort-class-members"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "simple-import-sort/exports": "error",
+        "simple-import-sort/imports": "error",
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "enforceBuildableLibDependency": true,
+            "allow": [],
+            "depConstraints": [
+              {
+                "sourceTag": "*",
+                "onlyDependOnLibsWithTags": ["*"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
+      "rules": {
+        "comma-dangle": "off",
+        "@typescript-eslint/comma-dangle": ["error", {
+          "arrays": "always-multiline",
+          "objects": "always-multiline",
+          "imports": "always-multiline",
+          "exports": "always-multiline",
+          "functions": "always-multiline"
+        }],
+        "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+        "semi-style": ["error", "last"],
+        "semi": "error",
+        "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": ["error"],
+        "no-console": "error",
+        "comma-spacing": ["error", { "before": false, "after": true }],
+        "no-irregular-whitespace": "error",
+        "no-multiple-empty-lines": ["error", { "max": 1, "maxEOF": 0 }],
+        "no-trailing-spaces": "error",
+        "object-curly-spacing": ["error", "always"],
+        "curly": "error",
+        "default-case": "error",
+        "no-template-curly-in-string": "error",
+        "prefer-template": "error",
+        "prefer-object-spread": "error",
+        "no-redeclare": "error",
+        "camelcase": ["error", { "ignoreImports": true, "properties": "never" }],
+        "no-param-reassign": "error",
+        "no-self-assign": "error",
+        "no-var": "error",
+        "eqeqeq": "error",
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": ["error"],
+        "no-unused-expressions": "error",
+        "max-len": ["error", { "code": 121 }],
+        "@typescript-eslint/explicit-function-return-type": ["error", { "allowExpressions": true }],
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.spec.ts", "*.spec.tsx", "*.spec.js", "*.spec.jsx"],
+      "env": {
+        "jest": true
+      },
+      "rules": {}
+    }
+  ]
+}

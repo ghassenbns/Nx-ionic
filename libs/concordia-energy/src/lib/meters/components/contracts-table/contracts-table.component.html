@@ -1,0 +1,13 @@
+<ng-container *ngIf="meter?.country === METER_COUNTRIES.PERU">
+  <concordia-nx-ionic-peru-contracts-table [dataKey]="dataKey"
+                                           [dataLabel]="dataLabel"
+                                           [meter]="meter">
+  </concordia-nx-ionic-peru-contracts-table>
+</ng-container>
+
+<ng-container *ngIf="meter?.country === METER_COUNTRIES.SPAIN">
+  <concordia-nx-ionic-spain-contracts-table [dataKey]="dataKey"
+                                            [dataLabel]="dataLabel"
+                                            [meter]="meter"
+  ></concordia-nx-ionic-spain-contracts-table>
+</ng-container>

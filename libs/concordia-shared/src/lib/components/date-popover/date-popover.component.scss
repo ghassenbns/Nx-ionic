@@ -1,0 +1,8 @@
+:host ::ng-deep {
+  ngx-daterangepicker-material {
+    & .md-drppicker {
+      box-shadow: none;
+    }
+  }
+  width: 100%;
+}

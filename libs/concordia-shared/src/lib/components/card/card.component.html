@@ -1,0 +1,44 @@
+<ion-card class="ion-no-margin">
+  <ion-card-title *ngIf="displayTitle">
+    <ion-item lines="none"
+              class="bb-1">
+      <ion-title slot="start"
+                 class="ion-no-padding">
+        {{ 'card.' + cardConfig.title | transloco }}
+      </ion-title>
+      <ion-buttons *ngIf="cardConfig.editable.state"
+                slot="end"
+                lines="none">
+        <ng-container *ngIf="!editMode.getValue()[cardConfig.selector]; else editButtons">
+          <ion-button slot="end"
+                      color="primary"
+                      fill="clear"
+                      [disabled]="loading"
+                      (click)="toggleEditMode(true)">
+            <ion-icon slot="icon-only"
+                      name="pencil-outline"></ion-icon>
+          </ion-button>
+        </ng-container>
+
+        <ng-template #editButtons>
+          <ng-container *ngIf="cardConfig.editable?.mode === 'form'">
+            <ion-button fill="clear"
+                        (click)="onCancel()">
+              <ion-icon color="danger"
+                        slot="icon-only"
+                        name="close-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear"
+                        type="submit"
+                        (click)="onSubmit()">
+              <ion-icon color="success"
+                        slot="icon-only"
+                        name="save-outline"></ion-icon>
+            </ion-button>
+          </ng-container>
+        </ng-template>
+      </ion-buttons>
+    </ion-item>
+  </ion-card-title>
+  <ng-content></ng-content>
+</ion-card>

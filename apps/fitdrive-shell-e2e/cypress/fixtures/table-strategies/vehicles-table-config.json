@@ -1,0 +1,127 @@
+{
+    "name": "vehicles",
+    "entity": "vehicle",
+    "columns": [
+      {
+        "field": "name",
+        "contentType": "string",
+        "rowSelector": "name",
+        "required": true,
+        "searchType": "text",
+        "filterType": "string",
+        "options": [],
+        "link": {
+          "field": "_id",
+          "pref": "/vehicles",
+          "sfx": ""
+        }
+      },
+      {
+        "field": "description",
+        "contentType": "string",
+        "rowSelector": "description",
+        "required": true,
+        "searchType": "text",
+        "filterType": "string",
+        "options": []
+      },
+      {
+        "field": "fleet",
+        "contentType": "string",
+        "rowSelector": "fleetDetails.name",
+        "rowEditSelector": "fleetId",
+        "required": true,
+        "searchType": "multiSelectSearch",
+        "searchSelector": "fleetId",
+        "editType": "selectSearch",
+        "filterType": "object-id",
+        "options": []
+      },
+      {
+        "field": "registrationNumber",
+        "contentType": "string",
+        "required": true,
+        "rowSelector": "registrationNumber",
+        "searchType": "text",
+        "filterType": "string",
+        "options": []
+      },
+      {
+        "field": "active",
+        "contentType": "boolean",
+        "rowSelector": "isActive",
+        "required": true,
+        "searchType": "select",
+        "filterType": "boolean",
+        "defaultValue": true,
+        "options": [
+          { "name": "active", "_id": true },
+          { "name": "inactive", "_id": false }
+        ],
+        "optionsTranslate": true
+      },
+      {
+        "field": "type",
+        "contentType": "enum",
+        "rowSelector": "vehicleTypeDetails.label",
+        "rowEditSelector": "vehicleTypeId",
+        "editType": "select",
+        "searchType": "select",
+        "searchSelector": "vehicleTypeId",
+        "filterType": "int",
+        "required": true,
+        "defaultValue": 1,
+        "options": [],
+        "optionsField": "label",
+        "optionsValue": "vehicleTypeId"
+      },
+      {
+        "field": "fuelType",
+        "rowSelector": "vehicleFuelTypeDetails.label",
+        "rowEditSelector": "vehicleFuelTypeId",
+        "contentType": "enum",
+        "editType": "select",
+        "searchType": "select",
+        "searchSelector": "vehicleFuelTypeId",
+        "filterType": "int",
+        "required": true,
+        "defaultValue": 1,
+        "options": [],
+        "optionsValue": "vehicleFuelTypeId",
+        "optionsField": "label"
+      }
+    ],
+    "actions": [
+      { "type": "INFO" },
+      { "type": "EDIT" },
+      { "type": "DELETE" }
+    ],
+    "multiActions": [
+      {
+        "icon": "checkmark-circle-outline",
+        "name": "activate",
+        "type": "ACTIVATE"
+      },
+      {
+        "icon": "close-circle-outline",
+        "name": "deactivate",
+        "type": "DEACTIVATE"
+      },
+      {
+        "icon": "pencil-outline",
+        "name": "edit",
+        "type": "EDIT"
+      },
+      {
+        "icon": "trash-outline",
+        "name": "delete",
+        "type": "DELETE"
+      }
+    ],
+    "editActions": [
+      { "type": "CANCEL" },
+      { "type": "DUPLICATE" },
+      { "type": "DELETE" }
+    ]
+  }
+  

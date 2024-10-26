@@ -1,0 +1,47 @@
+markdown {
+  & code,
+  & tt {
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
+    white-space: break-spaces;
+    background-color: var(--ion-color-light);
+    border-radius: 6px;
+  }
+
+  & pre {
+    padding: 16px;
+    overflow: auto;
+    line-height: 1.45;
+    background-color: var(--ion-color-light);
+    border-radius: 6px;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+    word-wrap: normal;
+  }
+
+  & hr {
+    box-sizing: content-box;
+    overflow: hidden;
+    background: transparent;
+    border-bottom: 1px solid var(--ion-color-light);
+    height: .25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: var(--ion-color-light);
+    //border: 0;
+  }
+
+  & blockquote {
+    margin: 0;
+    padding: 0 1em;
+    border-left: .25em solid var(--ion-color-light);
+  }
+
+  & table th,
+  & table td {
+    padding: 6px 13px;
+    border: 1px solid var(--ion-color-light);
+  }
+}

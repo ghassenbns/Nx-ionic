@@ -1,0 +1,179 @@
+<ng-container *ngIf="{
+latestTariff: latestTariff$ | async,
+loadingMeterLatestTariff: loadingMeterLatestTariff$ | async
+} as data;">
+  <ng-container *ngIf="!data.loadingMeterLatestTariff; else loadingTemplate">
+
+    <!-- tariffs -->
+    <ion-grid class="ion-no-margin ion-no-padding">
+      <!-- dept | zone | date -->
+      <ion-row class="ion-no-margin ion-no-padding">
+        <ion-col
+                class="ion-no-margin ion-no-padding"
+                sizeXs="12"
+                sizeSm="4">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'meters.details.tariff.department' | transloco }}
+              </p>
+              <p
+                      [title]="data.latestTariff?.departmentName"
+                      class="text-truncate ion-no-margin">
+                {{ data.latestTariff?.departmentName }}
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+
+        <ion-col
+                class="ion-no-margin ion-no-padding"
+                sizeXs="12"
+                sizeSm="4">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'meters.details.tariff.zone' | transloco }}
+              </p>
+              <p
+                      [title]="data.latestTariff?.zone"
+                      class="text-truncate ion-no-margin">
+                {{ data.latestTariff?.zone }}
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+
+        <ion-col
+                class="ion-no-margin ion-no-padding"
+                sizeXs="12"
+                sizeSm="4">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'meters.details.tariff.date' | transloco }}
+              </p>
+              <p
+                      [title]="data.latestTariff?.date"
+                      class="text-truncate ion-no-margin">
+                {{ data.latestTariff?.date }}
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- rates -->
+      <ng-container *ngIf="data.latestTariff?.rates?.length">
+        <ion-row>
+          <ion-col
+                  sizeSm="4"
+                  sizeXs="12">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'meters.details.tariff.rate.name' | transloco }}
+                </p>
+                <p
+                        [title]="data.latestTariff?.rates[0].rateName"
+                        class="text-truncate ion-no-margin">
+                  {{ data.latestTariff?.rates[0].rateName }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+          <ion-col
+                  sizeSm="8"
+                  sizeXs="12">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p class="text-label ion-no-margin">
+                  {{ 'meters.details.tariff.rate.description' | transloco }}
+                </p>
+                <p
+                        [title]="data.latestTariff?.rates[0].rateDescription"
+                        class="text-truncate ion-no-margin">
+                  {{ data.latestTariff?.rates[0].rateDescription }}
+                </p>
+              </ion-text>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col
+                  *ngFor="let rate of data.latestTariff?.rates"
+                  sizeSm="6"
+                  sizeXs="12">
+            <ion-item lines="none">
+              <ion-text class="ion-text-nowrap text-truncate">
+                <p
+                        [title]="rate.label"
+                        class="text-label ion-no-margin text-truncate">
+                  {{ rate.label }}
+                </p>
+                <p
+                        [title]="rate.value"
+                        class="text-truncate ion-no-margin">
+                  {{ rate.value }} {{ rate.unit }}
+                </p>
+              </ion-text>
+            </ion-item>
+
+          </ion-col>
+        </ion-row>
+      </ng-container>
+    </ion-grid>
+  </ng-container>
+
+
+  <!-- *Loading Skeleton template* -->
+  <ng-template #loadingTemplate>
+
+    <ion-grid class="ion-no-margin ion-no-padding">
+      <!-- dept | zone | date -->
+      <ion-row class="ion-no-margin ion-no-padding">
+        <ion-col
+                *ngFor="let cols of [1,2,3,]"
+                class="ion-no-margin ion-no-padding"
+                sizeXs="12"
+                sizeSm="4">
+          <ion-item lines="none">
+            <ion-skeleton-text [animated]="true"
+                               style="height: 32px;"></ion-skeleton-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <!-- rates -->
+      <ion-row>
+        <ion-col
+                sizeSm="4"
+                sizeXs="12">
+          <ion-item lines="none">
+            <ion-skeleton-text [animated]="true"
+                               style="height: 32px;"></ion-skeleton-text>
+          </ion-item>
+        </ion-col>
+        <ion-col
+                sizeSm="8"
+                sizeXs="12">
+          <ion-item lines="none">
+            <ion-skeleton-text [animated]="true"
+                               style="height: 32px;"></ion-skeleton-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col
+                *ngFor="let rate of [1,2,3,4,5,6,]"
+                sizeSm="6"
+                sizeXs="12">
+          <ion-item lines="none">
+            <ion-skeleton-text [animated]="true"
+                               style="height: 32px;"></ion-skeleton-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+</ng-container>

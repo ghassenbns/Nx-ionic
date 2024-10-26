@@ -1,0 +1,58 @@
+<ion-row>
+  <ion-toolbar>
+    <ion-buttons class="mxw-100"
+                 slot="end">
+      <ion-button id="popover-button" 
+                  data-test-id="userMenu"
+                  fill="clear" 
+                  class="w-100 ion-no-margin"> 
+        <ion-text class="text-truncate">{{ name }}</ion-text>
+        <ion-icon name="person-circle"
+                  slot="end"
+                  class="user-icon"></ion-icon> 
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-row>
+<ion-popover [dismissOnSelect]="true"
+             [showBackdrop]="false"
+             trigger="popover-button">
+  <ng-template>
+    <ion-content *transloco="let t">
+      <ion-list data-test-id="userMenuList">
+        <ion-item [button]="true"
+                  [detail]="false"
+                  data-test-id="listAccountBtn"
+                  lines="none">
+          <ion-icon slot="start"
+                    name="person-outline"
+                    class="ion-margin-end">
+          </ion-icon>
+          {{t('global.myAccount')}}
+        </ion-item>
+        <ion-item [button]="true"
+                  [detail]="false"
+                  data-test-id="listLogoutBtn"
+                  lines="none"
+                  (click)="logOut()">
+          <ion-icon slot="start"
+                    name="log-out-outline"
+                    class="ion-margin-end">
+          </ion-icon>
+          {{t('global.logout')}}
+        </ion-item>
+        <ion-item lines="none"
+                  class="freezeToggle"
+                  [disabled]="loading"
+                  (click)="onToggleTheme($event, darkTheme)">
+          <ion-toggle [enableOnOffLabels]="true"
+                      [checked]="darkTheme"
+                      justify="start"
+                      labelPlacement="end">
+            {{t('global.light')}}/{{t('global.dark')}}
+          </ion-toggle>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>

@@ -1,0 +1,23 @@
+.compact {
+  & .sc-ion-buttons-md-s .button-has-icon-only.button-clear {
+    --padding-top: 4px;
+    --padding-end: 4px;
+    --padding-bottom: 4px;
+    --padding-start: 4px;
+    width: 32px;
+    height: 32px;
+  }
+
+  & ion-card-title ion-item {
+    --min-height: 48px;
+  }
+
+  & ion-item {
+    --min-height: 32px;
+
+    & ion-icon {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+  }
+}

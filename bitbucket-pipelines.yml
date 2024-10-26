@@ -1,0 +1,72 @@
+image: node:18.12.1
+pipelines:
+  pull-requests:
+    '**':
+      - step:
+          name: 'Build and test affected apps on Pull Requests'
+          size: 2x
+          caches:
+            - node
+          script:
+            - if [ "$BITBUCKET_BRANCH" == "dev" ] || [ "$BITBUCKET_BRANCH" == "main" ] || [ "$BITBUCKET_BRANCH" == "master" ] || [ "$BITBUCKET_BRANCH" == "hotfix" ] || [ "$BITBUCKET_BRANCH" == "release" ]; then printf 'not a target branch we want to check'; exit; fi
+            - export NODE_OPTIONS=--max_old_space_size=4096
+            - npm ci --force
+            # old pipeline command to lint all code. now replaced by "affected"
+            # - npm run ci-all-lint
+            - npx nx affected --base=origin/$BITBUCKET_PR_DESTINATION_BRANCH --parallel --target lint --skip-nx-cache
+            - npx nx affected --base=origin/$BITBUCKET_PR_DESTINATION_BRANCH --parallel -t format:check --skip-nx-cache
+            # old pipeline command to test all code. now replaced by "affected"
+            # - npm run ci-all-test
+            - npx nx affected --base=origin/$BITBUCKET_PR_DESTINATION_BRANCH --parallel=1 --target test --skip-nx-cache 
+            #
+            # BUILD TO BE FIXED.
+            #
+            #- npx nx affected -t build -c=ci --base=origin/$BITBUCKET_PR_DESTINATION_BRANCH --parallel  --max-parallel=3 --skip-nx-cache
+            #- npx nx affected --base=origin/$BITBUCKET_PR_DESTINATION_BRANCH --parallel=1 --target version --baseBranch=origin/$BITBUCKET_PR_DESTINATION_BRANCH --skipNxCache --releaseAs=prerelease --preid=alpha --dryRun
+
+  branches:
+    dev:
+     - step:
+          name: 'Build and test affected apps on dev'
+          size: 2x
+          caches: # optional
+            - node
+          script:
+            - export NODE_OPTIONS=--max_old_space_size=4096
+            - npm ci --force
+            # old pipeline command to lint all code. now replaced by "affected"
+            # - npm run ci-all-lint
+            - npx nx affected --base=latest_alpha --parallel --target lint --skip-nx-cache
+            - npx nx affected --base=latest_alpha --parallel -t format:check --skip-nx-cache
+            # old pipeline command to test all code. now replaced by "affected"
+            # - npm run ci-all-test
+            - npx nx affected --base=latest_alpha --parallel=1 --target test --skip-nx-cache 
+            #
+            # BUILD TO BE FIXED.
+            #
+            #- npx nx affected -t build -c=ci --base=origin/$BITBUCKET_PR_DESTINATION_BRANCH --parallel  --max-parallel=3 --skip-nx-cache
+            - git fetch --tags -f
+            # retrieve latest_alpha commit
+            - export CURRENT_LATEST_ALPHA_TAG=$(git tag --contains latest_alpha --list '*[0-9]-alpha*')
+            - export CURRENT_LATEST_ALPHA_COMMIT=$(git show-ref -s $CURRENT_LATEST_ALPHA_TAG)
+            - npx nx affected --base=latest_alpha --parallel=1 --target version --baseBranch=origin/dev --skipNxCache q --push=true
+            # retrieve candidate latest alpha commit
+            - export CANDIDATE_LATEST_ALPHA=$(git tag --list '*[0-9]-alpha*' --sort=taggerdate  | tail -1)
+            - export CANDIDATE_LATEST_ALPHA_COMMIT=$(git show-ref -s $CANDIDATE_LATEST_ALPHA)
+            # following stepst must run iff CURRENT_LATEST_ALPHA!=CANDIDATE_LATEST_ALPHA
+            - if [[ $CURRENT_LATEST_ALPHA_COMMIT != $CANDIDATE_LATEST_ALPHA_COMMIT ]]; then git tag latest_alpha -f; fi
+            - if [[ $CURRENT_LATEST_ALPHA_COMMIT != $CANDIDATE_LATEST_ALPHA_COMMIT ]]; then git push origin latest_alpha --force; fi
+            - if [[ $CURRENT_LATEST_ALPHA_COMMIT != $CANDIDATE_LATEST_ALPHA_COMMIT ]]; then git merge latest_alpha dev --quiet -m "[skip ci] merged latest_alpha commit in dev" --commit -n --no-ff; fi
+            - if [[ $CURRENT_LATEST_ALPHA_COMMIT != $CANDIDATE_LATEST_ALPHA_COMMIT ]]; then git pull -f; fi
+            - if [[ $CURRENT_LATEST_ALPHA_COMMIT != $CANDIDATE_LATEST_ALPHA_COMMIT ]]; then git push; fi
+            - if [[ $CURRENT_LATEST_ALPHA_COMMIT == $CANDIDATE_LATEST_ALPHA_COMMIT ]]; then printf 'no need to updateSpainContract tags'; fi
+
+    main:
+      - step:
+          name: "Build and test affected apps on 'main' branch changes"
+          caches: # optional
+            - node
+          script:
+            - npm ci --force
+            - npx nx format:check
+            - npx nx affected -t lint --base=origin/master --parallel --max-parallel=3 & npx nx affected -t test --base=HEAD~1 --parallel --max-parallel=3 --configuration=ci & npx nx affected -t build --base=HEAD~1 --parallel  --max-parallel=3

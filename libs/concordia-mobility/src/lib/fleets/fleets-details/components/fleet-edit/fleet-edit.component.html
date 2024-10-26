@@ -1,0 +1,239 @@
+<ion-card>
+  <form #f="ngForm"
+        (ngSubmit)="onSubmit(f)">
+
+    <ion-card-title>
+      <ion-item lines="none"
+                class="bb-1">
+        <ion-title slot="start"
+                   class="ion-no-margin ion-no-padding">
+          {{ 'card.details' | transloco }}
+        </ion-title>
+        <ion-buttons *ngIf="fleet && fleet.isEditable"
+                     class="mr--8"
+                     slot="end">
+          <ng-container *ngIf="!editMode; else editButtons">
+            <ion-button fill="clear"
+                        color="primary"
+                        data-test-id="edit"
+                        (click)="toggleEditMode(true)">
+              <ion-icon slot="icon-only"
+                        name="pencil-outline"></ion-icon>
+            </ion-button>
+          </ng-container>
+
+          <ng-template #editButtons>
+            <ion-buttons class="ion-hide-md-down">
+              <ion-button fill="clear"
+                          color="primary"
+                          expand="block"
+                          type="button"
+                          data-test-id="cansel"
+                          (click)="onCancel()">
+                {{ 'global.cancel' | transloco }}
+                <ion-icon slot="end"
+                          name="close-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="outline"
+                          color="primary"
+                          expand="block"
+                          type="submit"
+                          data-test-id="save"
+                          [disabled]="loading || currentLoading || f.pristine">
+                {{ 'global.save' | transloco }}
+                <ion-icon slot="end"
+                          name="save-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+
+            <ion-buttons class="ion-hide-md-up">
+              <ion-button fill="clear"
+                          type="button"
+                          (click)="onCancel()">
+                <ion-icon color="danger"
+                          slot="icon-only"
+                          name="close-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear"
+                          type="submit"
+                          [disabled]="loading || currentLoading || f.pristine">
+                <ion-icon color="primary"
+                          slot="icon-only"
+                          name="save"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ng-template>
+        </ion-buttons>
+      </ion-item>
+    </ion-card-title>
+
+    <ion-list *ngIf="!editMode">
+      <ion-row>
+        <ion-col size="12"
+                 size-lg="6">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate w-100">
+              <p class="text-label ion-no-margin">
+                {{ 'fleets.details.name' | transloco }}
+              </p>
+              <p *ngIf="!loading; else loadingBlock"
+                 class="text-truncate ion-no-margin"
+                 data-test-id="fleetName"
+                 [title]="fleet.name">
+                {{ fleet.name }}
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12"
+                 size-lg="6">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate w-100">
+              <p class="text-label ion-no-margin">
+                {{ 'fleets.details.description' | transloco }}
+              </p>
+              <p *ngIf="!loading; else loadingBlock"
+                 class="text-truncate ion-no-margin"
+                 data-test-id="fleetDescription"
+                 [title]="fleet.description">
+                {{ fleet.description }}
+              </p>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12"
+                 size-lg="6">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate w-100">
+              <p class="text-label ion-no-margin">
+                {{ 'fleets.details.owner' | transloco }}
+              </p>
+              <ng-container *ngIf="!loading; else loadingBlock">
+                <p class="text-truncate ion-no-margin"
+                   data-test-id="fleetOwnerName"
+                   [title]="fleet.ownerDetails.name">
+                  {{ fleet.ownerDetails.name }}
+                </p>
+              </ng-container>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+        <ion-col size="12"
+                 size-lg="6">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate w-100">
+              <p class="text-label ion-no-margin">
+                {{ 'fleets.details.managers' | transloco }}
+              </p>
+              <ng-container *ngIf="!loading; else loadingBlock">
+                <p *ngIf="getManagersNames(fleet.managersDetails) as managers"
+                   data-test-id="fleetManagersNames"
+                   class="text-truncate ion-no-margin"
+                   [title]="managers">
+                  {{ managers }}
+                </p>
+              </ng-container>
+            </ion-text>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+
+    <ion-list *ngIf="item && editMode">
+
+      <ion-item class="ion-hide">
+        <ion-input [(ngModel)]="item._id"
+                   [label]="'id'"
+                   type="text"
+                   name="_id"
+                   aria-label="_id">
+        </ion-input>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12"
+                   size-lg="6">
+            <ion-item lines="none">
+              <ion-input [(ngModel)]="item.name"
+                         [label]="'fleets.details.name' | transloco"
+                         [required]="true"
+                         [concordiaNxIonicWhiteSpaceValidator]="true"
+                         [errorText]="'errors.invalidField' | transloco "
+                         data-test-id="fleetNameControl"
+                         name="name"
+                         label-placement="floating"
+                         type="text"
+                         placeholder=""
+                         clearInput
+                         aria-label="">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12"
+                   size-lg="6">
+            <ion-item lines="none">
+              <ion-input [(ngModel)]="item.description"
+                         [label]="'fleets.details.description' | transloco"
+                         [required]="true"
+                         [concordiaNxIonicWhiteSpaceValidator]="true"
+                         [errorText]="'errors.invalidField' | transloco "
+                         name="description"
+                         label-placement="floating"
+                         type="text"
+                         placeholder=""
+                         clearInput
+                         aria-label="">
+              </ion-input>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12"
+                   size-lg="6">
+            <ion-item lines="none">
+              <concordia-ng-shared-select-search [(ngModel)]="item.ownerId"
+                                                 [label]="'fleets.details.owner' | transloco"
+                                                 [options]="listOwners"
+                                                 [disabled]="!fleet.isOwnerEditable"
+                                                 [errorText]="'errors.invalidField' | transloco "
+                                                 [required]=true
+                                                 name="ownerId"
+                                                 optionsGroup="userLevelId"
+                                                 optionsValue="userId"
+                                                 (changeValue)="onChange($event, f.value.managerIds)">
+              </concordia-ng-shared-select-search>
+            </ion-item>
+          </ion-col>
+
+          <ion-col size="12"
+                   size-lg="6">
+            <ion-item lines="none">
+              <concordia-ng-shared-search-multi-select [ngModel]="item.managerIds"
+                                                       [label]="'fleets.details.managers' | transloco"
+                                                       [options]="managersEdit.length ? managersEdit : managers"
+                                                       [disabled]="!fleet.isOwnerEditable"
+                                                       [errorText]="'errors.invalidField' | transloco "
+                                                       [required]=true
+                                                       name="managerIds"
+                                                       optionsGroup="userLevelId"
+                                                       optionsValue="userId">
+              </concordia-ng-shared-search-multi-select>
+<!--              <concordia-ng-shared-search-multi-select-->
+
+
+<!--              ></concordia-ng-shared-search-multi-select>-->
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </form>
+</ion-card>
+
+<ng-template #loadingBlock>
+  <ion-item color="light"
+            lines="none">
+    <ion-skeleton-text [animated]="true" style="width: 100%"></ion-skeleton-text>
+  </ion-item>
+</ng-template>

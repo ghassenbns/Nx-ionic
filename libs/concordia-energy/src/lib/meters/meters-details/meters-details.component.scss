@@ -1,0 +1,116 @@
+@use '../../../../../styles/core/breakpoints.scss' as bp;
+
+
+.segment-label {
+  width: 100%;
+}
+
+@media (min-width: bp.$breakpoint-md) {
+
+  concordia-nx-ionic-meter-details-card,
+  concordia-nx-ionic-meter-custom-info-card,
+  concordia-nx-ionic-meter-map,
+  concordia-nx-ionic-meter-latest-tariff-card {
+    height: 300px;
+  }
+}
+
+
+::ng-deep ion-chip.chip-type-true {
+  --background: rgba(var(--ion-color-success-rgb, 0, 0, 0), 0.12);
+  --color: rgba(var(--ion-color-success-rgb, 0, 0, 0), 1);
+}
+
+::ng-deep ion-chip.chip-type-false {
+  --background: rgba(var(--ion-color-tertiary-rgb, 0, 0, 0), 0.12);
+  --color: rgba(var(--ion-color-tertiary-rgb, 0, 0, 0), 1);
+}
+
+body.dark {
+  ::ng-deep ion-chip.chip-type-false {
+    --background: rgba(var(--ion-color-tertiary-rgb, 0, 0, 0), .2);
+    --color: rgba(var(--ion-color-tertiary-rgb, 0, 0, 0), 1);
+  }
+
+  ::ng-deep ion-chip.chip-type-true {
+    --background: rgba(var(--ion-color-success-rgb, 0, 0, 0), .2);
+    --color: rgba(var(--ion-color-success-rgb, 0, 0, 0), 1);
+  }
+}
+
+$signalTypes: 'ae_15m_imported',
+'ae_15m_exported',
+'re_15m_inductive',
+'re_15m_capacitive',
+'heat_energy_MWh',
+'m3',
+'heat_power_kW',
+'flow_l_per_h',
+'t1',
+'t2',
+'delta_temp',
+'kv_temp',
+'heating_temp',
+'external_temp',
+'operating_hours',
+'p1_bar',
+'p2_bar';
+@each $type in $signalTypes {
+  $i: index($signalTypes, $type);
+  ::ng-deep ion-chip.chip-type-#{$type} {
+    --background: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 0.12);
+    --color: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 1);
+  }
+
+  body.dark {
+    ::ng-deep ion-chip.chip-type-#{$type} {
+      --background: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 0.2);
+      --color: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 1);
+    }
+  }
+}
+
+$signalSubTypes: 'total',
+'partial',
+'other',
+'total',
+'partial',
+'lighting',
+'refrigeration',
+'air_conditioning',
+'aux',
+'other';
+@each $type in $signalSubTypes {
+  $i: index($signalSubTypes, $type);
+  ::ng-deep ion-chip.chip-type-#{$type} {
+    --background: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 0.12);
+    --color: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 1);
+  }
+
+  body.dark {
+    ::ng-deep ion-chip.chip-type-#{$type} {
+      --background: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 0.2);
+      --color: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 1);
+    }
+  }
+}
+
+
+$countries: 'peru', 'spain', 'lithuania';
+@each $country in $countries {
+  $i: index($countries, $country);
+  ::ng-deep ion-chip.chip-type-#{$country} {
+    --background: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 0.12);
+    --color: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 1);
+  }
+}
+
+
+$meterTypes: 'electricity', 'heat';
+@each $type in $meterTypes {
+  $i: index($meterTypes, $type);
+  ::ng-deep ion-chip.chip-type-#{$type} {
+    --background: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 0.12);
+    --color: rgba(var(--ion-color-chip-rgb-#{$i}, 0, 0, 0), 1);
+  }
+}

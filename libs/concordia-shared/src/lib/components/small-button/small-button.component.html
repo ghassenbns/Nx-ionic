@@ -1,0 +1,29 @@
+<ng-container *ngIf="id && link; else block">
+    <ion-router-link [routerLink]="['/', link, id]">
+      <ng-container *ngTemplateOutlet="block"></ng-container>
+    </ion-router-link>
+</ng-container>
+
+<ng-template #block>
+    <ion-button [disabled]="!id"
+                [title]="content ?? 'global.n/a' | transloco"
+                fill="clear"
+                class="w-100"
+                color="dark">
+
+        <ion-icon [name]="icon"
+                  [color]="icon_color"
+                  slot="start"></ion-icon>
+
+        <ion-skeleton-text *ngIf="loading"
+                           [animated]="true"
+                           style="width: 140px;"></ion-skeleton-text>
+
+        <ion-label *ngIf="!loading"
+                   class="text-truncate"
+                   style="max-width: 80%;"
+                   slot="end">
+         {{ content ?? 'global.n/a' | transloco}}
+        </ion-label>
+    </ion-button>
+</ng-template>

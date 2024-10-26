@@ -1,0 +1,117 @@
+<ion-input #ngModel="ngModel"
+           [attr.data-cy]="name"
+           [clearInput]="!required"
+           [disabled]="disabled || !options.length"
+           [errorText]="errorText"
+           [fill]="fill"
+           [labelPlacement]="label ? 'floating' : 'start'"
+           [label]="label
+                        ? label + ( !!model && model.length ? ' (' + model.length + ' of ' + options.length + ')' : '')
+                        : null"
+           [name]="name"
+           [ngModel]="getValues(model)"
+           [placeholder]="placeholder"
+           [required]="required"
+           data-test-id="multiSelectSearch"
+           aria-label=""
+           class="select text-truncate"
+           type="button"
+           data-test-id="multiSelect"
+           (click)="presentPopover($event)"
+           (ionInput)="onInput($event)">
+</ion-input>
+
+<ion-input [(ngModel)]="model"
+           [label]="label"
+           [name]="name"
+           [required]="required"
+           [disabled]="disabled"
+           data-test-id="multiSelectInp"
+           class="ion-hide"
+           label-placement="floating"
+           type="text"
+           placeholder=""
+           errorText="invalid field"
+           aria-label="">
+</ion-input>
+
+<ion-popover #popover
+             [isOpen]="isOpen"
+             [size]="viewSwitch ? 'auto' : 'cover'"
+             showBackdrop="false"
+             data-test-id="popover"
+             (didDismiss)="isOpen = false; search = ''">
+  <ng-template>
+    <ion-searchbar [(ngModel)]="search"
+                   [attr.data-cy]="name"
+                   data-test-id="multiSelectSearchSearchbar"></ion-searchbar>
+
+    <ion-content [scrollEvents]="true">
+      <ion-list class="ion-no-padding"
+                data-test-id="multiSelectList"
+                lines="none">
+        <ng-container *ngIf="optionsGroup; else list">
+          <ng-container *ngFor="let group of optionsGrouped">
+              <ng-container *ngIf="group">
+                <ion-item *ngIf="showGroupTitle(options, search)"
+                          [button]="false"
+                          [detail]="false"
+                          data-test-id="group">
+                  <b [transloco]="optionsGroup + '.'+ group.group"></b>
+                </ion-item>
+
+                <ion-content *ngFor="let option of group.value">
+                  <ion-item *ngIf="showItemTitle(option[optionsField]+'', search)"
+                            [button]="false"
+                            [detail]="false"
+                            [disabled]="option.hidden"
+                            [attr.data-cy]="option[optionsValue]"
+                            data-test-id="item"
+                            (keyup.enter)="onSetValue(option[optionsValue])">
+                    <ion-checkbox [checked]="isChecked(option[optionsValue])"
+                                  [attr.data-cy]="option[optionsValue]"
+                                  data-test-id="multiSelectSearchCheckbox"
+                                  labelPlacement="end"
+                                  justify="start"
+                                  aria-label=""
+                                  (ionChange)="onSelectOption($event,option)">
+                      {{option[optionsField]}}
+                    </ion-checkbox>
+                  </ion-item>
+                </ion-content>
+              </ng-container>
+            </ng-container>
+
+          <ng-container *ngIf="!noData(options, search); else noDataBlock">
+          </ng-container>
+        </ng-container>
+
+        <ng-template #list>
+          <ng-container *ngIf="filteredOption().length; else noDataBlock">
+            <ng-container *ngFor="let option of filteredOption()">
+              <ion-item [button]="false"
+                        [detail]="false"
+                        [disabled]="option.hidden"
+                        data-test-id="item"
+                        (keyup.enter)="onSetValue(option[optionsValue])">
+                <ion-checkbox [checked]="isChecked(option[optionsValue])"
+                              labelPlacement="end"
+                              justify="start"
+                              aria-label=""
+                              (ionChange)="onSelectOption($event,option)">
+                  {{option[optionsField]}}
+                </ion-checkbox>
+              </ion-item>
+            </ng-container>
+          </ng-container>
+        </ng-template>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-popover>
+
+<ng-template #noDataBlock>
+  <ion-item>
+    No data found.
+  </ion-item>
+</ng-template>

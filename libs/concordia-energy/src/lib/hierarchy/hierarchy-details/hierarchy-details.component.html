@@ -1,0 +1,115 @@
+<concordia-ng-shared-page *ngIf="{loading: loading$ | async} as data"
+                          [card]="true"
+                          [header]="'table.hierarchies' | transloco"
+                          cardHeight="calc(100% - 92px)"
+                          class="ion-page h-100">
+  <div #fullScreen
+       [class.full-screen]="isFullScreen"
+       class="h-100 bg">
+    <ion-row class="ion-padding-top">
+      <ion-col *ngIf="id$ | async as id"></ion-col>
+      <ion-col size="fix">
+        <ion-buttons class="ion-hide-md-down">
+          <ion-button fill="clear"
+                      color="primary"
+                      expand="block"
+                      type="button"
+                      (click)="onFullScreen()">
+            <ng-container *ngIf="!isFullScreen">
+              {{ ('global.fullScreen' | transloco) }}
+              <ion-icon slot="end"
+                        name="move-outline"></ion-icon>
+            </ng-container>
+            <ng-container *ngIf="isFullScreen">
+              {{ ('global.fullScreenOff' | transloco) }}
+              <ion-icon slot="end"
+                        name="contract-outline"></ion-icon>
+            </ng-container>
+          </ion-button>
+          <ion-button [disabled]="data.loading"
+                      fill="clear"
+                      color="primary"
+                      expand="block"
+                      type="button"
+                      (click)="onCancel()">
+            {{ 'global.reset' | transloco }}
+            <ion-icon slot="end"
+                      name="close-outline"></ion-icon>
+          </ion-button>
+          <ion-button [disabled]="data.loading || !item?.isEditable"
+                      fill="outline"
+                      color="primary"
+                      expand="block"
+                      type="button"
+                      (click)="onAdd()">
+            {{ 'global.add' | transloco }}
+            <ion-icon slot="end"
+                      name="add-outline"></ion-icon>
+          </ion-button>
+          <ion-button [disabled]="data.loading || !item?.isEditable"
+                      fill="outline"
+                      color="primary"
+                      type="button"
+                      (click)="onSave()">
+            {{ 'global.save' | transloco }}
+            <ion-icon slot="end"
+                      name="save-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+
+        <ion-buttons class="ion-hide-md-up">
+          <ion-button fill="clear"
+                      type="button"
+                      (click)="onFullScreen()">
+            <ion-icon color="primary"
+                      slot="icon-only"
+                      [name]="isFullScreen ? 'contract-outline' : 'move-outline'"></ion-icon>
+          </ion-button>
+          <ion-button [disabled]="data.loading || !item?.isEditable"
+                      fill="clear"
+                      type="button"
+                      (click)="onCancel()">
+            <ion-icon color="danger"
+                      slot="icon-only"
+                      name="close-outline"></ion-icon>
+          </ion-button>
+          <ion-button [disabled]="data.loading || !item?.isEditable"
+                      fill="clear"
+                      type="button"
+                      (click)="onAdd()">
+            <ion-icon color="primary"
+                      slot="icon-only"
+                      name="add"></ion-icon>
+          </ion-button>
+          <ion-button [disabled]="data.loading || !item?.isEditable"
+                      fill="clear"
+                      type="button"
+                      (click)="onSave()">
+            <ion-icon color="primary"
+                      slot="icon-only"
+                      name="save"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-col>
+    </ion-row>
+
+    <div class="rete p-relative">
+
+      <ion-text *ngIf="!data.loading && !item">
+        {{ 'table.noDataFound' | transloco }}
+      </ion-text>
+
+      <div class="h-100 w-100" #rete></div>
+
+      <div *ngIf="data.loading && first"
+           class="h-100 w-100 p-absolute bg"></div>
+
+      <ion-skeleton-text *ngIf="data.loading"
+                         [animated]="true"
+                         class="h-100 ion-no-margin p-absolute"></ion-skeleton-text>
+
+    </div>
+  </div>
+</concordia-ng-shared-page>
+
+

@@ -1,0 +1,81 @@
+{
+    "name": "fleets",
+    "entity": "fleet",
+    "columns": [
+      {
+        "field": "name",
+        "contentType": "string",
+        "fixed": true,
+        "filterType": "string",
+        "rowSelector": "name",
+        "searchType": "text",
+        "required": true,
+        "options": [],
+        "link": {
+          "field": "_id",
+          "pref": "/fleets",
+          "sfx": ""
+        }
+      },
+      {
+        "field": "description",
+        "contentType": "string",
+        "fixed": false,
+        "filterType": "string",
+        "rowSelector": "description",
+        "searchType": "text",
+        "required": true,
+        "options": []
+      },
+      {
+        "field": "active",
+        "contentType": "boolean",
+        "filterType": "boolean",
+        "rowSelector": "isActive",
+        "searchType": "select",
+        "required": true,
+        "defaultValue": true,
+        "options": [
+          { "name": "active", "_id": true },
+          { "name": "inactive", "_id": false }
+        ],
+        "optionsTranslate": true
+      },
+      {
+        "field": "owner",
+        "contentType": "string",
+        "filterType": "string",
+        "rowSelector": "ownerDetails.name",
+        "rowEditSelector": "ownerId",
+        "searchType": "text",
+        "editType": "selectSearch",
+        "options": [],
+        "required": true,
+        "disabled": false,
+        "optionsValue": "userId",
+        "optionsGroup": "userLevelId"
+      }
+    ],
+    "actions": [
+      { "type": "EDIT" },
+      { "type": "DELETE" }
+    ],
+    "multiActions": [
+      {
+        "icon": "checkmark-circle-outline",
+        "name": "activate",
+        "type": "ACTIVATE"
+      },
+      {
+        "icon": "close-circle-outline",
+        "name": "deactivate",
+        "type": "DEACTIVATE"
+      },
+      {
+        "icon": "trash-outline",
+        "name": "delete",
+        "type": "DELETE"
+      }
+    ]
+  }
+  

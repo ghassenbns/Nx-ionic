@@ -1,0 +1,43 @@
+<ion-grid class="container">
+  <ion-row class="ion-no-padding">
+    <ion-col size="12"
+             size-md="4"
+             data-test-id="item">
+      <concordia-ng-shared-small-card [id]="trip?.fleetId"
+                                      [label]="'table.fleet' | transloco"
+                                      [name]="trip?.fleetDetails?.name"
+                                      [loading]="loading"
+                                      link="fleets"
+                                      icon="bus-outline"
+                                      icon_color="danger">
+      </concordia-ng-shared-small-card>
+    </ion-col>
+
+    <ion-col size="12"
+             size-md="4"
+             data-test-id="item">
+      <concordia-ng-shared-small-card [id]="trip?.vehicleId"
+                                      [label]="'table.vehicle' | transloco"
+                                      [label_detail]="trip?.vehicleDetails?.registrationNumber"
+                                      [name]="trip?.vehicleDetails?.name"
+                                      [loading]="loading"
+                                      link="vehicles"
+                                      icon="car-outline"
+                                      icon_color="primary">
+      </concordia-ng-shared-small-card>
+    </ion-col>
+
+    <ion-col size="12"
+             size-md="4"
+             data-test-id="item">
+      <concordia-ng-shared-small-card [id]="trip?.driverId"
+                                      [name]="trip?.driverDetails?.name"
+                                      [label]="'table.driver' | transloco"
+                                      [loading]="loading"
+                                      link="drivers"
+                                      icon="man-outline"
+                                      icon_color="success">
+      </concordia-ng-shared-small-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

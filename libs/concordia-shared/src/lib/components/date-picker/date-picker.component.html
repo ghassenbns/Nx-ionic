@@ -1,0 +1,40 @@
+<ng-container *ngIf="format$ | async as format">
+  <ion-input #input
+             #ngModel="ngModel"
+             [clearInput]="!required"
+             [errorText]="errorText"
+             [fill]="fill"
+             [labelPlacement]="label ? 'floating' : 'start'"
+             [label]="label ? label : null"
+             [name]="name"
+             [ngModel]="model | userDate:customTimezone | async"
+             [placeholder]="placeholder"
+             [required]="required"
+             [disabled]="disabled"
+             [concordiaNxIonicDateValidator]="[minDateSub(), maxDateFull, format, diff]"
+             [attr.data-cy]="name"
+             data-test-id="dateSearch"
+             helperText="{{format}}.
+                       {{minDate() ? 'Min: ' + ( minDate() | userDate:customTimezone | async ) + '.' : ''}}
+                       {{maxDateFull ? 'Max: ' + ( maxDateFull | userDate:customTimezone | async ) + '.'  : ''}}"
+             aria-label=""
+             type="text"
+             debounce="1000"
+             (click)="presentPopover($event)"
+             (ionInput)="close($event, format)"
+             (keyup.enter)="presentPopover($event)">
+  </ion-input>
+
+  <ion-input [(ngModel)]="model"
+             [label]="label"
+             [name]="name"
+             [required]="required"
+             [disabled]="disabled"
+             class="ion-hide"
+             label-placement="floating"
+             type="text"
+             placeholder=""
+             errorText="invalid rowSelector"
+             aria-label="">
+  </ion-input>
+</ng-container>

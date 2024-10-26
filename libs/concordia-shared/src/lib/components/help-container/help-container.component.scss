@@ -1,0 +1,9 @@
+:host {
+  min-height: 100%;
+  border-left: 1px solid var(--ion-color-light-shade);
+  background: var(--ion-card-background);
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+  padding-right: 16px;
+}

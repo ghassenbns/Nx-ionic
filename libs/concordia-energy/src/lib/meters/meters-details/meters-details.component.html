@@ -1,0 +1,156 @@
+<ng-container *ngIf="{
+  meter: meter$ | async,
+  loadingMeter: loadingMeter$ | async,
+  canEdit: canEdit$ | async,
+} as data">
+  <concordia-ng-shared-page *ngIf="data.meter"
+                            class="ion-page"
+                            [header]="data.meter.name">
+    <ion-grid class="_ion-no-margin _ion-no-padding">
+      <ion-row class="_ion-no-margin _ion-no-padding">
+        <ion-col size="12"
+                 size-lg="6">
+          <ion-card class="ion-no-margin">
+            <ion-card-title>
+
+              <ion-item class="bb-1"
+                        [ngClass]="{'ion-no-padding': data.meter.latestTariffEnabled}"
+                        lines="none">
+                <ion-segment *ngIf="(data.meter.latestTariffEnabled) else detailTitle"
+                             (ionChange)="segmentChanged($event)"
+                             value="details"
+                             class="ion-no-margin ion-no-padding">
+                  <ion-grid class="ion-no-margin ion-no-padding">
+                    <ion-row class="ion-no-margin ion-no-padding">
+                      <ion-col class="text-truncate segment-label"
+                               size="6">
+                        <ion-segment-button value="details">
+                          <ion-label class="text-truncate segment-label">
+                            {{ 'meters.details.details' | transloco }}
+                          </ion-label>
+                        </ion-segment-button>
+                      </ion-col>
+                      <ion-col *ngIf="data.meter.latestTariffEnabled"
+                               class="text-truncate segment-label"
+                               size="6">
+                        <ion-segment-button value="latestTariff">
+                          <ion-label class="text-truncate segment-label">
+                            {{ 'meters.details.latestTariff' | transloco }}
+                          </ion-label>
+                        </ion-segment-button>
+
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+
+
+                </ion-segment>
+
+                <ng-template #detailTitle>
+                  <ion-card-title>{{ 'card.details' | transloco }}</ion-card-title>
+                </ng-template>
+
+                <ion-buttons slot="end"
+                             *ngIf="data.meter.isEditable && data.canEdit ">
+                  <ion-button
+                    color="primary"
+                    fill="clear"
+                    [disabled]="data.loadingMeter"
+                    (click)="onEditModal(data.meter)"
+                    [title]="'card.edit' | transloco ">
+                    <ion-icon slot="icon-only"
+                              name="pencil-outline">
+                    </ion-icon>
+                  </ion-button>
+                </ion-buttons>
+              </ion-item>
+            </ion-card-title>
+
+            <concordia-nx-ionic-meter-details-card *ngIf="segment==='details'"
+                                                   [meter]="data.meter"
+                                                   [isLoading]="data.loadingMeter"
+                                                   class="animate__animated animate__slideInUp animate__fast" />
+
+
+            <!--            <concordia-nx-ionic-meter-custom-info-card *ngIf="data.meter.customInfo && segment==='customInfo'"-->
+            <!--                                                       [meter]="data.meter"-->
+            <!--                                                       [isLoading]="data.loadingMeter"-->
+            <!--                                                       class="animate__animated animate__slideInUp animate__fast"/>-->
+
+            <concordia-nx-ionic-meter-latest-tariff-card *ngIf="segment === 'latestTariff'"
+                                                         class="animate__animated animate__slideInUp animate__fast" />
+          </ion-card>
+        </ion-col>
+
+        <ion-col
+          size="12"
+          size-lg="6">
+          <concordia-ng-shared-card [cardConfig]="mapCardConfig">
+            <!--            comment map to get rid of the circualar object error...-->
+            <concordia-nx-ionic-meter-map
+              [meter]="data.meter"
+              [isLoading]="data.loadingMeter">
+
+            </concordia-nx-ionic-meter-map>
+          </concordia-ng-shared-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <concordia-ng-shared-card-accordion *ngIf="data.meter.meterType===METER_TYPES.ELECTRICITY"
+                                        [header]="'table.contracts' | transloco"
+                                        [isOpen]="true">
+      <concordia-nx-ionic-contracts-table [meter]="data.meter">
+
+      </concordia-nx-ionic-contracts-table>
+
+    </concordia-ng-shared-card-accordion>
+
+    <concordia-ng-shared-card-accordion [header]="'table.signals' | transloco"
+                                        [isOpen]="true">
+      <concordia-nx-ionic-signals-table dataKey="meterSignalId"
+                                        dataLabel="alias"
+                                        [meter]="data.meter"></concordia-nx-ionic-signals-table>
+    </concordia-ng-shared-card-accordion>
+
+    <!-- *Skeleton Templates* -->
+
+    <ng-template #headerLoadingTemplate>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>
+            <ion-skeleton-text
+              [animated]="true"
+              style="width: 30%"></ion-skeleton-text>
+          </ion-title>
+        </ion-toolbar>
+      </ion-header>
+    </ng-template>
+
+    <ng-template #boxLoadingTemplate>
+      <div class="box-container">
+        <a *ngFor="let box of [1, 2, 3]"
+           class="overview-box ion-padding ion-margin">
+          <div class="box-info">
+              <span>
+                <ion-skeleton-text
+                  [animated]="true"
+                  style="width: 30%"></ion-skeleton-text>
+              </span>
+            <ion-text>
+              <ion-skeleton-text
+                [animated]="true"
+                style="width: 15%"></ion-skeleton-text>
+            </ion-text>
+          </div>
+          <div class="box-icon">
+            <ion-thumbnail slot="end">
+              <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+            </ion-thumbnail>
+          </div>
+        </a>
+      </div>
+    </ng-template>
+  </concordia-ng-shared-page>
+</ng-container>
+

@@ -1,0 +1,293 @@
+<ion-content>
+  <ion-header class="p-sticky">
+    <ion-toolbar>
+      <ion-title data-test-id="title">
+        <ng-container *ngIf="!clone else cloneTitle">
+          <ng-container *ngIf="!(_model && _model[modelIdField])">{{ 'table.createNew' | transloco }}</ng-container>
+          <ng-container *ngIf="(_model && _model[modelIdField])">{{ 'table.edit' | transloco }}</ng-container>
+        </ng-container>
+        <ng-template #cloneTitle>{{ 'table.clone' | transloco }}</ng-template>
+        {{ 'entities.' + strategy.entity | transloco | lowercase }}
+      </ion-title>
+
+      <ion-buttons slot="end">
+        <ion-button *ngIf="modalId"
+                    data-test-id="toggleBtn"
+                    (click)="toggle(full)">
+          <ion-icon [name]="!full ? 'square-outline' : 'remove-outline'"
+                    slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-button data-test-id="cancelBtn"
+                    (click)="cancel()">
+          <ion-icon name="close-outline"
+                    slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <form #f="ngForm"
+        (ngSubmit)="onSubmit(f)">
+
+    <!--    F: {{f.value | json}} <hr> {{_model | json}}-->
+    <ion-list>
+
+      <ion-item *ngIf="_model && _model[modelIdField]"
+                class="ion-hide">
+        <ion-input [(ngModel)]="_model[modelIdField]"
+                   [label]="modelIdField"
+                   type="text"
+                   [name]="modelIdField"
+                   aria-label="id-property">
+        </ion-input>
+      </ion-item>
+
+      <ion-grid>
+        <ion-row>
+          <ng-container *ngFor="let column of strategy.columns">
+            <ng-container *ngIf="canView(column)">
+              <ng-container *ngIf="column.editType || column.searchType as type">
+                <ion-col size="12"
+                         [ngClass]="{'ion-hide': type==='hidden'}"
+                         [sizeLg]="strategy.column ? 12 * (column.colspan || 1)/strategy.column : 12">
+                  <ion-item *ngIf="column.rowEditSelector || column.rowSelector as rowSelector"
+                            [class]="type === 'select'
+                                          ? 'ion-margin-end ion-margin-bottom'
+                                          : 'ion-margin-bottom'"
+                            [lines]="type === 'select' ? '' : 'none'"
+                            data-test-id="item">
+
+                    <ng-container [ngSwitch]="type">
+                      <!--see https://stackoverflow.com/a/62566538/1388109 for reference-->
+                      <ng-container *ngSwitchCase="['text', 'number'] | switchMultiCase:type">
+                        <ng-container [ngSwitch]="column.contentType">
+                          <ng-container *ngSwitchCase="'string'">
+                            <ion-input [(ngModel)]="group(rowSelector)
+                                                ? (_model[group(rowSelector)][selector(rowSelector)] || _model[group(rowSelector)][selector(rowSelector)] ? _model[group(rowSelector)][selector(rowSelector)] : 0 )
+                                                : _model[rowSelector]"
+                                       [label]="('table.' + column.field | transloco) + (column.addLabel ? ' (' + getModel(_model,column.addLabel) + ')' : '')"
+                                       [name]="rowSelector"
+                                       [required]="!!column.required"
+                                       [disabled]="!!column.disabled"
+                                       [readonly]="isReadonlyFields(column)"
+                                       [concordiaNxIonicWhiteSpaceValidator]="!!column.required"
+                                       [errorText]="'errors.invalidField' | transloco "
+                                       label-placement="floating"
+                                       type="string"
+                                       placeholder=""
+                                       clearInput
+                                       data-test-id="input"
+                                       aria-label="">
+                            </ion-input>
+
+                          </ng-container>
+                          <ng-container *ngSwitchCase="'number'">
+                            <ion-input [(ngModel)]="group(rowSelector)
+                                                ? (_model[group(rowSelector)][selector(rowSelector)] || _model[group(rowSelector)][selector(rowSelector)] ? _model[group(rowSelector)][selector(rowSelector)] : null )
+                                                : _model[rowSelector]"
+                                       [label]="('table.' + column.field | transloco) + (column.addLabel ? ' (' + getModel(_model,column.addLabel) + ')' : '')"
+                                       [name]="rowSelector"
+                                       [required]="!!column.required"
+                                       [disabled]="!!column.disabled"
+                                       [readonly]="isReadonlyFields(column)"
+                                       [min]="column.min"
+                                       [max]="column.max"
+                                       [concordiaNxIonicWhiteSpaceValidator]="!!column.required"
+                                       [concordiaNxIonicMinValueValidator]="column.min"
+                                       [concordiaNxIonicMaxValueValidator]="column.max"
+                                       [errorText]="'errors.invalidField' | transloco "
+                                       [step]="column.step ?? 1"
+                                       label-placement="floating"
+                                       type="number"
+                                       placeholder=""
+                                       clearInput
+                                       data-test-id="input"
+                                       aria-label="">
+                            </ion-input>
+
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+
+                      <ng-container *ngSwitchCase="'switch'">
+                        <ion-label [color]="column.disabled ? 'medium':''"
+                                   class="w-100 cursor-pointer ion-no-margin line-height-38"
+                                   (click)="onToggle(rowSelector, _model[rowSelector])">
+                          {{ 'table.' + column.field | transloco }}
+                        </ion-label>
+                        <ion-toggle [(ngModel)]="_model[rowSelector]"
+                                    [name]="rowSelector"
+                                    [disabled]="!!column.disabled"
+                                    slot="end">
+                        </ion-toggle>
+                      </ng-container>
+
+                      <ng-container *ngSwitchCase="'select'">
+                        <!--                [label]="'table.' + column.field | transloco"-->
+
+                        <ion-select [(ngModel)]="_model[rowSelector]"
+                                    [label]="'table.' + column.field | transloco"
+                                    [name]="rowSelector"
+                                    [required]="!!column.required"
+                                    [disabled]="!!column.disabled || isReadonlyFields(column)"
+                                    label-placement="floating"
+                                    interface="popover"
+                                    aria-label=""
+                                    data-test-id="select"
+                                    (ionChange)="onChange($event, rowSelector)">
+
+                          <ng-container *ngFor="let option of column.options">
+                            <ng-container *ngIf="(column.optionsValue || '_id') as value">
+                              <ng-container *ngIf="(column.optionsField || 'name') as name">
+                                <ion-select-option [value]="option[value]"
+                                                   [disabled]="option.hidden">
+                                  {{ column.optionsTranslate ? ('table.' + option[name] | transloco) : option[name] }}
+                                </ion-select-option>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+
+                        </ion-select>
+                        <ion-note slot="error"> {{ 'errors.invalidField' | transloco }}</ion-note>
+                      </ng-container>
+<!--todo-->
+                      <ng-container *ngSwitchCase="'multiSelect'">
+                        <!--                [label]="'table.' + column.field | transloco"-->
+
+                        <ion-select [(ngModel)]="_model[rowSelector]"
+                                    [label]="'table.' + column.field | transloco"
+                                    [name]="rowSelector"
+                                    [required]="!!column.required"
+                                    [disabled]="!!column.disabled || isReadonlyFields(column)"
+                                    label-placement="floating"
+                                    interface="popover"
+                                    aria-label=""
+                                    data-test-id="multiselect"
+                                    [multiple]="true"
+                                    (ionChange)="onChange($event, rowSelector)">
+
+                          <ng-container *ngFor="let option of column.options">
+                            <ng-container *ngIf="(column.optionsValue || '_id') as value">
+                              <ng-container *ngIf="(column.optionsField || 'name') as name">
+                                <ion-select-option [value]="option[value]"
+                                                   [disabled]="option.hidden">
+                                  {{ column.optionsTranslate ? ('table.' + option[name] | transloco) : option[name] }}
+                                </ion-select-option>
+                              </ng-container>
+                            </ng-container>
+                          </ng-container>
+
+                        </ion-select>
+                        <ion-note slot="error"> {{ 'errors.invalidField' | transloco }}</ion-note>
+                      </ng-container>
+
+                      <ng-container *ngSwitchCase="'selectSearch'">
+                        <concordia-ng-shared-select-search #name="ngModel"
+                                                           [(ngModel)]="_model[rowSelector]"
+                                                           [label]="'table.' + column.field | transloco"
+                                                           [name]="rowSelector"
+                                                           [required]="!!column.required"
+                                                           [disabled]="!!column.disabled"
+                                                           [setTouched]="name.touched"
+                                                           [options]="column.options"
+                                                           [readonly]="isReadonlyFields(column)"
+                                                           [rowSelector]="column.rowSelector"
+                                                           [optionsField]="column.optionsField || 'name'"
+                                                           [optionsValue]="column.optionsValue || ''"
+                                                           [optionsGroup]="column.optionsGroup || ''"
+                                                           errorText="invalid field"
+                                                           data-test-id="selectSearch"
+                                                           (changeValue)="onChange($event, rowSelector)">
+                        </concordia-ng-shared-select-search>
+                      </ng-container>
+
+                      <ng-container *ngSwitchCase="'multiSelectSearch'">
+                        <concordia-ng-shared-search-multi-select #name="ngModel"
+                                                           [(ngModel)]="_model[rowSelector]"
+                                                           [label]="'table.' + column.field | transloco"
+                                                           [name]="rowSelector"
+                                                           [required]="!!column.required"
+                                                           [disabled]="!!column.disabled"
+                                                           [setTouched]="name.touched"
+                                                           [options]="column.options"
+                                                           [readonly]="isReadonlyFields(column)"
+                                                           [rowSelector]="column.rowSelector"
+                                                           [optionsField]="column.optionsField || 'name'"
+                                                           [optionsValue]="column.optionsValue || ''"
+                                                           [optionsGroup]="column.optionsGroup || ''"
+                                                           errorText="invalid field"
+                                                           data-test-id="selectSearch"
+                                                           (changeValue)="onChange($event, rowSelector)">
+                        </concordia-ng-shared-search-multi-select>
+                      </ng-container>
+
+                      <ng-container *ngSwitchCase="'date'">
+                        <concordia-ng-shared-date-picker #date="ngModel"
+                                                         [(ngModel)]="_model[rowSelector]"
+                                                         [label]="'table.' + column.field | transloco"
+                                                         [name]="rowSelector"
+                                                         [required]="!!column.required"
+                                                         [disabled]="!!column.disabled"
+                                                         [minDateFull]="column.minDateFull"
+                                                         [maxDateFull]="column.maxDateFull"
+                                                         [minDateOffset]="column.minDateOffset"
+                                                         [dateOffset]="column.dateOffset"
+                                                         [setTouched]="date.touched"
+                                                         [options]="column.options"
+                                                         [rowSelector]="column.rowSelector"
+                                                         [optionsField]="column.optionsField || 'name'"
+                                                         [optionsValue]="column.optionsValue || ''"
+                                                         [optionsGroup]="column.optionsGroup || ''"
+                                                         [customTimezone]="column.timezone || null"
+                                                         errorText="invalid field"
+                                                         data-test-id="date"
+                                                         (changeValue)="onChange($event, rowSelector)">
+                        </concordia-ng-shared-date-picker>
+                      </ng-container>
+
+                      <ng-container *ngSwitchCase="'hidden'">
+                        <ion-item *ngIf="_model && _model[rowSelector]"
+                                  class="ion-hide">
+                          <ion-input [(ngModel)]="_model[rowSelector]"
+                                     [label]="rowSelector"
+                                     type="text"
+                                     [name]="rowSelector"
+                                     aria-label="hidden-property">
+                          </ion-input>
+                        </ion-item>
+                      </ng-container>
+                    </ng-container>
+                  </ion-item>
+                </ion-col>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ion-row>
+      </ion-grid>
+
+      <ng-content select="[body]"></ng-content>
+
+      <ion-grid class="ion-padding">
+        <ion-row class="ion-justify-content-end">
+          <ion-col size="auto">
+            <ion-button [disabled]="loading"
+                        fill="outline"
+                        type="submit"
+                        data-test-id="saveBtn">
+              {{ 'global.save' | transloco }}
+              <ion-icon slot="end"
+                        name="save-outline"></ion-icon>
+            </ion-button>
+
+            <!--        fix submit form action -->
+            <button [disabled]="loading"
+                    class="ion-hide"
+                    type="submit">
+              Save
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </form>
+</ion-content>

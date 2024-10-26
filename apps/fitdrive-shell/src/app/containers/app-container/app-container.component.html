@@ -1,0 +1,19 @@
+<ng-container *ngIf="{
+user: user$ | async,
+} as data;">
+  <concordia-ng-shared-layout [name]="data.user?.name || ''"
+                              [menus]="(menus$ | async) || []"
+                              [customerName]="customerName"
+                              [logoFormat]="logoFormat"
+                              [activeUrl]="(activeUrl$ | async) ?? ''"
+                              [appVersion]="(appVersion)"
+                              [apiVersion]="(apiVersion$ | async) ?? ''"
+                              [darkTheme]="(theme$ | async) === 'dark'"
+                              [loading]="(status$ | async)?.pending || false"
+                              [helpPanel]="helpPanel"
+                              class="ion-page"
+                              (toggleTheme)="onToggleTheme($event, data.user?.userId)"
+                              (logout)="logOut()">
+  </concordia-ng-shared-layout>
+</ng-container>
+

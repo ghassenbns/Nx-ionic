@@ -1,0 +1,46 @@
+:host {
+  ion-content.login_page {
+    --background: none no-repeat 100% 100%;
+  }
+
+  .login_page_bg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .light_bg {
+    background: rgba(#FFFFFF, 0.9);
+  }
+
+  .login_page_grid {
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    & ion-img {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  }
+
+  .login-copyright {
+    height: 21px;
+    display: inline-block;
+  }
+
+  .pt-40 {
+    padding-top: 40px;
+  }
+
+  ion-item {
+    --background: white;
+  }
+}

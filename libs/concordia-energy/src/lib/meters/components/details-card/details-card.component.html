@@ -1,0 +1,157 @@
+<ng-container *ngIf="!isLoading; else loadingTemplate">
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row class="ion-no-margin ion-no-padding">
+      <!-- top level properties -->
+      <ion-col class="ion-no-margin ion-no-padding">
+        <ion-list class="ion-no-margin ion-no-padding">
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'meters.details.owner' | transloco }}
+              </p>
+              <p
+                      [title]="meter.owner?.name"
+                      class="text-truncate ion-no-margin">
+                {{ meter.owner?.name }}
+              </p>
+            </ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'meters.details.name' | transloco }}
+              </p>
+              <p
+                      [title]="meter.name"
+                      class="text-truncate ion-no-margin">
+                {{ meter.name }}
+              </p>
+            </ion-text>
+          </ion-item>
+
+          <ion-item lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'meters.details.description' | transloco }}
+              </p>
+              <p
+                      [title]="meter.description"
+                      class="text-truncate ion-no-margin">
+                {{ meter.description }}
+              </p>
+            </ion-text>
+          </ion-item>
+
+          <ion-item
+                  *ngIf="meter.ref"
+                  lines="none">
+            <ion-text class="ion-text-nowrap text-truncate">
+              <p class="text-label ion-no-margin">
+                {{ 'meters.details.reference' | transloco }}
+              </p>
+              <p
+                      [title]="meter.ref"
+                      class="text-truncate ion-no-margin">
+                {{ meter.ref }}
+              </p>
+            </ion-text>
+          </ion-item>
+
+
+        </ion-list>
+      </ion-col>
+
+      <!-- CUSTOM PROPERTIES -->
+      <ion-col class="ion-no-margin ion-no-padding">
+        <ion-grid class="ion-no-margin ion-no-padding">
+          <ion-row>
+            <ion-col *ngFor="let customInfo of meter.customInfo"
+                     class="ion-no-margin ion-no-padding"
+                     sizeXs="12"
+                     sizeSm="6">
+              <ion-item lines="none">
+                <ion-text class="ion-text-nowrap text-truncate">
+                  <p class="text-label ion-no-margin">
+                    {{ customInfo.name }}
+                  </p>
+                  <p [title]="customInfo.value"
+                     class="text-truncate ion-no-margin">
+                    {{ customInfo.value }}
+                  </p>
+                </ion-text>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-no-padding ion-no-margin">
+      <ion-col class="ion-no-padding ion-no-margin"
+               size="3">
+
+        <ion-item lines="none">
+          <ion-text class="ion-text-nowrap text-truncate">
+            <p class="text-label ion-no-margin">
+              {{ 'meters.details.type' | transloco }}
+            </p>
+            <p class="text-truncate ion-no-margin">
+              {{ meter.meterType | titlecase }}
+            </p>
+          </ion-text>
+        </ion-item>
+      </ion-col>
+      <ion-col class="ion-no-padding ion-no-margin"
+               size="3">
+        <ion-item lines="none">
+          <ion-text class="ion-text-nowrap text-truncate">
+            <p class="text-label ion-no-margin">
+              {{ 'meters.details.country' | transloco }}
+            </p>
+            <p class="text-truncate ion-no-margin">
+              {{ meter.country | titlecase }}
+            </p>
+          </ion-text>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+</ng-container>
+
+<!-- *Loading Skeleton template* -->
+<ng-template #loadingTemplate>
+  <ion-grid class="ion-no-margin ion-no-padding">
+    <ion-row class="ion-no-margin ion-no-padding">
+      <ion-col class="ion-no-margin ion-no-padding">
+        <ion-list>
+          <ion-item lines="none"
+                    *ngFor="let line of [1, 2, 3, 4, ]">
+            <ion-skeleton-text [animated]="true"
+                               style="height: 32px;"></ion-skeleton-text>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col class="ion-no-margin ion-no-padding d-flex">
+        <ion-skeleton-text [animated]="true"
+                           class="ion-align-self-auto m-auto"
+                           style="height: 200px; width: 200px;"></ion-skeleton-text>
+
+      </ion-col>
+    </ion-row>
+    <ion-row class="ion-wrap ion-justify-content-between">
+      <!-- METER TYPE AS CHIP -->
+      <ion-col
+              sizeXs="12"
+              sizeSm="6"
+              class="ion-justify-content-center"
+              *ngFor="let chips of [1,2]">
+        <ion-item lines="none">
+          <ion-skeleton-text [animated]="true"
+                             style="height: 32px; width: 64px"></ion-skeleton-text>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ng-template>

@@ -1,0 +1,310 @@
+# Changelog
+
+This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
+
+## [0.3.2](http://bitbucket.org/Advanticsys/concordia-nx-ionic/compare/concordia-energy-0.3.1...concordia-energy-0.3.2) (2024-07-08)
+
+
+### Bug Fixes
+
+* filters width [CON-1916] ([c6aa4a5](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c6aa4a5e790c612230b2ca4ba6077749d202be61))
+
+## [0.3.1](http://bitbucket.org/Advanticsys/concordia-nx-ionic/compare/concordia-energy-0.3.0...concordia-energy-0.3.1) (2024-06-26)
+
+
+### Bug Fixes
+
+* bug load chart data if changed metersId (loading) [CON-1914] ([6240892](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/6240892a93eb9df05216184dc718ae335c6bf44a))
+* bug load chart data if changed metersId [CON-1914] ([3e8b46d](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/3e8b46d97b9794c63da7e4137883cc6f59bd6ae1))
+* clean meter id if not available [CON-1914] ([5eebbb9](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/5eebbb943518d5c68981fcc1de948ba6452489b5))
+* clean meter id if not available [CON-1914] ([d775357](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d7753571628b0c0c41480b8a9b1db9f151ae6eef))
+* load miters list with filter form data [CON-1914] ([f743c1e](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f743c1e42b19de0299f8a783cc5a2aef17bcf32e))
+* max only if sample has value [CON-1914] ([668f111](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/668f1114433316193093a9ca42a6a4a7c3af2893))
+
+## [0.3.0](http://bitbucket.org/Advanticsys/concordia-nx-ionic/compare/concordia-energy-0.2.3...concordia-energy-0.3.0) (2024-06-25)
+
+
+### Features
+
+* reset hierarchies [CON-1910] ([e9e5b1a](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e9e5b1a7faff4ab6f24e11e8dd6bb9f6e2a52a11))
+* reset hierarchies [CON-1910] ([765a04d](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/765a04dde2f20ed91698463a39c08fcf7b66a0c0))
+* set filters with hierarchies [CON-1910] ([aab5e7b](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/aab5e7b706e43ae34a77a5272d547500c1de48ef))
+* set load with hierarchies [CON-1910] ([b3513bb](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b3513bb933f6df8ff2e6c76c31bdeb70044b8e3a))
+* set load with hierarchies [CON-1910] ([9efcb09](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/9efcb09aaeacee92ea1d9b1f169e5e949acaede8))
+* set load with hierarchies [CON-1910] ([832dbed](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/832dbed2c5d23ed232aa7fda3449553c2a4a3748))
+
+
+### Bug Fixes
+
+* extra request [CON-1910] ([9ec4746](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/9ec4746e7f3a3a835890dc8004fab08ee8d5ce40))
+
+## [0.2.3](http://bitbucket.org/Advanticsys/concordia-nx-ionic/compare/concordia-energy-0.2.2...concordia-energy-0.2.3) (2024-06-24)
+
+
+### Bug Fixes
+
+* max Date in chart [CON-1908] ([8f8eed9](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/8f8eed99ddf5cf236b199d3e062b837b943de02e))
+
+## [0.2.2](http://bitbucket.org/Advanticsys/concordia-nx-ionic/compare/concordia-energy-0.2.1...concordia-energy-0.2.2) (2024-06-19)
+
+## [0.2.1](http://bitbucket.org/Advanticsys/concordia-nx-ionic/compare/concordia-energy-0.2.0...concordia-energy-0.2.1) (2024-06-14)
+
+
+### Bug Fixes
+
+* add space [CON-1897] ([853fcb1](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/853fcb167f15b341dbe763198824e54a6a78beb3))
+* style fixes [CON-1897] ([6658729](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/66587290bd4afa126b5202604818e0b9495629b6))
+
+## [0.2.0](http://bitbucket.org/Advanticsys/concordia-nx-ionic/compare/concordia-energy-0.1.0...concordia-energy-0.2.0) (2024-06-13)
+
+
+### Features
+
+* clean code [CON-1897] ([bba0e63](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/bba0e633a85fb68263ded68bdcf08eb6aa01d220))
+* lint errors [CON-1897] ([edf15a6](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/edf15a63b9ac8cf8dc8b1000d66609736fb22caa))
+* update aggregation period restriction [CON-1897] ([b224c0a](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b224c0a167f3f2cf7399b47686545087a0d56fce))
+
+
+### Bug Fixes
+
+* validation [CON-1897] ([124522d](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/124522dc31018276fecd415a4e1c68acd1b0963d))
+
+## [0.1.0](http://bitbucket.org/Advanticsys/concordia-nx-ionic/compare/concordia-energy-0.0.1...concordia-energy-0.1.0) (2024-06-12)
+
+
+### Features
+
+* init [CON-1875] ([d004f01](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d004f01669ea0566960eb2758c139722ca57e310))
+
+
+### Bug Fixes
+
+* back crosshair settings [CON-1875] ([bafc1f2](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/bafc1f2f821153cd54ec16e5ca075e9de7622112))
+* cash hierarchies list [CON-1875] ([d40c1de](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d40c1de9c396a06200d581ace3ab43241ae6ff2b))
+* clean logs & add points [CON-1875] ([28ca4b4](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/28ca4b48b313aba28f191e40b5aff7bed16a5407))
+* dots near chart [CON-1875] ([00bd7a8](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/00bd7a866d4ba2887cab7cadc3d081b532420faa))
+* fix routing [CON-1875] ([1407bdd](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/1407bddef55d1e2ddaa1b4d598e21adfd437c673))
+* fix title [CON-1875] ([b410f9b](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b410f9b715782709ca646fd126c6b79b72bdf6d0))
+* hierarchies set metersIds [CON-1875] ([e8b15b3](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e8b15b3e2278e22e8ea1b2880216f78c3734f92f))
+* hierarchies tree init [CON-1875] ([aea5628](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/aea5628befe49ce4c050047efe00c0eaa0f55d18))
+* hierarchy panel [CON-1875] ([348bebe](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/348bebe201008c0a2c6be2c972edfd66eb212ef8))
+* init filter & tree [CON-1875] ([014b0d3](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/014b0d30146a3d64910a689ed537c18f49aa0672))
+* lint & tests [CON-1875] ([bbe2768](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/bbe276805af80ef9d50997cc13b51a6005bd2b74))
+* set data for hierarchies panel [CON-1875] ([ad6bb7d](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/ad6bb7d808bb4490fff1de1aee5ab6fb60f17ceb))
+* set filter form after apply UnPristine [CON-1875] ([52d0c1b](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/52d0c1b009059c5f4df0dc63c533078228073204))
+* set/get meters list with params [CON-1875] ([a223577](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/a223577de1bbfdf0e1d41b6c478f36c7cf059086))
+* styles + store [CON-1875] ([b9ab9c8](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b9ab9c83d67b02b927ecce947715a2063120793b))
+* test & init start data & fax reset [CON-1875] ([3f36770](http://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/3f3677094d5b39516db5e4e465ac8000c0b62c33))
+
+## [0.0.1](http://bitbucket.org/Advanticsys/concordia-nx-ionic/compare/concordia-energy-0.1.0-alpha.0...concordia-energy-0.0.1) (2024-06-06)
+
+## 0.1.0-alpha.0 (2024-06-06)
+
+
+### Features
+
+* ... process [CON-1739] ([88b1d50](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/88b1d50adf585e081386c7a856fbc976acbce5c9))
+* ... process implement client [CON-1739] ([17bef97](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/17bef97771a0a3b9cdfbca10b92cf7a799f68349))
+* ... process implement update [CON-1739] ([348ce2e](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/348ce2edb6398cb4874099b07889006f61ea7b85))
+* ... process max validation [CON-1739] ([63be540](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/63be540a433007efdd681cbdc2de4d0aac510fdd))
+* (lang) add translate [CON-1739] ([bc21ed7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/bc21ed7e303471939087276cc98a43b8dffd3ee7))
+* (lang) add translate [CON-1739] ([07eda56](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/07eda568b7064b054a4f2d3987a4b91a82131191))
+* adapted storeMany response handling [CON-1774] ([b5de066](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b5de066d9659164da427298a04c8974cbb0e4cde))
+* add - "Add new" custom info button [CON-1739] ([b52f512](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b52f512dfe7f6f641f4e5070fd87e8cfeea8542a))
+* add colors for dark theme for charts & change active styles buttons [CON-1770] ([5f1852f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/5f1852f2a45c543cf6b33b7bb7ca46e793dc7028))
+* add colors service [CON-1811] ([16fa763](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/16fa763cdc863cad91e1584ef83cff159901012b))
+* add filters logic [CON-1755] ([d88c8c2](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d88c8c2db10eebe0befcfcdcb71e969791991604))
+* add userNumberPipe [CON-1876] ([fcfa0be](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/fcfa0be032795b41479e0257ee5e86d31ea94aa3))
+* added comp signal filtering [CON-1774] ([c105463](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c1054631966fd8cfab8a7a56f044fea0b1d3b8c6))
+* added compsignal reset on node or type change [CON-1774] ([f8374ca](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f8374ca1b34ea806a0efa5332a1779df7a6a1cb5))
+* added custom config for table edit [CON-1774] ([032a35d](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/032a35d1cf0152bdbc8fe4d4b317313b901360cf))
+* added dataKey Input to drive sort field [CON-1773] ([c80b932](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c80b9329851504753481bd6c4e3c804f399ba27d))
+* added default value for cumulative [CON-1774] ([c5bcdbf](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c5bcdbfec6359564840e5f6157900c31fc460118))
+* added edit modal for peru contracts [CON-1773] ([bd8932d](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/bd8932ddab7604bebd8128a0746065358e82bb96))
+* added edit mode for modal [CON-1773] ([25aea09](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/25aea0905227c67bd1d9ba86e18cc3ea05b9d0b6))
+* added field to meter interface [CON-1740] ([638f88f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/638f88fdf599ffc8f3076d7a9098625b21ba34e0))
+* added filter types [CON-1773] ([baf2ef7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/baf2ef75b2154db4ac677cb49239ce2a491779ef))
+* added hidden field type [CON-1773] ([af8afba](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/af8afbab77b0d999eb788811fae6b917bdf085ee))
+* added ion-segments [CON-1740] ([5383f51](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/5383f519a28a0b36072fea39dd146e2a69cc0348))
+* added isEditable/isDeletable flag evaluation [CON-1773] ([79c9085](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/79c908509850474282fee708662023f5409b7046))
+* added meter contracts api service client and working on store method [CON-1773] ([508a49a](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/508a49a8a839a86fda220f18e983f08604e8f178))
+* added meter types enum and bound contracts display [CON-1774] ([43d989a](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/43d989ae42ba6aa9e24812dbfeb7bd46eacfedf9))
+* added pipe for joining array [CON-1773] ([004a9e9](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/004a9e90b96c684960099db59b21f8decb445fdb))
+* added skeleton loading for info and tariffs [CON-1740] ([a0996fe](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/a0996fefb3e944fdef5cafc12d6b7b280828f623))
+* added skeleton loading for top level details [CON-1740] ([cb9a0a4](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/cb9a0a4290b0733e0343118449ff3dfed4b7b149))
+* added stub of custom info and tariff components [CON-1740] ([4c989f9](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/4c989f927fe1bb71540f3ca4adf309b0b14c15c2))
+* adding contracted power ui [CON-1773] ([bc0e999](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/bc0e999b9bd3b9825ea0d5a48f4031f5366a9520))
+* adding delete many [CON-1774] ([6539a8a](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/6539a8afacdf24b570c41699401bb5b186f2cda9))
+* adding multi edit/add [CON-1774] ([34869e7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/34869e7f8b8a68c2256391fdd53ce967a218f3d2))
+* adding peru meter signals [CON-1774] ([bf171a0](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/bf171a0723ced7f54c9713c3a33b65d1dfc9b424))
+* adding spanish contracts table [CON-1773] ([b6367ff](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b6367ff00f397ff8bd368f792d0eedefc98a424f))
+* cash meters for userId [CON-1811] ([0ad7c0e](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/0ad7c0e30bf1be7a33a23364d87e3d6fe47ee42b))
+* clean code [CON-1770] ([cad2f73](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/cad2f7398e75b78f177b65b7746cdc1a7270ce58))
+* clean code [CON-1811] ([2227720](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/2227720e328f053671e26cc3a5a0ea9a0480f4fc))
+* clean code [CON-1876] ([30c4d07](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/30c4d07ecbe6e28a2ecdab8fd0feab15feaedf60))
+* clean code [CON-1876] ([6b78ba4](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/6b78ba4dc8132f7eddfed037f443e79b7cfb8d08))
+* clean code & fix: unit tests [CON-1738] ([483ccb8](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/483ccb8ac3d0400b935b7d09c24a03e94d5bc466))
+* cleaned config for zone and tariff fields [CON-1773] ([4d92788](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/4d927887ddf81a3bd15f6a2a6c212d00e824dfdd))
+* comparisonLookback validation [CON-1811] ([2743b03](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/2743b03cc3e0dfbbe2f30ac1ad79b5dde6937b79))
+* Consumption Comparison progress ([40e0650](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/40e065016d1ddb0ba26e97a8cadfb53a49d0b375))
+* Consumption Comparison progress logic ([201091c](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/201091caa39f5accb9b4625552138dd7a944c3ab))
+* Consumption Comparison progress styles ([119f30f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/119f30f0ce9d837757dfd6b88b4ab79bdee322c6))
+* Consumption Comparison progress styles ([7f38074](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/7f3807470d041663f4c2334a75f66615a49fa9ee))
+* Consumption Comparison progress styles ([50803b3](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/50803b333e5ecbaa27262e2475c29ad8f4fdcb61))
+* created different components for Spain and Peru contracts [CON-1773] ([d12bcce](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d12bcce2784137fcb9a76bb25ef6076284302983))
+* created meter-details-card compoenent stub [CON-1740] ([64b4182](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/64b41821ff7431478dc1586445eacead5d99b1cb))
+* created spain contracts interfaces [CON-1773] ([c5d6703](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c5d6703197403136db4708214b156544c2ed4c45))
+* created stub for meter retrieval [CON-1740] ([1cbe0e2](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/1cbe0e225996ce78cd298665455b82dad2b409bd))
+* default & max Date [CON-1811] ([6e31c4c](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/6e31c4c9b1d6092ca124b2f158252542bb90ded6))
+* disable apply & reset filters [CON-1811] ([1d21e87](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/1d21e877994209c00ed3be8208242eb4608f81c9))
+* disable apply & reset filters, and fix lint & tests errors [CON-1811] ([4fbfe62](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/4fbfe6268d4915c0b704b6ee8e504bdd38263f5d))
+* display peru appliesFrom date in meter Tz [CON-1773] ([7df40f3](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/7df40f3bbbeff720b1db01c75e37a00ab8d935bd))
+* help panel & mob menu [CON-1771] ([7adf23d](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/7adf23dea3d2436c140dec564b3f66571f91b25d))
+* help panel & mob menu [CON-1771] ([f4ff86c](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f4ff86c4a7afef0d4a8caf018cf60d31f4cf1bdd))
+* implement addFilter filters in table and switcher [CON-1738] ([ba2cda1](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/ba2cda15d83eed98a671b53bc596e9dd1c23e4c4))
+* implement api & store lib [CON-1737] ([0de2491](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/0de24910058f15c83275d61083921dc6dd874a29))
+* implement custom information type with search [CON-1739] ([8820595](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/8820595830ae6811deff1cf3bf918b35bf750911))
+* implement meters table [CON-1738] ([2e9d6be](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/2e9d6be13831bf898a9563cd9d3ea1af75b4e41c))
+* implement some filters in meters table [CON-1738] ([ec9ae73](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/ec9ae733be43d83ca7551e69e27105024bbdb280))
+* implement success notification for update public/private [CON-1738] ([b79cb62](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b79cb62a1aec1653eb1147d6f1c576d29272035c))
+* implement the number of columns [CON-1739] ([24355ab](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/24355abefc6e1a8afb8b6b9fafe91d0ce24d9dbf))
+* implement theme toggle [CON-1770] ([e03ddcd](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e03ddcd1f16ee3ed3aaacd0987a0c30032bdb988))
+* implement timezone filter [CON-1738] ([4cf6f51](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/4cf6f512fa8e5325da6bd795201a2f9b1b10852d))
+* implement timeZone filters in meters table [CON-1738] ([33b2d3e](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/33b2d3e2b005e92e14b0fa2dee4276ff31d24557))
+* implement timezone store [CON-1738] ([d7431a7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d7431a720ba3672b11ff44ef06ecd3afa200d3f8))
+* implemented contract deletion [CON-1773] ([42de68a](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/42de68acceedd9bd8075ab62b5a82ef7b735e8f1))
+* implemented multi filter options [CON-1774] ([eb27b36](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/eb27b3677d182e2e91b474d4df0e9cf617844ff8))
+* init create meter [CON-1739] ([1aac266](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/1aac266605dcf87baaf0b53150b14c7b9ecc9b5e))
+* init energy structure [CON-1737] ([b349569](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b3495695e75b80a2005df1cf6a92693bf251959b))
+* init energy structure [CON-1737] ([decb0f7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/decb0f7d0690dbb920803d737b4a85dfd17b468c))
+* inplement disable private/public button & fix access guard + lang [CON-1738] ([35e6eaa](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/35e6eaad78416ec0334df8a3cb841a6f2aaf361c))
+* load meters for filter [CON-1811] ([3883c4f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/3883c4f9ae41258cf099df5d96043ce94c4b7ef4))
+* load meters for user [CON-1811] ([4dcc0d6](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/4dcc0d6ea6582114fb965a6f457cdfe90624a677))
+* modal full size [CON-1739] ([66df717](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/66df71760c42fae0d5f3f264c6b55ec6fb904b83))
+* moved latest tariffs out of entities [CON-1740] ([a9114e4](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/a9114e4790050731ecd886d8bfa031b4ffb31228))
+* optimized loading of comp signals and fix display [CON-1774] ([12f53f4](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/12f53f424fc2dcfa4301a96bf73be9863decb1a2))
+* pick data property of response [CON-1740] ([129dd62](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/129dd6286257e3177c52808559eed6ff57abc5e8))
+* progress [CON-1811] ([756594f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/756594f5e3a70be2c1576ca8abd6b742c453fdd2))
+* progress [CON-1811] ([f2f3425](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f2f342563b09c199f0ce108126a6ed8c6e7a74e9))
+* progress [CON-1811] ([7080275](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/70802752a2a9d5fe69aab62ac22ba695d1d27160))
+* progress [CON-1811] ([9d09def](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/9d09def053868e78886b24353a68e96e85c5ff70))
+* progress [CON-1811] ([cd29a2b](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/cd29a2b2724d2a60850eed1c6d05df87caf4ff57))
+* progress styles [CON-1811] ([e8ef727](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e8ef727e51c79cae33af0d6c5b970ddc5d614679))
+* progress styles [CON-1811] ([e25c278](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e25c2784f489dac0cbdd2066af960ffc7983ced9))
+* progress styles [CON-1811] ([6adbd29](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/6adbd2971c95c1820bba1c240f384bbad2f58726))
+* properly updated page data on edit success [CON-1773] ([55a7b54](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/55a7b543cba8afafaf84d2c796034f88f68164f6))
+* refactor hidden field redenring in multiedit table [CON-1774] ([ab91c07](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/ab91c078cd5f53f1b3bb5b64f0b59002b9fe9168))
+* remove list Users to user api [CON-1739] ([470a3c8](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/470a3c876e14982de2507f3fae1497766912f91f))
+* rename ConsumptionAnalysisView to ConsumptionComparison [CON-1811] ([94c6f2d](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/94c6f2d31c8ab7c6f672028d290c082badda8f2f))
+* replaced hard coded _id with parametrized dataKey prop [CON-1773] ([daf554a](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/daf554a1258bb5cd53738975e7dd2b987c441568))
+* resize map on side bar display [CON-1740] ([2035633](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/20356339fdd807cff8a41e476ab3fbb9f23b6823))
+* retrived data for selects [CON-1773] ([332cbd4](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/332cbd4e799568a293809c0f0cfc1d9bec558a43))
+* set default start date [CON-1819] ([3156a0d](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/3156a0daac105206be0ade4e10840db4dddc163c))
+* set national border bounds on meter country [CON-1819] ([bdb15b2](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/bdb15b25dfaada1942b52b1975ab933579040c10))
+* stub of spain contracts table [CON-1773] ([83353f9](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/83353f9b07a51f0d8bbaf6539365efa7504bbf03))
+* theme styles [CON-1820] ([706316f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/706316f52fe81e3af877e16c3ed9425c35d92884))
+* types [CON-1876] ([f90c2ca](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f90c2cab6279cfc9ad33620453a31da44948aeb7))
+* ua fixes [CON-1876] ([88351f9](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/88351f9d4cb4a72743856a2f0d93d2d3504c0587))
+* update comp signals and node changes [CON-1774] ([9b464df](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/9b464df937c563c92ecbe4ffd47a945686975f49))
+* update optionValue [CON-1774] ([7561e57](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/7561e57573dae7d00707da14090cbe416f414b6e))
+* update store lib [CON-1737] ([e944df4](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e944df49c80a757d7426c49c8891d97f079ca6f8))
+* use only one delete method [CON-1773] ([28ac9a8](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/28ac9a83aafb11f93f132153069d0c3b2e81f2b9))
+* validators [CON-1739] ([d2a53e7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d2a53e7c1c64998eb818dadbe0ab29d3fd9ccf4d))
+* wip add peru contract [CON-1773] ([303ca7a](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/303ca7a0cc1d984a9b5f2e0ef8b2560343d7164e))
+* wip added voltage and  editType: 'number' handling [CON-1773] ([52eb1f4](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/52eb1f477134a5f95dd2a723bbeeb6ac531b54bf))
+* wip adding peru contracts [CON-1773] ([25c84ff](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/25c84ff500ba7170c8cc1e884450da01b2f756d3))
+* wip in setting meter signal type unit id [CON-1774] ([8404141](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/8404141b6588ce9092198a3452944c40700d9268))
+* wip in update comp signals option on  node change [CON-1774] ([14014e0](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/14014e0cf1881d3f32b7f1eaa1fc90ed194a2446))
+* wip on add conctracts modal [CON-1773] ([faa66b4](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/faa66b4b3e24491fa79710d58502b495a6e78f2b))
+* wip on bulk actions [CON-1774] ([771dffc](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/771dffcad73ac242b336b92efef4958c8fe73e5f))
+* wip on bulk add [CON-1774] ([ed3130b](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/ed3130ba4c3595e081e8de8e68e0bf1bf3ce0830))
+* wip on chained selects [CON-1774] ([1e7ebc9](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/1e7ebc9f3b2c0b5cc67066fa83f035039695c66f))
+* wip on contacted powers set/reset [CON-1773] ([bbd1369](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/bbd1369347793fdb67bf68f8fe9aab5c761306c0))
+* wip on edit in details page [CON-1773] ([a21a47c](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/a21a47c55d71c11eec4697ead6cba5b16cdbc070))
+* wip on electricityt signals [CON-1774] ([e3103b6](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e3103b6b7f7d71acb276c96fbbd51333f0696fe8))
+* wip on filtering signals wrt to unitId [CON-1774] ([ef70740](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/ef707407994186e2a5dd978189d1504b9fe12873))
+* wip on handling node/type select change [CON-1774] ([b15930e](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b15930e6a1a9e2d5f6c0bfcfa24a290407985a16))
+* wip on meter custom info display [CON-1740] ([f4ea3a0](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f4ea3a05d27ea04d672360f7a73e4a93d406b3e5))
+* wip on meters detail [CON-1740] ([a1d7a76](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/a1d7a76a88e5aec6a3cdfba9a309772cd6687027))
+* wip on multi edit [CON-1774] ([3a35089](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/3a350895168020716c7d66cbd0bc0b134363c7e7))
+* wip on multi edit [CON-1774] ([59699f9](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/59699f9dc43d68d65811b909effe7f1e3e3d0f48))
+* wip on multi edit [CON-1774] ([7120717](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/7120717c20c4101c740fbfec83d40099beb2997c))
+* wip on multi edit/add [CON-1774] ([3cc3a58](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/3cc3a586326747d78a6d747551c11fe9697960e4))
+* wip on peru contracts [CON-1773] ([c800dc7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c800dc7e01dcff7896310e971839b02fd0f97646))
+* wip on peru signals table [CON-1774] ([d5bd0d7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d5bd0d70676db0064fad18c404a11042f7a4d16d))
+* wip on signal creation [CON-1774] ([1ad8792](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/1ad8792ad0056eaa2a14476ad954f7759b4e248d))
+* wip on signals [CON-1774] ([9314216](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/9314216e4affff230b8ab57e73f43a3071a4ed09))
+* wip on signals add/edit modal [CON-1774] ([500bd77](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/500bd774087fc611b056fa743e5870b79d3f0e60))
+* wip on spain contracts add modal [CON-1773] ([711f14e](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/711f14e6e6d6c92939180323a198e8c8ee2cfdf6))
+* wip on spain meter signals [CON-1774] ([aba6540](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/aba6540adb0d1b13b505ae77abaaba4d8141d669))
+* wip on zone and tariff conditional loading [CON-1773] ([fc5be79](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/fc5be796687bc5656b36f79f8fcd244cdbe721ee))
+* wrapped map in meter map component [CON-1740] ([1cf4d81](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/1cf4d81e22d646a8c5a5ea4028887514c91549d1))
+
+
+### Bug Fixes
+
+* 0.00 to 0 [CON-1876] ([a035f08](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/a035f08bc4fc6ab03ffc4664e731668b0d8a73c3))
+* add filter for UserLevelId [CON-1813] ([d686cd7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d686cd7051c17d139b6ff94d2a14a12c75bbb094))
+* add searchSelector [CON-1813] ([3e2068d](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/3e2068d63b1a43e799a3851370c0f6d7b6384e06))
+* add step time [CON-1876] ([d34b31e](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d34b31efde50f723e205ecee3cfd6a259e53d227))
+* added 'hidden' case to resetValue [CON-1774] ([0aed2c9](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/0aed2c903bd6963076b6c6803f4a701dae65f08f))
+* added comments to check missing meter update [CON-1819] ([cc22a34](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/cc22a3429650ab6dc3134d3162380ad40cd48dfd))
+* added compSignalId reset on node and signaltype change [CON-1774] ([36da0b3](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/36da0b3256bc7e2773e65d974f0540fdf1d3c9b1))
+* added custom timezone when we need to override the users' one [CON-1773] ([40b0fb2](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/40b0fb2571f6fd268db352a6e0a724479d3929d0))
+* added id property ti display on map [CON-1740] ([7ae8dcb](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/7ae8dcbe7776f01b3a5569c9c0b5c236ccdb5baa))
+* added latestTariffEnabled and customInfoEnabled evaluation [CON-1740] ([a3163b6](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/a3163b660df742a2f0cfcc027644a7a43ec5f4ea))
+* added mock of UiState and cleaned mapComponent retrieval [CON-1740] ([db50f61](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/db50f619f6987c539c9ef44b5d823cebf9529fa7))
+* added null check and lint eslint-disable-next-line no-console [CON-1819] ([ddcd93f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/ddcd93f2e0e696f8c4d9f50c450e1737b144e99a))
+* chart x axis to number [CON-1811] ([90adb9c](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/90adb9cd42e2ce04851149384b87858ed99da2fe))
+* clean code [CON-1813] ([c4053a5](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c4053a5db35964f01d8fa54c3f2d1def670331cb))
+* clean code fix tests [CON-1811] ([ce22765](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/ce22765748e16b97986c12124564c6323ca2fe3e))
+* clean code fix tests [CON-1811] ([148fe30](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/148fe302dc7af33f3bc162712fe008f96bd5a05f))
+* clean meters if change user [CON-1811] ([f9137d9](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f9137d9b90a3ca2f6e5cd1d77a849e6a2997fc91))
+* conditionally adding energy price [CON-1819] ([670e151](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/670e15101fee4dc85874d5c05c4f49a73c1fd5dc))
+* fixed modal opened twice [CON-1773] ([e7bd566](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e7bd566bcfabb0751af7683e6447470d6c96207d))
+* hide option AggregationPeriods q if > month, h if more 6 month [CON-1871] ([e19354d](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e19354d073aa996fa1bcdd65946ba1428fa14051))
+* hide switcher bar/line chart [CON-1871] ([860442d](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/860442d816939e48be36f297c84159f235a761fa))
+* hide tooltip with value null [CON-1876] ([2647980](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/26479804ee7b89f4eb73aaeea6714968496801cb))
+* hide tooltip with value null [CON-1876] ([f075341](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f07534183cee07bf5381ed5fcbcecda2aa2afd10))
+* init filter & tree [CON-1876] ([534b223](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/534b223e5c4b711d173a61d432c7159a4506019d))
+* lang [CON-1739] ([7f6a9cd](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/7f6a9cd70ddba465277bd8a5d1bb937375d5d877))
+* line empty width [CON-1811] ([2f39db8](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/2f39db8ff68d13a6ba6ada7acbfed67dd4ce61fc))
+* lint & test [CON-1739] ([64dcada](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/64dcada064bcf6c2e7a8f5d1481c9f6d37606599))
+* margins [CON-1819] ([3fe39e7](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/3fe39e7784462efd0038b4d849937e255c274c24))
+* max number validator [CON-1811] ([0106842](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/0106842a4acbcf77359cf0ff3420e526507aeaa2))
+* meter data update after save [CON-1819] ([22d0f6d](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/22d0f6d340917441f84ad21d2cce61fee45a15d7))
+* min & max if first empty [CON-1876] ([d1faabe](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d1faabed8c1685edde09e9ece42d6252359b1e66))
+* moved custom properties to top level panel [CON-1819] ([8ea691f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/8ea691fdd00d15f8e13680f0261b74bda9412023))
+* moved tariff loading to tarif component [CON-1740] ([86f8885](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/86f8885b8dddd556cc90e0074072024a839d3961))
+* nitpicks [CON-1871] ([6ee7cae](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/6ee7cae884f1a7ebd7f84018db317ef6fc7d5e0e))
+* open two edit modal [CON-1739] ([3fee520](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/3fee520452e80639a72d7ff799cd931db0dfe906))
+* owner filter optionsValue [CON-1755] ([e85760b](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e85760b1b3358d226eeecd664d8d9e675c70f82a))
+* passed a clone of column strategies [CON-1773] ([f4af4d8](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f4af4d82a876ebcc160f8e0593d420cfecd9174b))
+* public default value false [CON-1739] ([a802f29](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/a802f29224fed8889bd3758aed778c094ec00b89))
+* redirect 'energy' to 'energy/meters' [CON-1737] ([5d6cd38](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/5d6cd3872c9d72923e87d6a04aae6ecf94f04b45))
+* removed unused imports [CON-1740] ([49725a4](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/49725a41dc0f694b41c14ebff4093720dbac6ec8))
+* reset [CON-1871] ([f814f0c](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f814f0c913de6517c21109717bbc93ff12d31d70))
+* reverted rename [CON-1819] ([d3b9e6c](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/d3b9e6c7d71c9e8742cf77e238f05e27d556ff9d))
+* rgba function [CON-1871] ([db4870c](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/db4870c5cf23059b9fed09e48c64a2474b47aebf))
+* scroll modal after add new item [CON-1739] ([fd68663](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/fd686632c9cc83bd85f1a050dee1a33bdd11454e))
+* set alias column as fixed [CON-1832] ([08104ca](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/08104cac7e09235c6471582a3ebea6bf72269880))
+* set back _id in add method [CON-1773] ([459df4c](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/459df4cbd4ff1f575f8650e91e0fe31924290a7b))
+* set back nodeId and unitId filtering [CON-1774] ([59447d6](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/59447d6045d4ecc632be889d501ebc452efc00b3))
+* set back spain config [CON-1773] ([e7ae02f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/e7ae02fdd0c946843d607079f1c58c7c98472c5f))
+* set feature id [CON-1819] in properties too ([6b0bf8e](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/6b0bf8ee1e0ceeb32b8e4df0ec80996d3caa3f7a))
+* set filter type to multisearch ([c846cc2](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c846cc2ef40601d25737d93107314883d75d807c))
+* set panels as opened [CON-1819] ([c48a16f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c48a16f3e0f1ab5229f216ce0e17a9f40f3a6f81))
+* set period [CON-1811] ([110d821](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/110d82115bfeb0cd1740d9224bd1f55cfdc3ea0f))
+* set segmented buttons col size wrt to latestTariffEnabled & customInfoEnabled [CON-1740] ([b5cdea9](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b5cdea91f8160d96f2a92f1b8cba40a810365b2d))
+* set skeleto on tariff rates too [CON-1740] ([5c2ac09](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/5c2ac092f7624fb62b43719699bd35a659db6bf3))
+* set type and country as text [CON-1819] ([f88d600](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/f88d6004f0791f7dd967c898f13d3dbcccf4ec59))
+* tooltip [CON-1876] ([6d5a599](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/6d5a599e5c3149aa491ea009ac69907bcc3950f8))
+* unit test [CON-1737] ([0845100](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/08451005e61f6b6344a6206d6b1f3014d849b09d))
+* updated map-components library [CON-1740] ([b1da818](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/b1da818682487408353be7e82c34cbd89c663ad3))
+* updated tab display guard [CON-1832] ([4a36fab](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/4a36fab04d0a3bc3c6d5ec483871a9ae7d258f3a))
+* uz TZ & format for show data [CON-1876] ([092847f](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/092847f7c0d29be1c1995f355ced3313c3419a86))
+* view as user and add group [CON-1813] ([45db71e](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/45db71ee1b7c29a2ff4946421361e9a3fae62d55))
+* view-as-user can be for Admin SuperAdmin [CON-1811] ([adc07e0](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/adc07e0f3d183cffe0b4f54359aae3693e875d43))
+* view-as-user can be for Admin SuperAdmin [CON-1811] ([dc332c6](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/dc332c611f1cc5434b4580db124b9e8c19988858))
+* wip on adding card [CON-1740] ([6234de6](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/6234de6a782afcbd067ce6ae7a80d01075b0b5d0))
+* wip on meter refresh after update [CON-1819] ([c29ad76](https://bitbucket.org/Advanticsys/concordia-nx-ionic/commit/c29ad7645c807717222ad98e2f86613b46e067bf))

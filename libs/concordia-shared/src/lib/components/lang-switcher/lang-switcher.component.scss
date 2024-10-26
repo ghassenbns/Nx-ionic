@@ -1,0 +1,21 @@
+:host {
+  .lang-en ion-select::part(text),
+  .lang-es ion-select::part(text) {
+    &:before {
+      display: inline-block;
+      width: 16px;
+    };
+  }
+
+  .lang-en ion-select::part(text) {
+    &:before {
+      content: url('/assets/flag/en.svg');
+    };
+  }
+
+  .lang-es ion-select::part(text) {
+    &:before {
+      content: url('/assets/flag/es.svg');
+    };
+  }
+}

@@ -1,0 +1,21 @@
+<ng-container *ngIf="{
+    canEdit:canEdit$|async,
+    canDelete:canDelete$|async
+} as data">
+
+  <concordia-ng-shared-data-table [actions]="actions"
+                                  [canEdit]="data.canEdit && meter.isEditable"
+                                  [canDelete]="data.canDelete && meter.isDeletable"
+                                  [filters]="filters"
+                                  [hiddenColumns]="hiddenColumns"
+                                  [loading]="loading"
+                                  [sort]="sort"
+                                  [strategy]="strategy"
+                                  [tableData]="records"
+                                  [dataKey]="dataKey"
+                                  (actionEvent)="actionEvent($event)"
+                                  (multiActionEvent)="multiActionEvent($event)"
+                                  (loadEvent)="goTo($event)">
+  </concordia-ng-shared-data-table>
+
+</ng-container>

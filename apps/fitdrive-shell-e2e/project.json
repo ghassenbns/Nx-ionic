@@ -1,0 +1,37 @@
+{
+  "name": "fitdrive-shell-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/fitdrive-shell-e2e/cypress",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/fitdrive-shell-e2e/cypress.config.ts",
+        "devServerTarget": "fitdrive-shell:serve:development",
+        "testingType": "e2e"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "fitdrive-shell:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/fitdrive-shell-e2e/cypress/**/*.{js,ts}"]
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventionalcommits",
+        "commitUrlFormat": "{{host}}/{{owner}}/{{repository}}/commits/{{hash}}"
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["fitdrive-shell"]
+}

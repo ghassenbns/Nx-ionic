@@ -1,0 +1,70 @@
+<ion-img *ngIf="loginPageSlider && (index$ | async) as index"
+         [@flyInOut]="'in'"
+         [alt]="customerName"
+         class="login_page_bg"
+         src="assets/bg/{{customerName.toLowerCase()}}_{{index}}.{{loginPageBackgroundFormat}}"/>
+
+<ion-img *ngIf="!loginPageSlider"
+         [alt]="customerName"
+         class="login_page_bg"
+         src="assets/bg/{{customerName.toLowerCase()}}.{{loginPageBackgroundFormat}}"/>
+
+<ion-content class="login_page">
+  <ion-grid [fixed]="true"
+            class="login_page_grid ion-no-padding">
+
+    <ion-row class="h-100">
+      <ion-col size-md="6"
+               offset-md="6"
+               class="light_bg">
+
+        <ion-grid>
+          <ion-row class="ion-justify-content-end">
+            <ion-col size="auto">
+              <concordia-ng-shared-lang-switcher [value]="activeLang"
+                                                 (update)="onChangeLanguage($event)">
+              </concordia-ng-shared-lang-switcher>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <div class="ion-text-center pt-40 ion-margin-bottom"
+             data-test-id="fitdriveLogoContainer">
+          <a *ngIf="customerUrl"
+             class="logo ion-text-center"
+             [href]="customerUrl">
+            <ion-img src="assets/logo/{{customerName.toLowerCase()}}_light.{{logoFormat}}"
+                     data-test-id="fitdriveLogo"
+                     [alt]="customerName"></ion-img>
+          </a>
+          <div *ngIf="!customerUrl"
+             class="logo ion-text-center">
+            <ion-img src="assets/logo/{{customerName.toLowerCase()}}_light.{{logoFormat}}"
+                     data-test-id="fitdriveLogo"
+                     [alt]="customerName"></ion-img>
+          </div>
+        </div>
+
+        <ion-grid class="ion-margin-bottom">
+          <ion-row>
+            <ion-col size="8" offset="2">
+              <router-outlet></router-outlet>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <div class="ion-text-center ion-padding pt-40 copyright"
+             data-test-id="copyrightContainer">
+          Concordia © 2023 powered by
+          <a href="https://www.advanticsys.com"
+             target="_blank">
+            <ion-img class="login-copyright"
+                     data-test-id="advanticsysLogo"
+                     src="assets/logo/advanticsys.png"
+                     alt="Advanticsys"></ion-img>
+          </a>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

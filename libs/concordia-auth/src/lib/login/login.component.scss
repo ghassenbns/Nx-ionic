@@ -1,0 +1,30 @@
+:host ::ng-deep {
+  .pt-40 {
+    padding-top: 40px;
+  }
+  ion-item {
+    --background: white;
+  }
+
+  ion-item.ion-item-none-bg {
+    --background: none;
+  }
+
+  .ion-margin-right-8 {
+    margin-right: 16px !important;
+  }
+
+  ion-input {
+    --background: white;
+  }
+
+  .ion-touched.ion-invalid.sc-ion-input-md-h .input-bottom.sc-ion-input-md .error-text.sc-ion-input-md {
+    visibility: visible;
+  }
+
+  .input-bottom.sc-ion-input-md .error-text.sc-ion-input-md {
+    visibility: hidden;
+    display: block;
+  }
+
+}

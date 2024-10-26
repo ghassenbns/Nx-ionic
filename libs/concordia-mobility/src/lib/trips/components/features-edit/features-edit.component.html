@@ -1,0 +1,63 @@
+<form #f="ngForm">
+    <ion-list [class]="editMode ? 'container' : ''">
+        <ion-reorder-group [disabled]="!editMode"
+                           (ionItemReorder)="handleReorder($any($event))">
+            <ng-container *ngFor="let feature of features; let i = index">
+                <ion-item [ngModelGroup]="''+ i"
+                          [color]="feature?.state?.selected ? 'light' : ''"
+                          class="cursor-pointer"
+                          lines="full"
+                          data-test-id="item"
+                          (click)="onClick(feature.id)">
+                    <ion-item *ngIf="feature?.id"
+                              class="ion-hide">
+                        <ion-input [(ngModel)]="feature.id"
+                                   [label]="'id'"
+                                   type="text"
+                                   name="id"
+                                   aria-label="id">
+                        </ion-input>
+                    </ion-item>
+
+                    <ion-label [title]="feature.properties.address">
+<!--                      {{feature.properties.index + 1}}. -->
+                      {{feature.properties.address}}
+                    </ion-label>
+
+                    <ion-reorder slot="start"
+                                 class="ion-margin-end">
+                        <ion-icon name="menu-outline"
+                                  class="is-24"></ion-icon>
+                    </ion-reorder>
+
+                  <ion-buttons slot="end"
+                               class="ion-no-margin">
+                    <ion-button *ngIf="editMode"
+                                fill="clear"
+                                type="button"
+                                color="danger"
+                                shape="round"
+                                class="mr--8"
+                                data-test-id="delete"
+                                (click)="onDelete(feature)">
+                      <ion-icon slot="icon-only"
+                                name="trash-outline"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                </ion-item>
+            </ng-container>
+        </ion-reorder-group>
+    </ion-list>
+
+    <div *ngIf="editMode"
+         class="ion-padding">
+        <ion-button fill="outline"
+                    type="button"
+                    data-test-id="add"
+                    (click)="onAdd($event)">
+            {{ 'global.add' | transloco }}
+            <ion-icon slot="end"
+                      name="add-outline"></ion-icon>
+        </ion-button>
+    </div>
+</form>

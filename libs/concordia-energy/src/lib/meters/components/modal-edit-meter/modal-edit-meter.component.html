@@ -1,0 +1,107 @@
+<concordia-ng-shared-edit-item [strategy]="strategy"
+                               [model]="model"
+                               [loading]="loading"
+                               [modalId]="modalId"
+                               (changeValueEvent)="changeValue($event)"
+                               (submitEvent)="onSubmit($event)"
+                               (editEvent)="edit($event)"
+                               (storeEvent)="store($event)">
+
+  <ng-container body>
+    <form #f="ngForm">
+      <ng-container *ngIf="customTypes.length">
+        <ion-row class="ion-padding-horizontal">
+          <ion-col>
+            <h4>{{ 'global.customInformation' | transloco}}:</h4>
+          </ion-col>
+          <ion-col size="fix">
+            <ion-button [title]="'global.new' | transloco"
+                        [disabled]="customInfo.length === customTypes.length"
+                        fill="outline"
+                        (click)="add()">
+              {{ 'global.new' | transloco}}
+              <ion-icon slot="end"
+                        name="add-circle-outline"/>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+        <ng-container *ngFor="let info of customInfo">
+          <ion-row [ngModelGroup]="info.uuid">
+            <ion-col>
+              <ion-item lines="none">
+                  <concordia-ng-shared-select-search #name="ngModel"
+                                                     [(ngModel)]="info.customInfoTypeId"
+                                                     [label]="'table.type' | transloco"
+                                                     [required]="true"
+                                                     [setTouched]="name.touched"
+                                                     [options]="isUsed(customTypes, f.value)"
+                                                     name="customInfoTypeId"
+                                                     optionsField="name"
+                                                     optionsValue="customInfoTypeId"
+                                                     errorText="invalid field"
+                                                     data-test-id="selectSearch">
+                  </concordia-ng-shared-select-search>
+              </ion-item>
+            </ion-col>
+            <ion-col>
+              <ion-item lines="none">
+                <ion-input *ngIf="getValidatorType(info, customTypes) === 'string'"
+                           [(ngModel)]="info.value"
+                           [label]="('table.value' | transloco) + ' (' + ('types.' + getValidatorType(info, customTypes) | transloco) + ')'"
+                           [required]="true"
+                           [concordiaNxIonicTypeValidator]="getValidatorType(info, customTypes)"
+                           [errorText]="'errors.invalidField' | transloco"
+                           type="text"
+                           label-placement="floating"
+                           name="value"
+                           aria-label="value">
+                </ion-input>
+
+                <ion-input *ngIf="getValidatorType(info, customTypes) === 'number'"
+                           [(ngModel)]="info.value"
+                           [label]="('table.value' | transloco) + ' (' + ('types.' + getValidatorType(info, customTypes) | transloco) + ')'"
+                           [required]="true"
+                           [concordiaNxIonicTypeValidator]="getValidatorType(info, customTypes)"
+                           [errorText]="'errors.invalidField' | transloco"
+                           type="number"
+                           label-placement="floating"
+                           name="value"
+                           aria-label="value">
+                </ion-input>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size="fix">
+              <ion-buttons class="ion-margin-top">
+                <ion-button [title]="'table.delete' | transloco"
+                            shape="round"
+                            fill="clear"
+                            size="small"
+                            (click)="delete(info.uuid)">
+                  <ion-icon slot="icon-only"
+                            name="trash-outline"
+                            color="danger"/>
+                </ion-button>
+              </ion-buttons>
+            </ion-col>
+          </ion-row>
+        </ng-container>
+
+        <ion-row>
+          <ion-col>
+            <ion-button [title]="'global.new' | transloco"
+                        [disabled]="customInfo.length === customTypes.length"
+                        fill="clear"
+                        (click)="add()">
+              {{ 'global.new' | transloco}}
+              <ion-icon slot="end"
+                        name="add-circle-outline"/>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ng-container>
+
+    </form>
+  </ng-container>
+</concordia-ng-shared-edit-item>

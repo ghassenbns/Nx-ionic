@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  background: var(--ion-card-background);
+  border: 1px solid var(--border-light-color);
+  border-radius: 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding-top: 24px;
+  padding-bottom: 4px;
+  position: relative;
+  user-select: none;
+
+  &.selected {
+    border-color: var(--ion-color-danger);
+  }
+
+  &:hover {
+    background: var(--ion-card-background);
+  }
+
+  .output {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .input {
+    text-align: left;
+  }
+
+  .output-socket {
+    text-align: right;
+    margin-right: -1px;
+    display: inline-block;
+  }
+
+  .input-socket {
+    text-align: left;
+    margin-left: -1px;
+    display: inline-block;
+  }
+
+  .control {
+    padding: 4px 12px;
+  }
+}
+
+
+

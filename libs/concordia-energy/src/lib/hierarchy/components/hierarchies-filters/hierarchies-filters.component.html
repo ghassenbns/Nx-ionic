@@ -1,0 +1,58 @@
+<form #f="ngForm">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-chip [outline]="true"
+                  [color]="showFilters ? 'primary' : ''"
+                  (click)="onShowFilters()">
+          {{ 'table.filters' | transloco }}
+          <ion-icon name="filter-outline"></ion-icon>
+        </ion-chip>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="showFilters">
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <concordia-ng-shared-select-search *transloco="let t"
+                                               ngModel
+                                               #hierarchyId="ngModel"
+                                               [(ngModel)]="item"
+                                               [label]="'hierarchies.list' |transloco"
+                                               [setTouched]="hierarchyId.touched"
+                                               [options]="(list$ | async) ?? []"
+                                               [placeholder]="t('table.select') + t('hierarchies.list')"
+                                               name="hierarchyId"
+                                               optionsField="name"
+                                               optionsValue="_id">
+            </concordia-ng-shared-select-search>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-justify-content-end">
+<!--        <ion-col size="auto">-->
+<!--          <ion-button [disabled]="loading || disabledReset()"-->
+<!--                      fill="clear"-->
+<!--                      type="button"-->
+<!--                      (click)="onResetFilter()">-->
+<!--            {{ 'global.resetFilters' | transloco }}-->
+<!--            <ion-icon slot="end"-->
+<!--                      name="close-outline"></ion-icon>-->
+<!--          </ion-button>-->
+<!--        </ion-col>-->
+
+        <ion-col size="auto">
+          <ion-button [disabled]="loading || f.pristine"
+                      fill="outline"
+                      type="button"
+                      (click)="onApplyFilter()">
+            {{ 'global.apply' | transloco }}
+            <ion-icon slot="end"
+                      name="filter-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </ion-grid>
+</form>
+

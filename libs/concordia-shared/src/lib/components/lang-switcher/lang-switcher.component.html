@@ -1,0 +1,17 @@
+<ion-item class="lang-{{value}}"
+          class="item-lang"
+          data-test-id="languageSwitcherContainer">
+
+  <ion-select [value]="value"
+              interface="popover"
+              data-test-id="languageSwitcherSelect"
+              aria-label=""
+              (ionChange)="changeLanguage($event)">
+    <ion-select-option *ngFor="let language of languageList"
+                       [value]="language.abr">
+      {{ language.name }}
+    </ion-select-option>
+  </ion-select>
+
+</ion-item>
+

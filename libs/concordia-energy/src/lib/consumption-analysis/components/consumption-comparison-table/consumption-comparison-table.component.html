@@ -1,0 +1,43 @@
+<div class="ion-padding-bottom">
+  <p-table [value]="data && data.series || []"
+           class="p-datatable">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>{{'consumptionComparison.period' | transloco}}</th>
+        <th></th>
+        <th class="text-right">{{'consumptionComparison.total' | transloco}}
+<!--          {{data ? ('(' + data[0].unit + ')') : ''}}-->
+        </th>
+        <th class="text-right">{{'consumptionComparison.difference' | transloco}}</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+      <tr>
+        <td>
+          {{ product.startDateUnixTs | userDateFormat:data.tz:this.getDateTimeFormat:data.aggregationPeriod }} -
+          {{ product.endDateUnixTs | userDateFormat:data.tz:this.getDateTimeFormat:data.aggregationPeriod }}
+        </td>
+        <td width="50%">
+          <div class="line">
+            <div *ngIf="product.rank"
+                 class="line"
+                 [style.width]="product.rank + '%'"
+                 [style.background]="getColor(rowIndex)"></div>
+          </div>
+        </td>
+        <td class="text-right">{{ product.total | userNumber : [thousandSeparator, decimalSeparator, 2]}}</td>
+        <td class="text-right">{{ product.difference ? (product.difference > 0 ? '+' : '') + (product.difference | userNumber : [thousandSeparator, decimalSeparator, 2]) : '--'}}
+          {{ product.percentualDifference ? ('(' + (product.percentualDifference> 0 ? '+' : '')
+                  + ( product.percentualDifference | userNumber : [thousandSeparator, decimalSeparator, 2]) + '%)'): '' }}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4">
+          {{ 'table.noDataFound' | transloco }}
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

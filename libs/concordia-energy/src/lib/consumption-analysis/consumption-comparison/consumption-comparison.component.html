@@ -1,0 +1,36 @@
+<ng-container *ngIf="{
+decimalSeparator: decimalSeparator$ | async,
+thousandSeparator: thousandSeparator$ | async,
+getDateTimeFormat: getDateTimeFormat$ | async,
+filters: filters$ | async
+} as data;">
+  <concordia-ng-shared-page [card]="true"
+                            [header]="'table.consumptionComparison' | transloco"
+                            [helpMenu]="false"
+                            [rightMenu]="true"
+                            class="ion-page">
+    <concordia-nx-ionic-consumption-comparison-filter [filters]="data.filters"
+                                                      [tz]="tz$ | async"
+                                                      [loading]="loading">
+    </concordia-nx-ionic-consumption-comparison-filter>
+    <concordia-nx-ionic-consumption-comparison-chart [records]="records"
+                                                     [theme]="(theme$ | async) ?? 'light'"
+                                                     [loading]="loading"
+                                                     [getDateTimeFormat]="data.getDateTimeFormat ?? ''"
+                                                     [decimalSeparator]="data.decimalSeparator ?? 'dot'"
+                                                     [thousandSeparator]="data.thousandSeparator ?? 'none'"
+                                                     class="ion-margin-bottom">
+    </concordia-nx-ionic-consumption-comparison-chart>
+    <concordia-nx-ionic-consumption-comparison-table *ngIf="records?.series"
+                                                     [data]="records"
+                                                     [getDateTimeFormat]="data.getDateTimeFormat ?? ''"
+                                                     [decimalSeparator]="data.decimalSeparator ?? 'dot'"
+                                                     [thousandSeparator]="data.thousandSeparator ?? 'none'">
+    </concordia-nx-ionic-consumption-comparison-table>
+
+    <section class="h-100"
+             right-panel>
+      <concordia-nx-ionic-hierarchies-panel [filters]="data.filters"></concordia-nx-ionic-hierarchies-panel>
+    </section>
+  </concordia-ng-shared-page>
+</ng-container>

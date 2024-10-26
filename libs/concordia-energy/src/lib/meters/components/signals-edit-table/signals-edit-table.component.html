@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *transloco="let t">{{ t(selectedData.data.length ? 'table.edit' : 'table.createNew') }} {{ t('table.signals') | lowercase }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onClose()">
+        <ion-icon name="close-outline"
+                  slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <concordia-ng-shared-data-table [strategy]="strategy"
+                                  [tableData]="selectedData"
+                                  [editMode]="true"
+                                  [loading]="isLoading()"
+                                  (actionEvent)="actionEvent($event)"
+                                  (editActionEvent)="editActionEvent($event)"
+                                  (changeValueEvent)="changeValue($event)">
+  </concordia-ng-shared-data-table>
+</ion-content>

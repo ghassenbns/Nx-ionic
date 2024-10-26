@@ -1,0 +1,31 @@
+<ion-card [class.d-grid]="title"
+          class="h-100 ion-no-margin">
+  <ion-card-title *ngIf="title"
+                  class="p-8 bb-1">
+    {{ title }}
+  </ion-card-title>
+
+  <div class="p-relative h-100 ion-no-padding">
+    <ion-progress-bar *ngIf="loading && data"
+                      class="p-absolute z-1"
+                      type="indeterminate"></ion-progress-bar>
+
+    <ng-content *ngIf="!loading && data"></ng-content>
+
+    <ion-row *ngIf="!data && !loading"
+             class="h-100 ion-justify-content-center ion-align-items-center">
+      <ion-text color="medium ion-text-center">
+        <ion-icon name="bar-chart-outline"
+                  size="large"
+                  class="ion-margin-bottom"></ion-icon>
+        <br>
+        {{ 'table.noDataFound' | transloco }}
+      </ion-text>
+    </ion-row>
+
+    <ion-skeleton-text *ngIf="loading && !data"
+                       [animated]="true"
+                       class="ion-no-margin h-100"></ion-skeleton-text>
+
+  </div>
+</ion-card>
